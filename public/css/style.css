@@ -1,0 +1,324 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+body{
+    box-sizing: border-box;
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    max-height: 100vh;
+}
+
+header{
+    width: 100%;
+    background-color: white;
+    padding: 10px;
+    
+}
+
+h2{
+    font-size: 1.4em;
+}
+
+.global-nav{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 5px 2%;
+    
+}
+
+.logo-header{
+    max-width: 100px;
+    width: 100%;
+}
+
+.conexao-global{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: .9em;
+        span{
+            color: #FE8813;
+            font-weight: 600;
+        };
+        button{
+            background-color: #FE8813;
+            color: white;
+            padding: 5px 20px;
+            border-radius: 10px;
+            border: none;
+        }
+}
+
+.banner-index{
+    width: 100%;
+    height: 100%;
+    min-height: 50vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 0 2%;
+    background-image: url(pexels-olly-3772616.jpg);
+    background-position: left;
+    background-repeat: no-repeat;
+    background-size: cover;
+    border-bottom: 5px solid;
+    border-image: linear-gradient(to right, #020411, #FE8813);
+    border-image-slice: 1;
+        h1{
+            font-size: clamp(16px, 5vw, 40px) ;
+            margin: 0;
+            span{
+                color: #FE8813;
+                font-weight: 700;
+            }
+        };
+        h2{
+            font-size: clamp(14px, 3vw, 40px);
+            font-weight: 700;
+            margin: 0;
+        };
+    
+}
+
+/* ########################################################################### */
+
+.radio-inputs {
+    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* max-width: 400px; */
+    flex-wrap: wrap;
+    margin: 10px auto;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    label{
+        position: relative;
+    }
+  }
+  
+  .radio-inputs > * {
+    margin: 6px;
+  }
+
+  
+  .servicos:checked + .radio-tile {
+    border-color: #020411;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+    color: #020411;
+  }
+  
+  .servicos:checked + .radio-tile:before {
+    transform: scale(1);
+    opacity: 1;
+    background-color: #020411;
+    border-color: #020411;
+  }
+  
+  
+  .servicos:checked + .radio-tile .radio-label {
+    color: #020411;
+  }
+  
+  .servicos:focus + .radio-tile {
+    background-color: #020411;
+    border-color: #fff;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1), 0 0 0 4px #020411;
+  }
+  .servicos:checked + .radio-tile {
+    background-color: #020411;
+    border-color: #fff;
+    color: #fff
+  }
+  
+  .servicos:focus + .radio-tile:before {
+    transform: scale(1);
+    opacity: 1;
+  }
+  
+  .radio-tile {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: fit-content;
+    padding: 5px 10px;
+    border-radius: 0.5rem;
+    /* border: 2px solid #020411; */
+    background-color: #fff;
+    box-shadow: 1px 1px 3px 2px rgba(0, 0, 0, 0.1);
+    transition: 0.15s ease;
+    cursor: pointer;
+    position: relative;
+    color: #020411;
+    font-weight: 500;
+    font-size: clamp(12px, 3vw, 15px);
+  }
+  
+  .servicos:hover {
+    border-color: #020411;
+  }
+
+  
+  .radio-tile:hover:before {
+    transform: scale(1);
+    opacity: 1;
+  }
+
+  .radio-label {
+    color: #707070;
+    transition: 0.375s ease;
+    text-align: center;
+    font-size: 13px;
+  }
+  
+  .radio-input {
+    clip: rect(0 0 0 0);
+    -webkit-clip-path: inset(100%);
+    clip-path: inset(100%);
+    height: 1px;
+    overflow: hidden;
+    position: absolute;
+    white-space: nowrap;
+    width: 1px;
+  }
+
+  .form-buscar-index{
+    margin: 10px auto;
+    max-width: 700px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* gap: 15px 0; */
+    text-align: center;
+    padding: 15px;
+    input{
+        width: 90%;
+        max-width: 300px;
+        border-radius: 5px;
+        border: 2px solid #020411;
+        line-height: 35px;
+        text-indent: 10px
+    };
+    h2{
+      font-size: clamp(16px, 4vw, 30px);
+      margin: 0;
+    }
+    
+  }
+
+.botoes-buscar{
+    margin-top: 20px;
+    width: 100%;
+    display: flex;
+    justify-content: space-evenly;
+    button{
+        border-radius: 5px;
+        color: white;
+        border: none;
+        padding: 5px 20px;        
+    }
+    #btn-buscar-servico{
+        background-color: #FE8813;
+    }
+    #btn-buscar-pedreiro{
+        background-color: #020411;
+    }
+}
+
+/* ####################################################################################### */
+/* Seção de Premium */
+
+.vantagens-premium{
+    background-color: #020411;
+    color: white;
+    display: flex;
+    /* flex-direction: column; */
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    align-items: center;
+    padding: 40px 2%;
+    gap: 40px 0;
+    h2{
+        margin: 0;
+        width: 100%;
+        font-size: clamp(16px, 4vw, 50px);
+        text-align: center;
+    }
+}
+
+.vantagem-premium{
+    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0 20px;
+    img{
+        width: 100%;
+        max-width: 60px;
+        height: 100%;
+    }
+
+}
+
+.explicacao-premium{
+    max-width: 250px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 10px;
+    h4, p{
+        margin: 0;
+        font-size: clamp(10px, 3vw, 20px);
+    }
+}
+
+/* ################################################################################# */
+/* Lojas parceiras */
+
+.banners-lojas-parceiros{
+  margin: 20px;
+}
+
+.banner-loja-fundo{
+  background: linear-gradient(45deg, #020411, #FE8813);
+  padding: 4px; /* Simula a borda */
+  border-radius: 20px; /* Arredonda a borda externa */
+  width: fit-content;
+}
+
+.banner-loja-parceira{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: fit-content;
+  max-width: 400px;
+  padding: 15px;
+  gap: 0 20px;
+  border-radius: 20px;
+  background-color: white;
+}
+
+.info-loja-parceira{
+  display: flex;
+  flex-direction: column;
+  gap: 5px 0;
+  color: #020411;
+  font-size: clamp(12px, 3vw, 14px);
+  h4,p{
+    margin: 0;
+  }
+}
+
+
+/* ############################################################################################# */
+/* Media Query */
+
+@media (min-width: 720px){
+  .banner-index{
+    background-image: url(/banner-topo-grande.jpg);
+    /* height: 100vh; */
+  }
+}

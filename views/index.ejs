@@ -1,12 +1,294 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>teste</title>
+    <title>Encontre Pedreiros Próximos</title>
+    <!-- CSS do Bootstrap -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
 </head>
-<body>
-    <h1>Bem vindo a obra</h1>
-    <a href="/register">cadastro</a>
+
+<body class="bg-light">
+    <header>
+        <nav class="global-nav">
+            <img src="https://i.ibb.co/KVZRVhw/logov4-preto.png" alt="logo-em-obra" class="logo-header">
+            <div class="conexao-global">
+                <span class="desconectar" style="display: none;">Sair</span>
+                <span><a href="/register">Cadastrar</a></span>
+                <button>Entrar</button>
+            </div>
+        </nav>
+    </header>
+    <div class="banner-index">
+        <h1>Estamos <span>Em Obra!</span></h1>
+        <h2>Facilitando conexões, <br>concretizando projetos.</h2>
+    </div>
+
+    <main>
+        <section>
+            <form action="" method="get" class="form-buscar-index">
+                <h2>Encontre novos serviços ou um pedreiro para sua obra!</h2>
+                <div class="radio-inputs">
+                    
+                    <label>
+                        <input class="radio-input servicos" type="radio" name="engine" />
+                        <span class="radio-tile">
+                            <span class="radio-servico">
+                                Alvenaria
+                            </span>
+                        </span>
+                    </label>
+                    
+                    <label>
+                        <input class="radio-input servicos" type="radio" name="engine" />
+                        <span class="radio-tile">
+                            <span class="radio-servico">
+                                Alvenaria
+                            </span>
+                        </span>
+                    </label>
+                    
+                    <label>
+                        <input class="radio-input servicos" type="radio" name="engine" />
+                        <span class="radio-tile">
+                            <span class="radio-servico">
+                                Alvenaria
+                            </span>
+                        </span>
+                    </label>
+                    
+                    <label>
+                        <input class="radio-input servicos" type="radio" name="engine" />
+                        <span class="radio-tile">
+                            <span class="radio-servico">
+                                Alvenaria
+                            </span>
+                        </span>
+                    </label>
+                    
+                    <label>
+                        <input class="radio-input servicos" type="radio" name="engine" />
+                        <span class="radio-tile">
+                            <span class="radio-servico">
+                                Alvenaria
+                            </span>
+                        </span>
+                    </label>
+                    
+                    <label>
+                        <input class="radio-input servicos" type="radio" name="engine" />
+                        <span class="radio-tile">
+                            <span class="radio-servico">
+                                Alvenaria
+                            </span>
+                        </span>
+                    </label>
+                    
+                    <label>
+                        <input class="radio-input servicos" type="radio" name="engine" />
+                        <span class="radio-tile">
+                            <span class="radio-servico">
+                                Alvenaria
+                            </span>
+                        </span>
+                    </label>
+                    
+                    <label>
+                        <input class="radio-input servicos" type="radio" name="engine" />
+                        <span class="radio-tile">
+                            <span class="radio-servico">
+                                Alvenaria
+                            </span>
+                        </span>
+                    </label>
+                    
+                    <label>
+                        <input class="radio-input servicos" type="radio" name="engine" />
+                        <span class="radio-tile">
+                            <span class="radio-servico">
+                                Alvenaria
+                            </span>
+                        </span>
+                    </label>
+                    
+                    <label>
+                        <input class="radio-input servicos" type="radio" name="engine" />
+                        <span class="radio-tile">
+                            <span class="radio-servico">
+                                Alvenaria
+                            </span>
+                        </span>
+                    </label>
+                    
+                    <label>
+                        <input class="radio-input servicos" type="radio" name="engine" />
+                        <span class="radio-tile">
+                            <span class="radio-servico">
+                                Alvenaria
+                            </span>
+                        </span>
+                    </label>
+                    
+                    <label>
+                        <input class="radio-input servicos" type="radio" name="engine" />
+                        <span class="radio-tile">
+                            <span class="radio-servico">
+                                Alvenaria
+                            </span>
+                        </span>
+                    </label>
+
+
+                </div>
+                <input type="text" placeholder="Informe um CEP...">
+                <div class="botoes-buscar">
+                    <button id="btn-buscar-servico">Buscar Serviço</button>
+                    <button id="btn-buscar-pedreiro">Buscar Pedreiro</button>
+                </div>
+            </form>
+        </section>
+
+        <section>
+            <h2>Instituições parceiras</h2>
+            <div class="container-parceiros">
+                    <div>
+                    </div>
+            </div>
+        </section>
+
+        <section class="vantagens-premium">
+
+            <h2>Conheças as vantagens de ser PedreiroPro</h2>
+
+            <div class="vantagem-premium">
+                <img src="imgs-fixas/alcance.png" alt="">
+                <div class="explicacao-premium">
+                    <h4>Maior alcance</h4>
+                    <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Deleniti, beatae magni.</p>
+                </div>
+            </div>
+
+            <div class="vantagem-premium">
+                <img src="imgs-fixas/alcance.png" alt="">
+                <div class="explicacao-premium">
+                    <h4>Maior visibilidade</h4>
+                    <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Deleniti, beatae magni.</p>
+                </div>
+            </div>
+
+            <div class="vantagem-premium">
+                <img src="imgs-fixas/alcance.png" alt="">
+                <div class="explicacao-premium">
+                    <h4>Notificação em tempo real</h4>
+                    <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Deleniti, beatae magni.</p>
+                </div>
+            </div>
+
+        </section>
+
+        <section class="banners-lojas-parceiros">
+
+            <div class="banner-loja-fundo">
+                <div class="banner-loja-parceira">
+                    <img src="imgs-fixas/lojaparceira1.png" alt="">
+                    <div class="info-loja-parceira">
+                        <h4>CEDRAL COMERCIAL</h4>
+                        <p>Av. Benedito Andrade, 503 - Pirituba Vila Pereira Barreto, São Paulo, Brazil</p>
+                        <p>www.cedralcomercial.com.br</p>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+
+        <section class="sobre-nos">
+            <h2>Vem saber mais sobre a gente</h2>
+            <div class="sobre-nos-carrossel">
+                <div class="sobre-nos-card">
+                    <h4></h4>
+                    <p></p>
+                    <div class="sobre-nos-icones">
+                        <img src="" alt="missão" class="sobre-nos-icone">
+                        <img src="" alt="visão" class="sobre-nos-icone">
+                        <img src="" alt="valores" class="sobre-nos-icone">
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- JS do Bootstrap e dependências -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <!-- <script>
+        // Função para preencher o select com tipos de obra
+        async function preencherTiposObra() {
+            try {
+                const response = await fetch('http://localhost:3000/tipos-obras'); // Corrija se necessário
+                const tiposObra = await response.json();
+                
+                const tipoObraSelect = document.getElementById('tipoObra');
+                tiposObra.forEach(tipo => {
+                    const option = document.createElement('option');
+                    option.value = tipo;
+                    option.textContent = tipo;
+                    tipoObraSelect.appendChild(option);
+                });
+            } catch (error) {
+                console.error('Erro ao buscar tipos de obra:', error);
+            }
+        }
+
+        // Chama a função ao carregar a página
+        document.addEventListener('DOMContentLoaded', preencherTiposObra);
+
+        // Captura o envio do formulário
+        document.getElementById('searchForm').addEventListener('submit', async function(event) {
+            event.preventDefault();
+            const cep = document.getElementById('cep').value;
+            const tipoObra = document.getElementById('tipoObra').value;
+
+            try {
+                const response = await fetch('http://localhost:3000/buscar', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ cep, tipoObra }),
+                });
+
+                const pedreiros = await response.json();
+                exibirResultados(pedreiros);
+            } catch (error) {
+                console.error('Erro ao buscar pedreiros:', error);
+            }
+        });
+
+        // Função para exibir os resultados
+        function exibirResultados(pedreiros) {
+            const resultDiv = document.getElementById('result');
+            resultDiv.innerHTML = ''; // Limpar resultados anteriores
+
+            if (pedreiros.length === 0) {
+                resultDiv.innerHTML = '<p>Nenhum pedreiro encontrado.</p>';
+                return;
+            }
+
+            const lista = document.createElement('ul');
+            pedreiros.forEach(pedreiro => {
+                const item = document.createElement('li');
+                item.textContent = `${pedreiro.nome} - CEP: ${pedreiro.cep} - Serviços: ${pedreiro.servicos} ${pedreiro.premium ? '(Premium)' : ''}`;
+                lista.appendChild(item);
+            });
+
+            resultDiv.appendChild(lista);
+        }
+    </script> -->
+
 </body>
+
 </html>
