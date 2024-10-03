@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Cadastro</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <h1>Cadastro de Usuário</h1>
+
+    <div>
+        <button id="btnPedreiro" onclick="setUserType('pedreiro')">Cadastrar como Pedreiro</button>
+        <button id="btnContratante" onclick="setUserType('contratante')">Cadastrar como Contratante</button>
+    </div>
+
+    <form id="registrationForm" method="POST" action="/register/pedreiro" style="display:none;">
+        <input type="hidden" name="tipo" value="pedreiro">
+
+        <label for="nome">Nome:</label>
+        <input type="text" name="nome" required>
+
+        <label for="telefone">Telefone:</label>
+        <input type="text" name="telefone">
+
+        <label for="cpf">CPF:</label>
+        <input type="text" name="cpf" required>
+
+        <label for="email">Email:</label>
+        <input type="email" name="email" required>
+
+        <label for="senha">Senha:</label>
+        <input type="password" name="senha" required>
+
+        <label for="cep">CEP:</label>
+        <input type="text" name="cep" required>
+
+        <div id="servicosContainer" style="display:none;">
+            <h3>Tipos de Serviços (Máx. 3 para Pedreiro)</h3>
+            <input type="checkbox" name="tipos_servicos" value="1"> Pintura<br>
+            <input type="checkbox" name="tipos_servicos" value="2"> Reforma<br>
+            <input type="checkbox" name="tipos_servicos" value="3"> Elétrica<br>
+            <input type="checkbox" name="tipos_servicos" value="4"> Hidráulica<br>
+            <input type="checkbox" name="tipos_servicos" value="5"> Alvenaria<br>
+        </div>
+
+        <button type="submit">Cadastrar</button>
+    </form>
+
+    <form id="registrationFormContratante" method="POST" action="/register/contratante" style="display:none;">
+        <input type="hidden" name="tipo" value="contratante">
+
+        <label for="nome">Nome:</label>
+        <input type="text" name="nome" required>
+
+        <label for="telefone">Telefone:</label>
+        <input type="text" name="telefone">
+
+        <label for="cpf">CPF:</label>
+        <input type="text" name="cpf" required>
+
+        <label for="email">Email:</label>
+        <input type="email" name="email" required>
+
+        <label for="senha">Senha:</label>
+        <input type="password" name="senha" required>
+
+        <label for="cep">CEP:</label>
+        <input type="text" name="cep" required>
+
+        <button type="submit">Cadastrar</button>
+    </form>
+
+    <script>
+        function setUserType(type) {
+            if (type === 'pedreiro') {
+                document.getElementById('registrationForm').style.display = 'block';
+                document.getElementById('registrationFormContratante').style.display = 'none';
+                document.getElementById('servicosContainer').style.display = 'block';
+                document.getElementById('registrationForm').action = '/register/pedreiro';
+            } else {
+                document.getElementById('registrationFormContratante').style.display = 'block';
+                document.getElementById('registrationForm').style.display = 'none';
+                document.getElementById('registrationFormContratante').action = '/register/contratante';
+            }
+        }
+    </script>
+</body>
+</html>
