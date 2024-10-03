@@ -57,7 +57,7 @@ h2{
     flex-direction: column;
     justify-content: center;
     padding: 0 2%;
-    background-image: url(pexels-olly-3772616.jpg);
+    background-image: url(../imgs-fixas/pexels-olly-3772616.jpg);
     background-position: left;
     background-repeat: no-repeat;
     background-size: cover;
@@ -318,7 +318,7 @@ h2{
 
 @media (min-width: 720px){
   .banner-index{
-    background-image: url(/banner-topo-grande.jpg);
+    background-image: url(../imgs-fixas/banner-topo-grande.jpg);
     /* height: 100vh; */
   }
 }
