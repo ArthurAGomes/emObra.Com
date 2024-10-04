@@ -2,16 +2,12 @@
 <html lang="en">
 
 <head>
-    <meta charset="utf-8" />
-    <title>Swiper demo</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1" />
-    <!-- Link Swiper's CSS -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
-    <link rel="stylesheet" href="/css/style.css">
+  <meta charset="utf-8" />
+  <title>Swiper demo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1" />
 
-    <!-- Demo styles -->
-    <style>
-        /* html,
+  <style>
+    html,
     body {
       position: relative;
       height: 100%;
@@ -24,92 +20,48 @@
       color: #000;
       margin: 0;
       padding: 0;
-    } */
+    }
 
-        /* .swiper {
+    swiper-container {
       width: 100%;
       height: 100%;
-    } */
+    }
 
-        /* .swiper-slide {
+    swiper-slide {
       text-align: center;
       font-size: 18px;
       background: #fff;
       display: flex;
       justify-content: center;
       align-items: center;
-    } */
+    }
 
-        
-    </style>
+    swiper-slide img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  </style>
 </head>
 
 <body>
-    <!-- Swiper -->
-    <div class="swiper mySwiper banners-lojas-parceiros">
-        <div class="swiper-wrapper">
-            <div class="swiper-slide banner-loja-fundo">
-                <div class="banner-loja-parceira">
-                    <img src="imgs-fixas/lojaparceira1.png" alt="">
-                    <div class="info-loja-parceira">
-                        <h4>CEDRAL COMERCIAL</h4>
-                        <p>Av. Benedito Andrade, 503 - Pirituba Vila Pereira Barreto, São Paulo, Brazil</p>
-                        <p>www.cedralcomercial.com.br</p>
-                    </div>
-                </div>
-            </div>
-            <div class="swiper-slide banner-loja-fundo">
-                <div class="banner-loja-parceira">
-                    <img src="imgs-fixas/lojaparceira1.png" alt="">
-                    <div class="info-loja-parceira">
-                        <h4>CEDRAL COMERCIAL</h4>
-                        <p>Av. Benedito Andrade, 503 - Pirituba Vila Pereira Barreto, São Paulo, Brazil</p>
-                        <p>www.cedralcomercial.com.br</p>
-                    </div>
-                </div>
-            </div>
-            <div class="swiper-slide banner-loja-fundo">
-                <div class="banner-loja-parceira">
-                    <img src="imgs-fixas/lojaparceira1.png" alt="">
-                    <div class="info-loja-parceira">
-                        <h4>CEDRAL COMERCIAL</h4>
-                        <p>Av. Benedito Andrade, 503 - Pirituba Vila Pereira Barreto, São Paulo, Brazil</p>
-                        <p>www.cedralcomercial.com.br</p>
-                    </div>
-                </div>
-            </div>
 
-            <div class="swiper-slide banner-loja-fundo">
-                <div class="banner-loja-parceira">
-                    <img src="imgs-fixas/lojaparceira1.png" alt="">
-                    <div class="info-loja-parceira">
-                        <h4>CEDRAL COMERCIAL</h4>
-                        <p>Av. Benedito Andrade, 503 - Pirituba Vila Pereira Barreto, São Paulo, Brazil</p>
-                        <p>www.cedralcomercial.com.br</p>
-                    </div>
-                </div>
-            </div>
+  <swiper-container class="mySwiper" navigation="true" pagination="true" keyboard="true" mousewheel="true"
+    css-mode="true">
+    <swiper-slide>Slide 1</swiper-slide>
+    <swiper-slide>Slide 2</swiper-slide>
+    <swiper-slide>Slide 3</swiper-slide>
+    <swiper-slide>Slide 4</swiper-slide>
+    <swiper-slide>Slide 5</swiper-slide>
+    <swiper-slide>Slide 6</swiper-slide>
+    <swiper-slide>Slide 7</swiper-slide>
+    <swiper-slide>Slide 8</swiper-slide>
+    <swiper-slide>Slide 9</swiper-slide>
+  </swiper-container>
 
-        </div>
-        <div class="swiper-button-prev"></div>
-            <div class="swiper-button-next"></div>
-        <div class="swiper-pagination"></div>
-    </div>
+  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-element-bundle.min.js"></script>
 
-    <!-- Swiper JS -->
-    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-
-    <!-- Initialize Swiper -->
-    <script>
-        var swiper = new Swiper(".mySwiper", {
-            slidesPerView: "auto",
-            spaceBetween: 30,
-            pagination: {
-                el: ".swiper-pagination",
-                clickable: true,
-            },
-        });
-    </script>
 </body>
 
 </html>
