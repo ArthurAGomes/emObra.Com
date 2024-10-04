@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+
+</head>
+<body>
+    <div class="login-container">
+        <h1>Login</h1>
+        <form action="/auth" method="POST">  <!-- Alterado para POST -->
+            <label for="identifier">Email ou CPF:</label>
+            <input type="text" id="identifier" name="identifier" placeholder="Digite seu email ou CPF" required>
+
+            <label for="senha">Senha:</label>
+            <input type="password" id="senha" name="senha" placeholder="Digite sua senha" required>
+
+            <button type="submit">Entrar</button>
+        </form>
+    </div>
+</body>
+</html>

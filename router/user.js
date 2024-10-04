@@ -1,21 +1,16 @@
+// routes/user.js
 const express = require('express');
 const router = express.Router();
-const db = require('../config/db');
-const bcrypt = require('bcryptjs');
-const jwt = require('jsonwebtoken');
-require('dotenv').config();
+const verifyAuthToken = require('../router/auth');
 
-router.get('/teste', (req, res) => {
-    res.render('teste');
+// Rota para renderizar o perfil do contratante
+router.get('/perfil-contratante', verifyAuthToken, (req, res) => {
+    res.render('perfil-contratante', { user: req.user });
 });
 
-router.get('/perfil-contratante', (req, res) => {
-    res.render('perfil-contratante');
-});
-
-router.get('/perfil-pedreiro', (req, res) => {
-    res.render('perfil-pedreiro');
+// Rota para renderizar o perfil do pedreiro
+router.get('/perfil-pedreiro', verifyAuthToken, (req, res) => {
+    res.render('perfil-pedreiro', { user: req.user });
 });
 
 module.exports = router;
-
