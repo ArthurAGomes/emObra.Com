@@ -1,5 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 
+@import 'swiper/swiper-bundle.min.css';
+
 body{
     box-sizing: border-box;
     margin: 0;
@@ -17,6 +19,9 @@ header{
 h2{
     font-size: 1.4em;
 }
+
+/* ######################################################################################## */
+/* Header */
 
 .global-nav{
     display: flex;
@@ -36,8 +41,8 @@ h2{
     align-items: center;
     gap: 10px;
     font-size: .9em;
-        span{
-            color: #FE8813;
+        span a{
+            font-style: none;
             font-weight: 600;
         };
         button{
@@ -312,6 +317,83 @@ h2{
   }
 }
 
+/* ############################################################################################# */
+/* Sobre Nós */
+.sobre-nos{
+    margin: 20px auto;
+    padding: 10px 3%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    h2{
+        color: #FE8813;
+        font-weight: 600;
+        text-align: center;
+        font-size: clamp(16px, 5vw, 25px);
+        margin: 30px 0;
+    }
+}
+
+.sobre-nos-carrossel{
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap:20px;
+}
+
+.sobre-nos-card{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    max-width: 300px;
+    h2,p{
+        font-size: clamp(14px, 3vw, 16px);
+        color: #020411;
+        text-align: center
+    };
+    
+}
+
+.sobre-nos-icones{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    img{
+        width: 100%;
+        max-width: 50px;
+    }
+}
+
+/* ######################################################################################################### */
+/* Footer */
+
+footer{
+    background-color: #020411;
+    color: white !important;
+    padding: 20px;
+}
+
+.info-contato-footer{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0 30px;
+    margin: 20px auto;
+}
+
+.redes-sociais-footer{
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    gap: 10%;
+    a img{
+        width: 50px;
+    }
+}
 
 /* ############################################################################################# */
 /* Media Query */

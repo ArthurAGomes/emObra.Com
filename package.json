@@ -14,14 +14,15 @@
     "cookie-parser": "^1.4.5",
     "cors": "^2.8.5",
     "dotenv": "^16.4.5",
+    "ejs": "^3.1.10",
     "express": "^4.21.0",
     "express-validator": "^7.2.0",
     "haversine": "^1.1.1",
     "haversine-distance": "^1.2.3",
     "jsonwebtoken": "^9.0.2",
     "mysql2": "^3.11.3",
-    "ejs": "^3.1.10",
-    "nodemailer": "^6.9.15"
+    "nodemailer": "^6.9.15",
+    "swiper": "^11.1.14"
   },
   "devDependencies": {
     "nodemon": "^3.1.7"
