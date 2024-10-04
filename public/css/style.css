@@ -284,7 +284,8 @@ h2{
 /* Lojas parceiras */
 
 .banners-lojas-parceiros{
-  margin: 20px 0 20px 20px;
+  margin: 20px 1%;
+  /* width: 90%; */
 }
 
 .banner-loja-fundo{
@@ -315,10 +316,10 @@ h2{
     margin: 0;
   }
   p{
-    font-size: clamp(12px, 2vw, 15px);
+    font-size: clamp(10px, 2vw, 14px);
   }
   h4{
-    font-size: clamp(14px, 2vw, 18px);
+    font-size: clamp(14px, 2vw, 16px);
     font-weight: 600;
     color: #FE8813;
     margin-bottom: 5px;
@@ -341,6 +342,10 @@ h2{
 .swiper-pagination-bullet{
   background-color: #FE8813 !important;
 }
+
+/* .swiper-horizontal{
+  margin-right: 20px !important;
+} */
 
 /* ############################################################################################# */
 /* Sobre Nós */
@@ -430,9 +435,13 @@ footer{
 /* ############################################################################################# */
 /* Media Query */
 
-@media (min-width: 720px){
+@media (min-width: 725px){
   .banner-index{
     background-image: url(../imgs-fixas/banner-topo-grande.jpg);
     /* height: 100vh; */
+  }
+
+  .banner-loja-parceira{
+    max-width: 350px;
   }
 }
