@@ -76,7 +76,7 @@ router.get('/pedreiros/activate/:token', async (req, res) => {
         }
 
         console.log(`Pedreiro ativado com sucesso. ID: ${pedreiroId}`);
-        res.redirect('http://10.24.89.23:3000/register?activation=success');
+        res.redirect(`${process.env.HOST}:3000/register?activation=success`);
     } catch (error) {
         // Verifica se o erro é de token expirado
         if (error.name === 'TokenExpiredError') {
@@ -146,7 +146,7 @@ router.get('/contratantes/activate/:token', async (req, res) => {
         }
 
         console.log(`Contratante ativado com sucesso. ID: ${contratanteId}`);
-        res.redirect('http://10.24.89.23:3000/register?activation=success');
+        res.redirect(`${process.env.HOST}:3000/register?activation=success`);
     } catch (error) {
         console.error('Erro ao ativar a conta de contratante:', error);
         res.status(400).send('Erro ao ativar a conta. O token pode ser inválido ou ter expirado.');
