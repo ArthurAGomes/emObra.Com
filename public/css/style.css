@@ -284,11 +284,11 @@ h2{
 /* Lojas parceiras */
 
 .banners-lojas-parceiros{
-  margin: 20px;
+  margin: 20px 0 20px 20px;
 }
 
 .banner-loja-fundo{
-  background: linear-gradient(45deg, #020411, #FE8813);
+  background: linear-gradient(360deg, #020411, #FE8813);
   padding: 4px; /* Simula a borda */
   border-radius: 20px; /* Arredonda a borda externa */
   width: fit-content;
@@ -299,7 +299,7 @@ h2{
   justify-content: center;
   align-items: center;
   width: fit-content;
-  max-width: 400px;
+  max-width: 300px;
   padding: 15px;
   gap: 0 20px;
   border-radius: 20px;
@@ -311,10 +311,35 @@ h2{
   flex-direction: column;
   gap: 5px 0;
   color: #020411;
-  font-size: clamp(12px, 3vw, 14px);
   h4,p{
     margin: 0;
   }
+  p{
+    font-size: clamp(12px, 2vw, 15px);
+  }
+  h4{
+    font-size: clamp(14px, 2vw, 18px);
+    font-weight: 600;
+    color: #FE8813;
+    margin-bottom: 5px;
+  }
+}
+
+.swiper-slide img {
+  display: block;
+}
+
+.swiper-slide {
+  /* height: fit-content; */
+  width: fit-content !important;
+}
+
+.swiper-pagination{
+  position:static !important;
+}
+
+.swiper-pagination-bullet{
+  background-color: #FE8813 !important;
 }
 
 /* ############################################################################################# */
@@ -375,6 +400,13 @@ footer{
     background-color: #020411;
     color: white !important;
     padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    h5,p{
+      margin: 0;
+    }
 }
 
 .info-contato-footer{

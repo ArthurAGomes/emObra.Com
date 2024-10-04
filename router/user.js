@@ -1,38 +1,21 @@
-// routes/auth.js
 const express = require('express');
 const router = express.Router();
+const db = require('../config/db');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
-const findUserByEmailOrCpf = require('../utils/findUser');
+require('dotenv').config();
 
-// Rota de login utilizando GET
-router.get('/auth', async (req, res) => {
-    const { identifier, senha } = req.query;  // Captura os parâmetros da query string
+router.get('/teste', (req, res) => {
+    res.render('teste');
+});
 
-    try {
-        // Chama a função para buscar o usuário por email ou CPF
-        const userResult = await findUserByEmailOrCpf(identifier);
-        if (!userResult) {
-            return res.status(404).send('Usuário não encontrado ou inativo.');
-        }
+router.get('/perfil-contratante', (req, res) => {
+    res.render('perfil-contratante');
+});
 
-        const { user, type } = userResult;
-
-        // Compara a senha
-        const isPasswordValid = await bcrypt.compare(senha, user.senha);
-        if (!isPasswordValid) {
-            return res.status(400).send('Senha incorreta.');
-        }
-
-        // Gera o token JWT
-        const token = jwt.sign({ userId: user.id, userType: type }, process.env.JWT_SECRET, { expiresIn: '1h' });
-
-        res.status(200).json({ token, message: 'Login realizado com sucesso!' });
-
-    } catch (error) {
-        console.error('Erro no login:', error);
-        res.status(500).send('Ocorreu um erro ao tentar realizar o login.');
-    }
+router.get('/perfil-pedreiro', (req, res) => {
+    res.render('perfil-pedreiro');
 });
 
 module.exports = router;
+
