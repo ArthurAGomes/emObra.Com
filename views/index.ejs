@@ -8,6 +8,7 @@
     <!-- CSS do Bootstrap -->
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
 </head>
 
 <body class="bg-light">
@@ -189,33 +190,67 @@
         </section>
 
         <section class="banners-lojas-parceiros">
-
-            <div class="banner-loja-fundo">
-                <div class="banner-loja-parceira">
-                    <img src="imgs-fixas/lojaparceira1.png" alt="">
-                    <div class="info-loja-parceira">
-                        <h4>CEDRAL COMERCIAL</h4>
-                        <p>Av. Benedito Andrade, 503 - Pirituba Vila Pereira Barreto, São Paulo, Brazil</p>
-                        <p>www.cedralcomercial.com.br</p>
+            <div class="swiper mySwiper ">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide banner-loja-fundo">
+                        <div class="banner-loja-parceira">
+                            <img src="imgs-fixas/lojaparceira1.png" alt="">
+                            <div class="info-loja-parceira">
+                                <h4>CEDRAL COMERCIAL</h4>
+                                <p>Av. Benedito Andrade, 503 - Pirituba Vila Pereira Barreto, São Paulo, Brazil</p>
+                                <p>www.cedralcomercial.com.br</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="swiper-slide banner-loja-fundo">
+                        <div class="banner-loja-parceira">
+                            <img src="imgs-fixas/lojaparceira1.png" alt="">
+                            <div class="info-loja-parceira">
+                                <h4>CEDRAL COMERCIAL</h4>
+                                <p>Av. Benedito Andrade, 503 - Pirituba Vila Pereira Barreto, São Paulo, Brazil</p>
+                                <p>www.cedralcomercial.com.br</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="swiper-slide banner-loja-fundo">
+                        <div class="banner-loja-parceira">
+                            <img src="imgs-fixas/lojaparceira1.png" alt="">
+                            <div class="info-loja-parceira">
+                                <h4>CEDRAL COMERCIAL</h4>
+                                <p>Av. Benedito Andrade, 503 - Pirituba Vila Pereira Barreto, São Paulo, Brazil</p>
+                                <p>www.cedralcomercial.com.br</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="swiper-slide banner-loja-fundo">
+                        <div class="banner-loja-parceira">
+                            <img src="imgs-fixas/lojaparceira1.png" alt="">
+                            <div class="info-loja-parceira">
+                                <h4>CEDRAL COMERCIAL</h4>
+                                <p>Av. Benedito Andrade, 503 - Pirituba Vila Pereira Barreto, São Paulo, Brazil</p>
+                                <p>www.cedralcomercial.com.br</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
+                <div class="swiper-pagination"></div>
             </div>
-
         </section>
 
         <section class="sobre-nos">
             <h2>Vem saber mais sobre a gente</h2>
             <div class="sobre-nos-carrossel">
-                
+
                 <div class="sobre-nos-card">
                     <h4>A nossa Obra</h4>
-                    <p>Aqui, a ideia é simples: conectar quem precisa com quem sabe fazer, de um jeito rápido e fácil. </p>
+                    <p>Aqui, a ideia é simples: conectar quem precisa com quem sabe fazer, de um jeito rápido e fácil.
+                    </p>
                     <div class="sobre-nos-icones">
                         <img src="/imgs-fixas/tijolo.png" alt="missão" class="sobre-nos-icone">
                     </div>
                 </div>
-                
-                
+
+
                 <div class="sobre-nos-card">
                     <h4>A Obra que Queremos Entregar</h4>
                     <p>Ser a solução prática que todo mundo usa no dia a dia.</p>
@@ -223,7 +258,7 @@
                         <img src="/imgs-fixas/muro1.png" alt="visão" class="sobre-nos-icone">
                     </div>
                 </div>
-                
+
                 <div class="sobre-nos-card">
                     <h4>Nosso alicerces</h4>
                     <p>Oportunidade para todos e respeito em cada ação. Aqui, todo mundo tem espaço.</p>
@@ -231,94 +266,42 @@
                         <img src="/imgs-fixas/acordo.png" alt="valores" class="sobre-nos-icone">
                     </div>
                 </div>
-            </div>          
+            </div>
         </section>
 
-        <footer>
-            <h5>Contato</h5>
-            <div class="info-contato-footer">
-                <p>(11) 8989898989</p>
-                <p>emobracom@gmail.com</p>
-            </div>
-            <div class="redes-sociais-footer">
-                <a href="https://www.tiktok.com/pt-BR/" target="_blank"><img src="/imgs-fixas/tiktok.png" alt=""></a>
-                <a href="https://www.youtube.com/" target="_blank"><img src="/imgs-fixas/youtube.png" alt=""></a>
-                <a href="https://www.instagram.com/" target="_blank"><img src="/imgs-fixas/instagram.png" alt=""></a>
-            </div>
-        </footer>
     </main>
+
+    <footer>
+        <h5>Contato</h5>
+        <div class="info-contato-footer">
+            <p>(11) 8989898989</p>
+            <p>emobracom@gmail.com</p>
+        </div>
+        <div class="redes-sociais-footer">
+            <a href="https://www.tiktok.com/pt-BR/" target="_blank"><img src="/imgs-fixas/tiktok.png" alt=""></a>
+            <a href="https://www.youtube.com/" target="_blank"><img src="/imgs-fixas/youtube.png" alt=""></a>
+            <a href="https://www.instagram.com/" target="_blank"><img src="/imgs-fixas/instagram.png" alt=""></a>
+        </div>
+    </footer>
 
     <!-- JS do Bootstrap e dependências -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-
-    <!-- <script>
-        // Função para preencher o select com tipos de obra
-        async function preencherTiposObra() {
-            try {
-                const response = await fetch('http://localhost:3000/tipos-obras'); // Corrija se necessário
-                const tiposObra = await response.json();
-                
-                const tipoObraSelect = document.getElementById('tipoObra');
-                tiposObra.forEach(tipo => {
-                    const option = document.createElement('option');
-                    option.value = tipo;
-                    option.textContent = tipo;
-                    tipoObraSelect.appendChild(option);
-                });
-            } catch (error) {
-                console.error('Erro ao buscar tipos de obra:', error);
-            }
-        }
-
-        // Chama a função ao carregar a página
-        document.addEventListener('DOMContentLoaded', preencherTiposObra);
-
-        // Captura o envio do formulário
-        document.getElementById('searchForm').addEventListener('submit', async function(event) {
-            event.preventDefault();
-            const cep = document.getElementById('cep').value;
-            const tipoObra = document.getElementById('tipoObra').value;
-
-            try {
-                const response = await fetch('http://localhost:3000/buscar', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({ cep, tipoObra }),
-                });
-
-                const pedreiros = await response.json();
-                exibirResultados(pedreiros);
-            } catch (error) {
-                console.error('Erro ao buscar pedreiros:', error);
-            }
-        });
-
-        // Função para exibir os resultados
-        function exibirResultados(pedreiros) {
-            const resultDiv = document.getElementById('result');
-            resultDiv.innerHTML = ''; // Limpar resultados anteriores
-
-            if (pedreiros.length === 0) {
-                resultDiv.innerHTML = '<p>Nenhum pedreiro encontrado.</p>';
-                return;
-            }
-
-            const lista = document.createElement('ul');
-            pedreiros.forEach(pedreiro => {
-                const item = document.createElement('li');
-                item.textContent = `${pedreiro.nome} - CEP: ${pedreiro.cep} - Serviços: ${pedreiro.servicos} ${pedreiro.premium ? '(Premium)' : ''}`;
-                lista.appendChild(item);
-            });
-
-            resultDiv.appendChild(lista);
-        }
-    </script> -->
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 
     <script>
+        var swiper = new Swiper(".mySwiper", {
+            slidesPerView: "auto",
+            spaceBetween: 30,
+            pagination: {
+                el: ".swiper-pagination",
+                clickable: true,
+            },
+        });
+    </script>
+
+    <!-- <script>
         import Swiper from 'swiper';
 
         const swiper = new Swiper('.swiper-container', {
@@ -334,7 +317,7 @@
             slideActiveClass: 'active',
         });
 
-    </script>
+    </script> -->
 </body>
 
 </html>

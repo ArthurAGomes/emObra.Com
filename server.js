@@ -31,7 +31,7 @@ app.use(routerWeb);         // Rotas principais do site
 app.use(routerRegister);    // Rotas de cadastro
 // app.use(routerConsultas);   // Rotas de consulta
 // app.use(routerPostagem);    // Rotas de postagens
-// app.use(routerUser);        // Rotas de user (perfil, login, etc.)
+app.use(routerUser);        // Rotas de user (perfil, login, etc.)
 
 // Porta do servidor
 const PORT = process.env.PORT;
