@@ -1,17 +1,25 @@
+// routes/buscar.js
 const express = require('express');
 const router = express.Router();
-const { buscarServicosOuPedreiros } = require('../utils/geolocation');
+const { buscarPorLocalizacao } = require('../utils/geolocation');
 
-// Rota para busca de pedreiros ou serviços
 router.get('/buscar', async (req, res) => {
-    const { engine, cep } = req.query;
+    const { cep, tipo } = req.query;
+
+    if (!cep || !tipo) {
+        return res.status(400).send('CEP e tipo de busca são obrigatórios.');
+    }
+
+    if (tipo !== 'servico' && tipo !== 'pedreiro') {
+        return res.status(400).send('Tipo de busca inválido. Use "servico" ou "pedreiro".');
+    }
 
     try {
-        const resultados = await buscarServicosOuPedreiros(engine, cep);
+        const resultados = await buscarPorLocalizacao(tipo, cep);
         res.json(resultados);
     } catch (error) {
         console.error(error);
-        res.status(500).send('Erro ao buscar pedreiros ou serviços');
+        res.status(500).send(`Erro ao buscar ${tipo}s.`);
     }
 });
 

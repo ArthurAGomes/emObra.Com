@@ -34,7 +34,7 @@
                 <div class="radio-inputs">
                     <% servicos.forEach(servico => { %>
                         <label>
-                            <input class="radio-input servicos" type="radio" name="engine" value="<%= servico.id %>" />
+                            <input class="radio-input servicos" type="radio" name="engine" value="<%= servico.id %>" required />
                             <span class="radio-tile">
                                 <span class="radio-servico">
                                     <%= servico.nome_servico %>
@@ -43,13 +43,12 @@
                         </label>
                     <% }) %>
                 </div>
-                <input type="text" name="cep" placeholder="Informe um CEP...">
+                <input type="text" name="cep" placeholder="Informe um CEP..." required>
                 <div class="botoes-buscar">
-                    <button id="btn-buscar-servico">Buscar Serviço</button>
-                    <button id="btn-buscar-pedreiro">Buscar Pedreiro</button>
+                    <button type="submit" name="tipo" value="servico" id="btn-buscar-servico">Buscar Serviço</button>
+                    <button type="submit" name="tipo" value="pedreiro" id="btn-buscar-pedreiro">Buscar Pedreiro</button>
                 </div>
-            </form>
-            
+            </form>            
         </section>
 
         <section>
