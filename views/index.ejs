@@ -29,126 +29,27 @@
 
     <main>
         <section>
-            <form action="" method="get" class="form-buscar-index">
+            <form action="/buscar" method="get" class="form-buscar-index">
                 <h2>Encontre novos serviços ou um pedreiro para sua obra!</h2>
                 <div class="radio-inputs">
-
-                    <label>
-                        <input class="radio-input servicos" type="radio" name="engine" value="1" />
-                        <span class="radio-tile">
-                            <span class="radio-servico">
-                                Alvenaria
+                    <% servicos.forEach(servico => { %>
+                        <label>
+                            <input class="radio-input servicos" type="radio" name="engine" value="<%= servico.id %>" />
+                            <span class="radio-tile">
+                                <span class="radio-servico">
+                                    <%= servico.nome_servico %>
+                                </span>
                             </span>
-                        </span>
-                    </label>
-
-                    <label>
-                        <input class="radio-input servicos" type="radio" name="engine" />
-                        <span class="radio-tile">
-                            <span class="radio-servico">
-                                Alvenaria
-                            </span>
-                        </span>
-                    </label>
-
-                    <label>
-                        <input class="radio-input servicos" type="radio" name="engine" />
-                        <span class="radio-tile">
-                            <span class="radio-servico">
-                                Alvenaria
-                            </span>
-                        </span>
-                    </label>
-
-                    <label>
-                        <input class="radio-input servicos" type="radio" name="engine" />
-                        <span class="radio-tile">
-                            <span class="radio-servico">
-                                Alvenaria
-                            </span>
-                        </span>
-                    </label>
-
-                    <label>
-                        <input class="radio-input servicos" type="radio" name="engine" />
-                        <span class="radio-tile">
-                            <span class="radio-servico">
-                                Alvenaria
-                            </span>
-                        </span>
-                    </label>
-
-                    <label>
-                        <input class="radio-input servicos" type="radio" name="engine" />
-                        <span class="radio-tile">
-                            <span class="radio-servico">
-                                Alvenaria
-                            </span>
-                        </span>
-                    </label>
-
-                    <label>
-                        <input class="radio-input servicos" type="radio" name="engine" />
-                        <span class="radio-tile">
-                            <span class="radio-servico">
-                                Alvenaria
-                            </span>
-                        </span>
-                    </label>
-
-                    <label>
-                        <input class="radio-input servicos" type="radio" name="engine" />
-                        <span class="radio-tile">
-                            <span class="radio-servico">
-                                Alvenaria
-                            </span>
-                        </span>
-                    </label>
-
-                    <label>
-                        <input class="radio-input servicos" type="radio" name="engine" />
-                        <span class="radio-tile">
-                            <span class="radio-servico">
-                                Alvenaria
-                            </span>
-                        </span>
-                    </label>
-
-                    <label>
-                        <input class="radio-input servicos" type="radio" name="engine" />
-                        <span class="radio-tile">
-                            <span class="radio-servico">
-                                Alvenaria
-                            </span>
-                        </span>
-                    </label>
-
-                    <label>
-                        <input class="radio-input servicos" type="radio" name="engine" />
-                        <span class="radio-tile">
-                            <span class="radio-servico">
-                                Alvenaria
-                            </span>
-                        </span>
-                    </label>
-
-                    <label>
-                        <input class="radio-input servicos" type="radio" name="engine" />
-                        <span class="radio-tile">
-                            <span class="radio-servico">
-                                Alvenaria
-                            </span>
-                        </span>
-                    </label>
-
-
+                        </label>
+                    <% }) %>
                 </div>
-                <input type="text" placeholder="Informe um CEP...">
+                <input type="text" name="cep" placeholder="Informe um CEP...">
                 <div class="botoes-buscar">
                     <button id="btn-buscar-servico">Buscar Serviço</button>
                     <button id="btn-buscar-pedreiro">Buscar Pedreiro</button>
                 </div>
             </form>
+            
         </section>
 
         <section>

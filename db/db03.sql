@@ -1,15 +1,18 @@
+-- Criação do Banco de Dados
 CREATE DATABASE IF NOT EXISTS Em_Obra;
- 
+
+-- Usar o Banco de Dados
 USE Em_Obra;
- 
+
+-- Criação da Tabela tipo_servicos
 CREATE TABLE tipo_servicos (
     id INT AUTO_INCREMENT PRIMARY KEY,
     nome_servico VARCHAR(100) NOT NULL,
-    desc_servico VARCHAR(100) NOT NULL,
-    img_servico VARCHAR(100)
+    desc_servico VARCHAR(255) NOT NULL,
+    img_servico VARCHAR(255)
 );
 
- 
+-- Criação da Tabela contratantes
 CREATE TABLE contratantes (
     id INT AUTO_INCREMENT PRIMARY KEY,
     nome VARCHAR(100) NOT NULL,
@@ -25,7 +28,8 @@ CREATE TABLE contratantes (
     INDEX (email),
     INDEX (cep)
 );
- 
+
+-- Criação da Tabela pedreiros
 CREATE TABLE pedreiros (
     id INT AUTO_INCREMENT PRIMARY KEY,
     nome VARCHAR(100) NOT NULL,
@@ -49,7 +53,8 @@ CREATE TABLE pedreiros (
     FOREIGN KEY (tipo_servico_4) REFERENCES tipo_servicos(id) ON DELETE SET NULL,
     FOREIGN KEY (tipo_servico_5) REFERENCES tipo_servicos(id) ON DELETE SET NULL
 );
- 
+
+-- Criação da Tabela parceiros
 CREATE TABLE parceiros (
     id INT AUTO_INCREMENT PRIMARY KEY,
     descricao VARCHAR(255) NOT NULL,
@@ -59,7 +64,8 @@ CREATE TABLE parceiros (
     tipo_parceiro VARCHAR(20),
     url VARCHAR(255)
 );
- 
+
+-- Criação da Tabela servicos_postados
 CREATE TABLE servicos_postados (
     id INT AUTO_INCREMENT PRIMARY KEY,
     descricao TEXT NOT NULL,
@@ -69,19 +75,20 @@ CREATE TABLE servicos_postados (
     data_inicio DATE,
     data_fim DATE,
     prazo_combinar VARCHAR(10),
-    valor VARCHAR (20),
+    valor VARCHAR(20),
     status ENUM('andamento', 'finalizado', 'cancelado') DEFAULT 'andamento',
     data_postagem TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (contratante_id) REFERENCES contratantes(id) ON DELETE CASCADE,
     FOREIGN KEY (pedreiro_id) REFERENCES pedreiros(id) ON DELETE SET NULL,
     FOREIGN KEY (tipo_servico) REFERENCES tipo_servicos(id) ON DELETE SET NULL
 );
- 
+
+-- Criação da Tabela historico_servicos
 CREATE TABLE historico_servicos (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    servico_id INT NOT NULL,          
-    contratante_id INT NOT NULL,      
-    pedreiro_id INT,                  
+    servico_id INT NOT NULL,
+    contratante_id INT NOT NULL,
+    pedreiro_id INT,
     tipo_servico VARCHAR(100) NOT NULL,
     data_inicio DATE,
     data_fim DATE,
@@ -91,6 +98,7 @@ CREATE TABLE historico_servicos (
     FOREIGN KEY (servico_id) REFERENCES servicos_postados(id) ON DELETE CASCADE
 );
 
+-- Criação da Tabela password_resets
 CREATE TABLE password_resets (
     id INT AUTO_INCREMENT PRIMARY KEY,
     verification_code VARCHAR(255) NOT NULL,
@@ -99,95 +107,55 @@ CREATE TABLE password_resets (
     status ENUM('pending', 'used', 'expired') DEFAULT 'pending'
 );
 
- 
+-- Ativar o agendador de eventos
 SET GLOBAL event_scheduler = ON;
---------
-show events;
---------
+
+-- Criação de Evento para Remover Cadastros Inativos
 DELIMITER //
 CREATE EVENT IF NOT EXISTS remover_cadastros_inativos
 ON SCHEDULE EVERY 1 MINUTE
 DO
 BEGIN
- 
-  DELETE FROM contratantes
-  WHERE ativo = 0
-  AND TIMESTAMPDIFF(MINUTE, data_criacao, NOW()) >= 2;
- 
-  DELETE FROM pedreiros
-  WHERE ativo = 0
-  AND TIMESTAMPDIFF(MINUTE, data_criacao, NOW()) >= 2;
+    DELETE FROM contratantes WHERE ativo = 0 AND TIMESTAMPDIFF(MINUTE, data_criacao, NOW()) >= 2;
+    DELETE FROM pedreiros WHERE ativo = 0 AND TIMESTAMPDIFF(MINUTE, data_criacao, NOW()) >= 2;
 END //
- 
 DELIMITER ;
 
--- Inserir dados na tabela tipo_servicos
+-- Inserção de dados na tabela tipo_servicos
 INSERT INTO tipo_servicos (nome_servico, desc_servico, img_servico) VALUES
 ('Pintura', 'Serviço de pintura de paredes e superfícies', 'icon_pintura.png'),
 ('Reforma', 'Reformas e ajustes estruturais em imóveis', 'icon_reforma.png'),
 ('Elétrica', 'Instalação e manutenção de sistemas elétricos', 'icon_eletrica.png'),
 ('Hidráulica', 'Serviços de encanamento e reparos hidráulicos', 'icon_hidraulica.png'),
-('Alvenaria', 'Construção e reparo com tijolos e concreto', 'alvenaria.png');
- 
--- Inserir dados na tabela contratantes
+('Alvenaria', 'Construção e reparo com tijolos e concreto', 'icon_alvenaria.png'),
+('Jardinagem', 'Serviços de jardinagem e paisagismo', 'icon_jardinagem.png'),
+('Marcenaria', 'Serviços de construção e reparos em madeira', 'icon_marcenaria.png'),
+('Gesso', 'Instalação de forros e acabamentos de gesso', 'icon_gesso.png'),
+('Telhado', 'Instalação e reparo de telhados e coberturas', 'icon_telhado.png'),
+('Instalações de Ar-Condicionado', 'Instalação e manutenção de ar-condicionado', 'icon_ar_condicionado.png'),
+('Pisos e Revestimentos', 'Instalação e reparos de pisos e revestimentos', 'icon_pisos.png'),
+('Limpeza Pós-Obra', 'Serviços de limpeza e remoção de resíduos após obras', 'icon_limpeza_obra.png'),
+('Vidraçaria', 'Instalação e reparo de vidros e janelas', 'icon_vidraca.png'),
+('Impermeabilização', 'Serviços de impermeabilização de superfícies', 'icon_impermeabilizacao.png'),
+('Serralheria', 'Serviços de fabricação e reparo de estruturas metálicas', 'icon_serralheria.png'),
+('Dedetização', 'Serviços de controle de pragas e dedetização', 'icon_dedetizacao.png'),
+('Solda', 'Serviços de soldagem e reparos metálicos', 'icon_solda.png'),
+('CFTV e Segurança', 'Instalação de câmeras de segurança e sistemas de vigilância', 'icon_cftv.png'),
+('Encanamento de Gás', 'Instalação e manutenção de sistemas de gás', 'icon_encanamento_gas.png'),
+('Construção de Piscinas', 'Construção e manutenção de piscinas', 'icon_piscinas.png'),
+('Instalações de Energia Solar', 'Instalação de painéis solares e sistemas de energia solar', 'icon_energia_solar.png');
+
+-- Inserção de dados na tabela contratantes
 INSERT INTO contratantes (nome, cpf, email, senha, cep, ativo) VALUES
-('Ana Souza', '123.456.789-00', 'ana.souza@email.com', 'senha123', '12345-678',0),
-('Pedro Lima', '987.654.321-00', 'pedro.lima@email.com', 'senha456', '87654-321',1),
-('Maria Ferreira', '111.222.333-44', 'maria.ferreira@email.com', 'senha789', '54321-678',1),
-('Lucas Martins', '444.555.666-77', 'lucas.martins@email.com', 'senha012', '98765-432',1),
-('Juliana Santos', '888.999.000-11', 'juliana.santos@email.com', 'senha345', '67890-123',0);
- 
--- Inserir dados na tabela pedreiros
-INSERT INTO pedreiros (nome, cep, email, senha, premium, tipo_servico_1, tipo_servico_2, tipo_servico_3, tipo_servico_4, tipo_servico_5, cpf, ativo) VALUES
-('Carlos Silva', '12345-678', 'carlos.silva@email.com', 'senha789', 1, 1, 2, NULL, NULL, NULL, '000.111.222-33',0),  -- Pintura, Reforma
-('Maria Oliveira', '87654-321', 'maria.oliveira@email.com', 'senha012', 0, 3, 4, NULL, NULL, NULL, '222.333.444-55',0),  -- Elétrica, Hidráulica
-('Fernando Costa', '13579-246', 'fernando.costa@email.com', 'senha123', 1, 1, 5, NULL, NULL, NULL, '444.555.666-77',1),  -- Pintura, Alvenaria
-('Tatiane Almeida', '24680-135', 'tatiane.almeida@email.com', 'senha456', 0, 2, 3, 5, NULL, NULL, '666.777.888-99',1),  -- Reforma, Elétrica, Alvenaria
-('Bruno Pereira', '54321-678', 'bruno.pereira@email.com', 'senha789', 1, 4, NULL, NULL, NULL, NULL, '888.999.000-11',1);  -- Hidráulica
- 
--- Inserir dados na tabela parceiros
-INSERT INTO parceiros (descricao, imagem, contato, endereco, url) VALUES
-('Loja de Materiais de Construção', 'imagem1.jpg', '1234-5678', 'Rua A, 123', 'http://materiais.com'),
-('Serviços de Engenharia', 'imagem2.jpg', '2345-6789', 'Rua B, 456', 'http://engenharia.com'),
-('Construtora ABC', 'imagem3.jpg', '3456-7890', 'Rua C, 789', 'http://construtoraabc.com'),
-('Reformas e Construções', 'imagem4.jpg', '4567-8901', 'Rua D, 101', 'http://reformas.com'),
-('Consultoria de Obras', 'imagem5.jpg', '5678-9012', 'Rua E, 202', 'http://consultoria.com');
- 
--- Inserir dados na tabela servicos_postados
-INSERT INTO servicos_postados (descricao, contratante_id, pedreiro_id, tipo_servico, status) VALUES
-('Pintura de sala', 1, NULL, 1, 'andamento'),
-('Reforma de cozinha', 2, NULL, 2, 'aguardando'),
-('Instalação elétrica', 3, NULL, 3, 'andamento'),
-('Hidráulica em banheiro', 4, NULL, 4, 'aguardando'),
-('Construção de muro', 5, NULL, 5, 'andamento');
- 
--- Inserir dados na tabela historico_servicos
-INSERT INTO historico_servicos (servico_id, contratante_id, pedreiro_id, tipo_servico, data_inicio, data_fim, status) VALUES
-(1, 1, 1, 'Pintura', '2024-09-01', '2024-09-05', 'finalizado'),
-(2, 2, 2, 'Reforma', '2024-09-10', NULL, 'andamento'),
-(3, 3, 3, 'Elétrica', '2024-09-15', '2024-09-20', 'finalizado'),
-(4, 4, 4, 'Hidráulica', '2024-09-18', NULL, 'andamento'),
-(5, 5, 5, 'Alvenaria', '2024-09-20', NULL, 'andamento');
- 
------------
- 
--- Consulta
-SELECT
-    p.id AS pedreiro_id,
-    p.nome AS pedreiro_nome,
-    ts1.nome_servico AS tipo_servico_1,
-    ts2.nome_servico AS tipo_servico_2,
-    ts3.nome_servico AS tipo_servico_3,
-    ts4.nome_servico AS tipo_servico_4,
-    ts5.nome_servico AS tipo_servico_5
-FROM
-    pedreiros p
-LEFT JOIN tipo_servicos ts1 ON p.tipo_servico_1 = ts1.id
-LEFT JOIN tipo_servicos ts2 ON p.tipo_servico_2 = ts2.id
-LEFT JOIN tipo_servicos ts3 ON p.tipo_servico_3 = ts3.id
-LEFT JOIN tipo_servicos ts4 ON p.tipo_servico_4 = ts4.id
-LEFT JOIN tipo_servicos ts5 ON p.tipo_servico_5 = ts5.id;
- 
+('Ana Souza', '123.456.789-00', 'ana.souza@email.com', 'senha123', '12345-678', 0),
+('Pedro Lima', '987.654.321-00', 'pedro.lima@email.com', 'senha456', '87654-321', 1),
+('Maria Ferreira', '111.222.333-44', 'maria.ferreira@email.com', 'senha789', '54321-678', 1),
+('Lucas Martins', '444.555.666-77', 'lucas.martins@email.com', 'senha012', '98765-432', 1),
+('Juliana Santos', '888.999.000-11', 'juliana.santos@email.com', 'senha345', '67890-123', 0);
 
-
- 
+-- Inserção de dados na tabela pedreiros
+INSERT INTO pedreiros (nome, cep, email, senha, premium, tipo_servico_1, tipo_servico_2, cpf, ativo) VALUES
+('Carlos Silva', '12345-678', 'carlos.silva@email.com', 'senha789', 1, 1, 2, '000.111.222-33', 0),
+('Maria Oliveira', '87654-321', 'maria.oliveira@email.com', 'senha012', 0, 3, 4, '222.333.444-55', 0),
+('Fernando Costa', '13579-246', 'fernando.costa@email.com', 'senha123', 1, 1, 5, '444.555.666-77', 1),
+('Tatiane Almeida', '97531-864', 'tatiane.almeida@email.com', 'senha456', 1, 6, 7, '777.888.999-00', 1);

@@ -8,7 +8,7 @@ require('dotenv').config();
 
 const routerWeb = require('./router/web');
 const routerPostagem = require('./router/postagem');
-const routerConsultas = require('./router/consultas');
+const routerBuscar = require('./router/buscador');
 const routerRegister = require('./router/register');
 const routerAuth = require('./router/auth');
 const routerUser = require('./router/user');
@@ -45,7 +45,7 @@ app.use(routerWeb);         // Rotas principais do site
 app.use(routerAuth);        // Rotas de autenticação
 app.use(routerRegister);    // Rotas de cadastro
 app.use(routerUser);        // Rotas de user (perfil, login, etc.)
-
+app.use(routerBuscar)
 // Porta do servidor
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
