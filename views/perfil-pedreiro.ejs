@@ -3,10 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Perfil do Pedreiro</title>
 </head>
 <body>
     <h1>Hello, Pedreiro!</h1>
     <p>This is a basic HTML page.</p>
+
+    <h2>Alterar Foto de Perfil</h2>
+    <form id="upload-form" enctype="multipart/form-data" method="POST" action="/upload-foto">
+        <input type="file" name="fotoPerfil" accept="image/*" required />
+        <button type="submit">Upload</button>
+    </form>
+
+    <script>
+        // Opcional: JavaScript para manipular o upload, se necessário
+        document.getElementById('upload-form').onsubmit = function() {
+            // Pode adicionar alguma validação ou feedback para o usuário aqui
+        };
+    </script>
 </body>
 </html>

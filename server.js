@@ -4,11 +4,13 @@ const cors = require('cors');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');  // Importa o cookie-parser
 const session = require('express-session');  // Importa express-session
+const multer = require('multer'); // Importa o multer
+const path = require('path'); // Importa path
 require('dotenv').config();
 
 const routerWeb = require('./router/web');
 const routerPostagem = require('./router/postagem');
-const routerBuscar = require('./router/buscador');
+// const routerConsultas = require('./router/consultas'); // Removido
 const routerRegister = require('./router/register');
 const routerAuth = require('./router/auth');
 const routerUser = require('./router/user');
@@ -40,12 +42,36 @@ app.use(session({
     }
 }));
 
+// Configuração do multer para armazenamento de arquivos
+const storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+        cb(null, 'public/imagensPerfil/'); // pasta onde as imagens serão armazenadas
+    },
+    filename: (req, file, cb) => {
+        const userId = req.session.userId; // Obtém o ID do usuário da sessão
+        const fileExt = path.extname(file.originalname); // Obtém a extensão do arquivo
+        cb(null, `${userId}${fileExt}`); // Nomeia o arquivo como ID do usuário
+    }
+});
+
+const upload = multer({ storage });
+
+// Rota para upload da foto de perfil
+app.post('/upload-foto', upload.single('fotoPerfil'), (req, res) => {
+    if (!req.file) {
+        return res.status(400).send('Nenhum arquivo foi enviado.');
+    }
+
+    // Aqui você pode armazenar a nova foto de perfil no banco de dados, se necessário
+    res.send('Foto de perfil alterada com sucesso!');
+});
+
 // Rotas
 app.use(routerWeb);         // Rotas principais do site
 app.use(routerAuth);        // Rotas de autenticação
 app.use(routerRegister);    // Rotas de cadastro
 app.use(routerUser);        // Rotas de user (perfil, login, etc.)
-app.use(routerBuscar)
+
 // Porta do servidor
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
