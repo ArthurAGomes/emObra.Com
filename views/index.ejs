@@ -28,11 +28,11 @@
     </div>
 
     <main>
-        <section>
+        <section class="buscador">
             <form action="/buscar" method="get" class="form-buscar-index">
                 <h2>Encontre novos serviços ou um pedreiro para sua obra!</h2>
                 <div class="radio-inputs">
-                    <% servicos.forEach(servico => { %>
+                    <% servicos.forEach(servico=> { %>
                         <label>
                             <input class="radio-input servicos" type="radio" name="engine" value="<%= servico.id %>" />
                             <span class="radio-tile">
@@ -41,7 +41,7 @@
                                 </span>
                             </span>
                         </label>
-                    <% }) %>
+                        <% }) %>
                 </div>
                 <input type="text" name="cep" placeholder="Informe um CEP...">
                 <div class="botoes-buscar">
@@ -49,16 +49,51 @@
                     <button id="btn-buscar-pedreiro">Buscar Pedreiro</button>
                 </div>
             </form>
-            
+
         </section>
 
-        <section>
+        <section class="instituicoes-parceiras">
             <div class="chamada-institu-parceiras">
-                <h2>O seu futuro também faz parte da nossa obra!</h2>
-                <p>Conheça nossos parceiros que querem fazer parte do seu futuro.</p>
+                <h2>O seu futuro faz parte da nossa obra!</h2>
+                <p>Conheça nossos parceiros que querem fazer parte dessa empreitada.</p>
             </div>
             <div class="container-parceiros">
-                <div>
+                <div class="swiper mySwiper ">
+                    <div class="swiper-wrapper">
+                        
+                        <div class="swiper-slide">
+                            <div class="banner-institu-parceira">
+                                <div class="info-institu-parceira">
+                                    <h4>Senai São Paulo</h4>
+                                    <p>Mais de 40 cursos livres na área de construção cívil.</p>
+                                    <a href="https://www.sp.senai.br/cursos/cursos-livres/construcao-civil-e-design-de-mobiliario" class="btn-institu" target="_blank">Veja mais</a>
+                                </div>
+                                <img src="https://abflexo.org.br/wp-content/uploads/2021/03/senaibarueri1170.jpg" alt="Senai SP">
+                            </div>
+                        </div>
+                        <div class="swiper-slide">
+                            <div class="banner-institu-parceira">
+                                <div class="info-institu-parceira">
+                                    <h4>Senai São Paulo</h4>
+                                    <p>Mais de 40 cursos livres na área de construção cívil.</p>
+                                    <a href="https://www.sp.senai.br/cursos/cursos-livres/construcao-civil-e-design-de-mobiliario" class="btn-institu" target="_blank">Veja mais</a>
+                                </div>
+                                <img src="https://abflexo.org.br/wp-content/uploads/2021/03/senaibarueri1170.jpg" alt="Senai SP">
+                            </div>
+                        </div>
+                        <div class="swiper-slide">
+                            <div class="banner-institu-parceira">
+                                <div class="info-institu-parceira">
+                                    <h4>Senai São Paulo</h4>
+                                    <p>Mais de 40 cursos livres na área de construção cívil.</p>
+                                    <a href="https://www.sp.senai.br/cursos/cursos-livres/construcao-civil-e-design-de-mobiliario" class="btn-institu" target="_blank">Veja mais</a>
+                                </div>
+                                <img src="https://abflexo.org.br/wp-content/uploads/2021/03/senaibarueri1170.jpg" alt="Senai SP">
+                            </div>
+                        </div>
+                        
+                    </div>
+                    <div class="swiper-pagination"></div>
                 </div>
             </div>
         </section>

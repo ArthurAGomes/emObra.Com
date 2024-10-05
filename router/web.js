@@ -16,4 +16,8 @@ router.get('/', async (req, res) => {
     }
 });
 
+router.get('/teste', (req, res) => {
+    res.render('teste');
+});
+
 module.exports = router;
