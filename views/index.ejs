@@ -41,7 +41,7 @@
                                 </span>
                             </span>
                         </label>
-                        <% }) %>
+                    <% }) %>
                 </div>
                 <input type="text" name="cep" placeholder="Informe um CEP...">
                 <div class="botoes-buscar">
@@ -60,38 +60,20 @@
             <div class="container-parceiros">
                 <div class="swiper mySwiper ">
                     <div class="swiper-wrapper">
-                        
+                    <% instituicoes.forEach(instituicao=> { %>    
                         <div class="swiper-slide">
                             <div class="banner-institu-parceira">
                                 <div class="info-institu-parceira">
-                                    <h4>Senai São Paulo</h4>
-                                    <p>Mais de 40 cursos livres na área de construção cívil.</p>
-                                    <a href="https://www.sp.senai.br/cursos/cursos-livres/construcao-civil-e-design-de-mobiliario" class="btn-institu" target="_blank">Veja mais</a>
+                                    <h4><%= instituicao.nome_parceiro %></h4>
+                                    <p><%= instituicao.descricao %></p>
+                                    <a href="<%= instituicao.url %>"
+                                        class="btn-institu" target="_blank">Veja mais</a>
                                 </div>
-                                <img src="https://abflexo.org.br/wp-content/uploads/2021/03/senaibarueri1170.jpg" alt="Senai SP">
+                                <img src="/imgs-fixas/<%= instituicao.imagem %>"
+                                    alt="Senai SP">
                             </div>
                         </div>
-                        <div class="swiper-slide">
-                            <div class="banner-institu-parceira">
-                                <div class="info-institu-parceira">
-                                    <h4>Senai São Paulo</h4>
-                                    <p>Mais de 40 cursos livres na área de construção cívil.</p>
-                                    <a href="https://www.sp.senai.br/cursos/cursos-livres/construcao-civil-e-design-de-mobiliario" class="btn-institu" target="_blank">Veja mais</a>
-                                </div>
-                                <img src="https://abflexo.org.br/wp-content/uploads/2021/03/senaibarueri1170.jpg" alt="Senai SP">
-                            </div>
-                        </div>
-                        <div class="swiper-slide">
-                            <div class="banner-institu-parceira">
-                                <div class="info-institu-parceira">
-                                    <h4>Senai São Paulo</h4>
-                                    <p>Mais de 40 cursos livres na área de construção cívil.</p>
-                                    <a href="https://www.sp.senai.br/cursos/cursos-livres/construcao-civil-e-design-de-mobiliario" class="btn-institu" target="_blank">Veja mais</a>
-                                </div>
-                                <img src="https://abflexo.org.br/wp-content/uploads/2021/03/senaibarueri1170.jpg" alt="Senai SP">
-                            </div>
-                        </div>
-                        
+                        <% }) %>
                     </div>
                     <div class="swiper-pagination"></div>
                 </div>
@@ -132,46 +114,18 @@
             <h2 style="text-align: center;">Lojas Parceiras do EmObra.com</h2>
             <div class="swiper mySwiper ">
                 <div class="swiper-wrapper">
+                    <% lojas.forEach(loja=> { %>    
                     <div class="swiper-slide banner-loja-fundo">
                         <div class="banner-loja-parceira">
-                            <img src="imgs-fixas/lojaparceira1.png" alt="">
+                            <img src="imgs-fixas/<%= loja.imagem %>" alt="<%= loja.nome_parceiro %>">
                             <div class="info-loja-parceira">
-                                <h4>CEDRAL COMERCIAL</h4>
-                                <p>Av. Benedito Andrade, 503 - Pirituba Vila Pereira Barreto, São Paulo, Brazil</p>
-                                <p>www.cedralcomercial.com.br</p>
+                                <h4><%= loja.nome_parceiro %></h4>
+                                <p><%= loja.endereco %></p>
+                                <p><%= !loja.url ? loja.contato : loja.url %></p>
                             </div>
                         </div>
                     </div>
-                    <div class="swiper-slide banner-loja-fundo">
-                        <div class="banner-loja-parceira">
-                            <img src="imgs-fixas/lojaparceira1.png" alt="">
-                            <div class="info-loja-parceira">
-                                <h4>CEDRAL COMERCIAL</h4>
-                                <p>Av. Benedito Andrade, 503 - Pirituba Vila Pereira Barreto, São Paulo, Brazil</p>
-                                <p>www.cedralcomercial.com.br</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="swiper-slide banner-loja-fundo">
-                        <div class="banner-loja-parceira">
-                            <img src="imgs-fixas/lojaparceira1.png" alt="">
-                            <div class="info-loja-parceira">
-                                <h4>CEDRAL COMERCIAL</h4>
-                                <p>Av. Benedito Andrade, 503 - Pirituba Vila Pereira Barreto, São Paulo, Brazil</p>
-                                <p>www.cedralcomercial.com.br</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="swiper-slide banner-loja-fundo">
-                        <div class="banner-loja-parceira">
-                            <img src="imgs-fixas/lojaparceira1.png" alt="">
-                            <div class="info-loja-parceira">
-                                <h4>CEDRAL COMERCIAL</h4>
-                                <p>Av. Benedito Andrade, 503 - Pirituba Vila Pereira Barreto, São Paulo, Brazil</p>
-                                <p>www.cedralcomercial.com.br</p>
-                            </div>
-                        </div>
-                    </div>
+                    <% }) %>
                 </div>
                 <div class="swiper-pagination"></div>
             </div>
@@ -241,23 +195,6 @@
         });
     </script>
 
-    <!-- <script>
-        import Swiper from 'swiper';
-
-        const swiper = new Swiper('.swiper-container', {
-            loop: true,
-            navigation: {
-                nextEl: '.swiper-button-next',
-                prevEl: '.swiper-button-prev',
-            },
-            effect: 'slide',
-            spaceBetween: 20,
-            slidesPerView: 1,
-            centeredSlides: true,
-            slideActiveClass: 'active',
-        });
-
-    </script> -->
 </body>
 
 </html>
