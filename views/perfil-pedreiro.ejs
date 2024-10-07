@@ -11,7 +11,19 @@
 </head>
 
 <body>
-    
+    <header>
+        <nav class="global-nav">
+            <a href="/"><img src="https://i.ibb.co/KVZRVhw/logov4-preto.png" alt="logo-em-obra" class="logo-header"></a>
+            <div class="conexao-global">
+                <% if (isAuthenticated) { %>
+                    <span><a href="/logout">Sair</a></span>
+                <% } else { %>
+                    <span><a href="/register">Cadastrar</a></span>
+                    <button><a href="/login">Entrar</a></button>
+                <% } %>
+            </div>
+        </nav>
+    </header>
     <main>
         <aside class="container-perfil">
             <div class="foto-perfil">

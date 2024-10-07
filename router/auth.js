@@ -51,9 +51,10 @@ router.get('/logout', (req, res) => {
             return res.status(500).send('Erro ao fazer logout.');
         }
         res.clearCookie('connect.sid');  // Limpa o cookie da sessão
-        res.redirect('/login');           // Redireciona para a página de login
+        res.redirect('/');          // Redireciona para a página de index
     });
 });
+
 
 // Middleware para verificar se o usuário está autenticado
 const isAuthenticated = (req, res, next) => {
