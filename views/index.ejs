@@ -31,6 +31,7 @@
         <section>
             <form action="/buscar" method="get" class="form-buscar-index">
                 <h2>Encontre novos serviços ou um pedreiro para sua obra!</h2>
+                
                 <div class="radio-inputs">
                     <% servicos.forEach(servico => { %>
                         <label>
@@ -43,12 +44,15 @@
                         </label>
                     <% }) %>
                 </div>
-                <input type="text" name="cep" placeholder="Informe um CEP..." required>
+            
+                <input type="text" name="cep" placeholder="Informe um CEP...">
+            
                 <div class="botoes-buscar">
                     <button type="submit" name="tipo" value="servico" id="btn-buscar-servico">Buscar Serviço</button>
                     <button type="submit" name="tipo" value="pedreiro" id="btn-buscar-pedreiro">Buscar Pedreiro</button>
                 </div>
-            </form>            
+            </form>
+                   
         </section>
 
         <section>

@@ -1,13 +1,13 @@
-// routes/buscar.js
 const express = require('express');
 const router = express.Router();
 const { buscarPorLocalizacao } = require('../utils/geolocation');
 
 router.get('/buscar', async (req, res) => {
-    const { cep, tipo } = req.query;
+    const { cep, tipo, engine } = req.query;
 
-    if (!cep || !tipo) {
-        return res.status(400).send('CEP e tipo de busca são obrigatórios.');
+    // Verificação básica dos parâmetros
+    if (!cep || !tipo || !engine) {
+        return res.status(400).send('CEP, tipo e engine (tipo de obra) são obrigatórios.');
     }
 
     if (tipo !== 'servico' && tipo !== 'pedreiro') {
@@ -15,7 +15,11 @@ router.get('/buscar', async (req, res) => {
     }
 
     try {
-        const resultados = await buscarPorLocalizacao(tipo, cep);
+        const resultados = await buscarPorLocalizacao(tipo, cep, engine);
+        console.log(resultados); // Log dos resultados
+        if (resultados.length === 0) {
+            return res.status(404).send('Nenhum resultado encontrado.');
+        }
         res.json(resultados);
     } catch (error) {
         console.error(error);

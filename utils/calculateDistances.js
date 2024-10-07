@@ -1,5 +1,6 @@
 // utils/calculateDistances.js
 const axios = require('axios');
+require('dotenv').config();
 
 async function calculateDistances(originCep, destinationCeps) {
     const apiKey = process.env.GOOGLE_MAPS_KEY;

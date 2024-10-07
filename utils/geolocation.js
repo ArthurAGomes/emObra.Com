@@ -2,29 +2,39 @@
 const { calculateDistances } = require('./calculateDistances');
 const pool = require('../config/db');
 
-async function buscarPorLocalizacao(tipo, cep) {
+async function buscarPorLocalizacao(tipo, cep, engine) {
     try {
         let query;
+        let params = [];
 
         if (tipo === 'servico') {
             query = `
                 SELECT sp.id, sp.descricao, sp.valor, c.cep
                 FROM servicos_postados sp
                 JOIN contratantes c ON sp.contratante_id = c.id
-                WHERE sp.status = 'finalizado';
+                WHERE sp.status = 'finalizado' AND sp.tipo_servico = ?;
             `;
+            params.push(engine); // Adiciona o tipo de serviço para a busca
         } else if (tipo === 'pedreiro') {
             query = `
                 SELECT p.id, p.nome, p.premium, p.cep
                 FROM pedreiros p
-                LEFT JOIN servicos_postados sp ON p.id = sp.pedreiro_id
-                WHERE sp.status = 'finalizado';
+                WHERE p.ativo = 1 AND (
+                    p.tipo_servico_1 = ? OR
+                    p.tipo_servico_2 = ? OR
+                    p.tipo_servico_3 = ? OR
+                    p.tipo_servico_4 = ? OR
+                    p.tipo_servico_5 = ?
+                );
             `;
+            // Adiciona o tipo de serviço para filtrar pedreiros
+            params.push(engine, engine, engine, engine, engine);
         } else {
             throw new Error('Tipo de busca inválido.');
         }
 
-        const [results] = await pool.query(query);
+        // Executa a consulta passando os parâmetros necessários
+        const [results] = await pool.query(query, params);
 
         if (results.length === 0) {
             return [];
