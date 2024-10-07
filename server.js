@@ -1,4 +1,3 @@
-// app.js
 const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
@@ -14,7 +13,7 @@ const routerPostagem = require('./router/postagem');
 const routerRegister = require('./router/register');
 const routerAuth = require('./router/auth');
 const routerUser = require('./router/user');
-const routerBuscar=require('./router/buscador')
+const routerBuscar = require('./router/buscador');
 const app = express();
 
 // Configuração da view engine para EJS
@@ -41,6 +40,12 @@ app.use(session({
         maxAge: 3600000  // Tempo de expiração do cookie (1 hora)
     }
 }));
+
+// Middleware para disponibilizar a variável isAuthenticated nas views EJS
+app.use((req, res, next) => {
+    res.locals.isAuthenticated = req.session.userId ? true : false;  // Define isAuthenticated com base na sessão
+    next();
+});
 
 // Configuração do multer para armazenamento de arquivos
 const storage = multer.diskStorage({
@@ -71,7 +76,8 @@ app.use(routerWeb);         // Rotas principais do site
 app.use(routerAuth);        // Rotas de autenticação
 app.use(routerRegister);    // Rotas de cadastro
 app.use(routerUser);        // Rotas de user (perfil, login, etc.)
-app.use(routerBuscar)
+app.use(routerBuscar);      // Rotas de busca
+
 // Porta do servidor
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
