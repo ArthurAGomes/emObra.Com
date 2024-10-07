@@ -1,9 +1,10 @@
-// utils/geolocation.js
 const { calculateDistances } = require('./calculateDistances');
 const pool = require('../config/db');
 
 async function buscarPorLocalizacao(tipo, cep, engine) {
     try {
+        console.log(`Iniciando busca por ${tipo}s com CEP ${cep} e tipo de serviço ${engine}.`);
+
         let query;
         let params = [];
 
@@ -27,36 +28,49 @@ async function buscarPorLocalizacao(tipo, cep, engine) {
                     p.tipo_servico_5 = ?
                 );
             `;
-            // Adiciona o tipo de serviço para filtrar pedreiros
             params.push(engine, engine, engine, engine, engine);
         } else {
             throw new Error('Tipo de busca inválido.');
         }
 
-        // Executa a consulta passando os parâmetros necessários
+        console.log('Executando consulta ao banco de dados...');
         const [results] = await pool.query(query, params);
 
         if (results.length === 0) {
+            console.log(`Nenhum ${tipo} encontrado.`);
             return [];
         }
 
-        const destinationCeps = results.map(result => result.cep);
-        const distances = await calculateDistances(cep, destinationCeps);
+        console.log(`${results.length} ${tipo}(s) encontrado(s). Validando CEPs e calculando distâncias...`);
 
-        const resultsWithDistance = results.map((result, index) => ({
+        // Filtra apenas os resultados que têm CEPs válidos
+        const validResults = results.filter(result => result.cep && typeof result.cep === 'string');
+        if (validResults.length === 0) {
+            console.log('Nenhum CEP válido encontrado nos resultados.');
+            return [];
+        }
+
+        // Faz o cálculo das distâncias usando os CEPs válidos
+        const distances = await calculateDistances(cep, validResults);
+
+        const resultsWithDistance = validResults.map((result, index) => ({
             ...result,
-            distancia: distances[index].distance,
-            status: distances[index].status
+            distancia: distances[index]?.distance || null,
+            status: distances[index]?.status || 'UNKNOWN'
         }));
 
+        // Filtra os pedreiros dentro do raio de 15 km, ou até 30 km se forem premium
         const filteredResults = resultsWithDistance
-            .filter(result => result.distancia !== null && result.distancia <= 15)
+            .filter(result => result.distancia !== null)
+            .filter(result => (result.premium && result.distancia <= 30) || result.distancia <= 15)
             .sort((a, b) => {
                 if (tipo === 'pedreiro' && a.premium !== b.premium) {
-                    return b.premium - a.premium;
+                    return b.premium - a.premium; // Pedreiros premium têm prioridade
                 }
-                return a.distancia - b.distancia;
+                return a.distancia - b.distancia; // Ordena pela distância mais próxima
             });
+
+        console.log(`${filteredResults.length} ${tipo}(s) dentro do raio limite de exibição.`);
 
         return filteredResults.map(result => ({
             ...result,
