@@ -13,8 +13,7 @@ const routerPostagem = require('./router/postagem');
 const routerRegister = require('./router/register');
 const routerAuth = require('./router/auth');
 const routerUser = require('./router/user');
-const routerBuscar = require('./router/buscador');
-
+const routerBuscar=require('./router/buscador')
 const app = express();
 
 // Configuração da view engine para EJS
@@ -41,13 +40,6 @@ app.use(session({
         maxAge: 3600000  // Tempo de expiração do cookie (1 hora)
     }
 }));
-
-// Função para criar diretórios, caso não existam
-const createDirectoryIfNotExists = (directory) => {
-    if (!fs.existsSync(directory)) {
-        fs.mkdirSync(directory, { recursive: true });
-    }
-};
 
 // Configuração do multer para armazenamento de arquivos
 const storage = multer.diskStorage({
@@ -85,6 +77,12 @@ app.post('/upload-foto', upload.single('fotoPerfil'), (req, res) => {
 
     // Aqui você pode armazenar a nova foto de perfil no banco de dados, se necessário
     res.send('Foto de perfil alterada com sucesso!');
+});
+
+// Middleware para disponibilizar a variável isAuthenticated nas views EJS
+app.use((req, res, next) => {
+    res.locals.isAuthenticated = req.session.userId ? true : false;  // Define isAuthenticated com base na sessão
+    next();
 });
 
 // Rotas

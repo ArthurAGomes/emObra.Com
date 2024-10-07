@@ -4,8 +4,23 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Perfil do Pedreiro</title>
+    <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
+    <header>
+        <nav class="global-nav">
+            <a href="/"><img src="https://i.ibb.co/KVZRVhw/logov4-preto.png" alt="logo-em-obra" class="logo-header"></a>
+            <div class="conexao-global">
+                <% if (isAuthenticated) { %>
+                    <span><a href="/logout">Sair</a></span>
+                <% } else { %>
+                    <span><a href="/register">Cadastrar</a></span>
+                    <button><a href="/login">Entrar</a></button>
+                <% } %>
+            </div>
+        </nav>
+    </header>
+    
     <h1>Hello, Pedreiro!</h1>
     <p>This is a basic HTML page.</p>
 
@@ -14,7 +29,7 @@
         <input type="file" name="fotoPerfil" accept="image/*" required />
         <button type="submit">Upload</button>
     </form>
-
+    <a href="/">voltar index</a>
     <script>
         // Opcional: JavaScript para manipular o upload, se necessário
         document.getElementById('upload-form').onsubmit = function() {
