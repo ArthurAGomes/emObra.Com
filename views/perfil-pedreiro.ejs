@@ -1,25 +1,76 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Perfil do Pedreiro</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
 </head>
-<body>
-    <h1>Hello, Pedreiro!</h1>
-    <p>This is a basic HTML page.</p>
 
-    <h2>Alterar Foto de Perfil</h2>
-    <form id="upload-form" enctype="multipart/form-data" method="POST" action="/upload-foto">
-        <input type="file" name="fotoPerfil" accept="image/*" required />
-        <button type="submit">Upload</button>
-    </form>
+<body>
+    
+    <main>
+        <aside class="container-perfil">
+            <div class="foto-perfil">
+                <img src="https://mdbcdn.b-cdn.net/img/new/avatars/2.webp" class="rounded-circle" style="width: 150px;"
+                    alt="Avatar" />
+                <form id="upload-form" enctype="multipart/form-data" method="POST" action="/upload-foto">
+                    <input type="file" name="fotoPerfil" accept="image/*" required />
+                    <button type="submit">Upload</button>
+                </form>
+            </div>
+
+            <div class="info-perfil">
+                <h2>Hello, Pedreiro!</h2>
+                <p>This is a basic HTML page.</p>
+            </div>
+
+        </aside>
+
+        <section class="categorias-perfil">
+
+            <div class="categoria">
+                <img src="/img-fixas/perfil-icon.png" alt="Icone de Perfil">
+                <p>Meu perfil</p>
+            </div>
+
+            <div class="categoria">
+                <img src="/img-fixas/minha-obra.png" alt="Icone minha obra">
+                <p>Minha obra</p>
+            </div>
+
+            <div class="categoria">
+                <img src="/img-fixas/ofertas.png" alt="Ofertas">
+                <p>Ofertas</p>
+            </div>
+
+            <div class="categoria">
+                <img src="/img-fixas/dicas.png" alt="Dicas">
+                <p>Dicas</p>
+            </div>
+
+        </section>
+
+        <article class="meu-perfil"></article>
+
+        <article class="minha-obras"></article>
+
+        <article class="ofertas"></article>
+
+        <article class="dicas"></article>
+
+    </main>
+
 
     <script>
         // Opcional: JavaScript para manipular o upload, se necessário
-        document.getElementById('upload-form').onsubmit = function() {
+        document.getElementById('upload-form').onsubmit = function () {
             // Pode adicionar alguma validação ou feedback para o usuário aqui
         };
     </script>
 </body>
+
 </html>
