@@ -28,12 +28,12 @@
     </div>
 
     <main>
-        <section>
+        <section class="buscador">
             <form action="/buscar" method="get" class="form-buscar-index">
                 <h2>Encontre novos serviços ou um pedreiro para sua obra!</h2>
                 
                 <div class="radio-inputs">
-                    <% servicos.forEach(servico => { %>
+                    <% servicos.forEach(servico=> { %>
                         <label>
                             <input class="radio-input servicos" type="radio" name="engine" value="<%= servico.id %>" required />
                             <span class="radio-tile">
@@ -52,16 +52,33 @@
                     <button type="submit" name="tipo" value="pedreiro" id="btn-buscar-pedreiro">Buscar Pedreiro</button>
                 </div>
             </form>
-                   
+            
         </section>
 
-        <section>
+        <section class="instituicoes-parceiras">
             <div class="chamada-institu-parceiras">
-                <h2>O seu futuro também faz parte da nossa obra!</h2>
-                <p>Conheça nossos parceiros que querem fazer parte do seu futuro.</p>
+                <h2>O seu futuro faz parte da nossa obra!</h2>
+                <p>Conheça nossos parceiros que querem fazer parte dessa empreitada.</p>
             </div>
             <div class="container-parceiros">
-                <div>
+                <div class="swiper mySwiper ">
+                    <div class="swiper-wrapper">
+                    <% instituicoes.forEach(instituicao=> { %>    
+                        <div class="swiper-slide">
+                            <div class="banner-institu-parceira">
+                                <div class="info-institu-parceira">
+                                    <h4><%= instituicao.nome_parceiro %></h4>
+                                    <p><%= instituicao.descricao %></p>
+                                    <a href="<%= instituicao.url %>"
+                                        class="btn-institu" target="_blank">Veja mais</a>
+                                </div>
+                                <img src="/imgs-fixas/<%= instituicao.imagem %>"
+                                    alt="Senai SP">
+                            </div>
+                        </div>
+                        <% }) %>
+                    </div>
+                    <div class="swiper-pagination"></div>
                 </div>
             </div>
         </section>
@@ -100,46 +117,18 @@
             <h2 style="text-align: center;">Lojas Parceiras do EmObra.com</h2>
             <div class="swiper mySwiper ">
                 <div class="swiper-wrapper">
+                    <% lojas.forEach(loja=> { %>    
                     <div class="swiper-slide banner-loja-fundo">
                         <div class="banner-loja-parceira">
-                            <img src="imgs-fixas/lojaparceira1.png" alt="">
+                            <img src="imgs-fixas/<%= loja.imagem %>" alt="<%= loja.nome_parceiro %>">
                             <div class="info-loja-parceira">
-                                <h4>CEDRAL COMERCIAL</h4>
-                                <p>Av. Benedito Andrade, 503 - Pirituba Vila Pereira Barreto, São Paulo, Brazil</p>
-                                <p>www.cedralcomercial.com.br</p>
+                                <h4><%= loja.nome %></h4>
+                                <p><%= loja.endereco %></p>
+                                <p><%= !loja.url ? loja.contato : loja.url %></p>
                             </div>
                         </div>
                     </div>
-                    <div class="swiper-slide banner-loja-fundo">
-                        <div class="banner-loja-parceira">
-                            <img src="imgs-fixas/lojaparceira1.png" alt="">
-                            <div class="info-loja-parceira">
-                                <h4>CEDRAL COMERCIAL</h4>
-                                <p>Av. Benedito Andrade, 503 - Pirituba Vila Pereira Barreto, São Paulo, Brazil</p>
-                                <p>www.cedralcomercial.com.br</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="swiper-slide banner-loja-fundo">
-                        <div class="banner-loja-parceira">
-                            <img src="imgs-fixas/lojaparceira1.png" alt="">
-                            <div class="info-loja-parceira">
-                                <h4>CEDRAL COMERCIAL</h4>
-                                <p>Av. Benedito Andrade, 503 - Pirituba Vila Pereira Barreto, São Paulo, Brazil</p>
-                                <p>www.cedralcomercial.com.br</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="swiper-slide banner-loja-fundo">
-                        <div class="banner-loja-parceira">
-                            <img src="imgs-fixas/lojaparceira1.png" alt="">
-                            <div class="info-loja-parceira">
-                                <h4>CEDRAL COMERCIAL</h4>
-                                <p>Av. Benedito Andrade, 503 - Pirituba Vila Pereira Barreto, São Paulo, Brazil</p>
-                                <p>www.cedralcomercial.com.br</p>
-                            </div>
-                        </div>
-                    </div>
+                    <% }) %>
                 </div>
                 <div class="swiper-pagination"></div>
             </div>
@@ -209,23 +198,6 @@
         });
     </script>
 
-    <!-- <script>
-        import Swiper from 'swiper';
-
-        const swiper = new Swiper('.swiper-container', {
-            loop: true,
-            navigation: {
-                nextEl: '.swiper-button-next',
-                prevEl: '.swiper-button-prev',
-            },
-            effect: 'slide',
-            spaceBetween: 20,
-            slidesPerView: 1,
-            centeredSlides: true,
-            slideActiveClass: 'active',
-        });
-
-    </script> -->
 </body>
 
 </html>

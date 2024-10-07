@@ -57,6 +57,7 @@ CREATE TABLE pedreiros (
 -- Criação da Tabela parceiros
 CREATE TABLE parceiros (
     id INT AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(100) NOT NULL,
     descricao VARCHAR(255) NOT NULL,
     imagem VARCHAR(255),
     contato VARCHAR(50),
