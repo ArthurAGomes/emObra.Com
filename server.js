@@ -1,4 +1,3 @@
-// app.js
 const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
@@ -6,15 +5,16 @@ const cookieParser = require('cookie-parser');  // Importa o cookie-parser
 const session = require('express-session');  // Importa express-session
 const multer = require('multer'); // Importa o multer
 const path = require('path'); // Importa path
+const fs = require('fs'); // Para manipular o sistema de arquivos
 require('dotenv').config();
 
 const routerWeb = require('./router/web');
 const routerPostagem = require('./router/postagem');
-// const routerConsultas = require('./router/consultas'); // Removido
 const routerRegister = require('./router/register');
 const routerAuth = require('./router/auth');
 const routerUser = require('./router/user');
-const routerBuscar=require('./router/buscador')
+const routerBuscar = require('./router/buscador');
+
 const app = express();
 
 // Configuração da view engine para EJS
@@ -42,10 +42,31 @@ app.use(session({
     }
 }));
 
+// Função para criar diretórios, caso não existam
+const createDirectoryIfNotExists = (directory) => {
+    if (!fs.existsSync(directory)) {
+        fs.mkdirSync(directory, { recursive: true });
+    }
+};
+
 // Configuração do multer para armazenamento de arquivos
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
-        cb(null, 'public/imagensPerfil/'); // pasta onde as imagens serão armazenadas
+        // Verifica o tipo de usuário na sessão
+        const userType = req.session.userType; // Supondo que você tenha o tipo de usuário na sessão
+        let uploadPath;
+
+        // Define o caminho de upload com base no tipo de usuário
+        if (userType === 'contratante') {
+            uploadPath = 'public/imagensContratante/';
+        } else if (userType === 'pedreiro') {
+            uploadPath = 'public/imagensPedreiro/';
+        } else {
+            return cb(new Error('Tipo de usuário inválido')); // Tratamento de erro caso o tipo não seja reconhecido
+        }
+
+        createDirectoryIfNotExists(uploadPath); // Cria a pasta se não existir
+        cb(null, uploadPath); // Define a pasta de destino
     },
     filename: (req, file, cb) => {
         const userId = req.session.userId; // Obtém o ID do usuário da sessão
@@ -71,7 +92,8 @@ app.use(routerWeb);         // Rotas principais do site
 app.use(routerAuth);        // Rotas de autenticação
 app.use(routerRegister);    // Rotas de cadastro
 app.use(routerUser);        // Rotas de user (perfil, login, etc.)
-app.use(routerBuscar)
+app.use(routerBuscar);      // Rotas de busca
+
 // Porta do servidor
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {

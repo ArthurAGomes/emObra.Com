@@ -6,7 +6,20 @@ const path = require('path');
 // Configuração do multer para armazenamento de arquivos
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
-        cb(null, 'imagens/'); // pasta onde as imagens serão armazenadas
+        // Verifica o tipo de usuário na sessão
+        const userType = req.session.userType; // Supondo que você tenha o tipo de usuário na sessão
+        let uploadPath;
+
+        // Define o caminho de upload com base no tipo de usuário
+        if (userType === 'contratante') {
+            uploadPath = 'imagensContratante/'; // Pasta para contratantes
+        } else if (userType === 'pedreiro') {
+            uploadPath = 'imagensPedreiro/'; // Pasta para pedreiros
+        } else {
+            return cb(new Error('Tipo de usuário inválido')); // Tratamento de erro caso o tipo não seja reconhecido
+        }
+
+        cb(null, uploadPath); // Define a pasta de destino
     },
     filename: (req, file, cb) => {
         const userId = req.session.userId; // Obtém o ID do usuário da sessão
