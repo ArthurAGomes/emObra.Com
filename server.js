@@ -13,7 +13,7 @@ const routerPostagem = require('./router/postagem');
 const routerRegister = require('./router/register');
 const routerAuth = require('./router/auth');
 const routerUser = require('./router/user');
-const routerBuscar=require('./router/buscador')
+const routerBuscar = require('./router/buscador');
 const app = express();
 
 // Configuração da view engine para EJS
@@ -57,7 +57,7 @@ const storage = multer.diskStorage({
             return cb(new Error('Tipo de usuário inválido')); // Tratamento de erro caso o tipo não seja reconhecido
         }
 
-        createDirectoryIfNotExists(uploadPath); // Cria a pasta se não existir
+        // Removeu a função createDirectoryIfNotExists
         cb(null, uploadPath); // Define a pasta de destino
     },
     filename: (req, file, cb) => {
