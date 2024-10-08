@@ -124,11 +124,9 @@ h2 {
   display: flex;
   justify-content: center;
   align-items: center;
-  /* max-width: 320px; */
-  /* width: 100%; */
   overflow: hidden;
   flex-wrap: wrap;
-  margin: 10px auto;
+  margin: 40px auto;
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
@@ -187,7 +185,6 @@ h2 {
   width: fit-content;
   padding: 5px 10px;
   border-radius: 0.5rem;
-  /* border: 2px solid #020411; */
   background-color: #fff;
   box-shadow: 1px 1px 3px 2px rgba(0, 0, 0, 0.1);
   transition: 0.15s ease;
@@ -228,7 +225,7 @@ h2 {
 
 .form-buscar-index {
   margin: 10px auto;
-  /* max-width: 700px; */
+  max-width: 700px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -237,11 +234,11 @@ h2 {
 
   input {
     width: 90%;
-    max-width: 300px;
+    max-width: 250px;
     border-radius: 5px;
     border: 2px solid #020411;
     line-height: 35px;
-    text-indent: 10px
+    text-indent: 10px;
   }
 
   ;
@@ -257,13 +254,16 @@ h2 {
   margin-top: 20px;
   width: 100%;
   display: flex;
-  justify-content: space-evenly;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
 
   button {
     border-radius: 5px;
     color: white;
     border: none;
     padding: 5px 20px;
+    width: 170px;
   }
 
   #btn-buscar-servico {
@@ -447,7 +447,7 @@ h2 {
 /* Lojas parceiras */
 
 .banners-lojas-parceiros {
-  margin: 50px 1%;
+  margin: 50px auto;
   .swiper-pagination-bullet {
     background-color: #FE8813 !important;
   }
@@ -456,10 +456,9 @@ h2 {
 .banner-loja-fundo {
   background: linear-gradient(270deg, #020411, #FE8813);
   padding: 4px;
-  /* Simula a borda */
   border-radius: 20px;
-  /* Arredonda a borda externa */
   width: fit-content;
+  margin: 0 10px;
 }
 
 .banner-loja-parceira {
@@ -615,6 +614,74 @@ footer {
   a img {
     width: 50px;
   }
+}
+
+
+/* ################################################################################# */
+/* Cadastro */
+
+/* ############################################################################## */
+/* Login */
+
+/* ###########################################################################################*/
+/* Perfil */
+
+.container-container{
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  gap: 30px 0;
+  margin: 10px;
+  background-color: #020411;
+  border-radius: 20px;
+}
+
+.container-perfil{
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  h2,p{
+    color: white;
+  }
+}
+
+.foto-perfil{
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  width: fit-content;
+  img{
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+}
+
+.upload-icon {
+  position: absolute;
+  bottom: -3px;
+  right: 5px;
+  width: 25px;  /* Tamanho do ícone */
+  height: 25px;
+  cursor: pointer;
+}
+
+.upload-icon img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.info-perfil{
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  justify-content: center;
+  margin-top: 10px;
 }
 
 /* ############################################################################################# */

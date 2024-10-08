@@ -4,6 +4,7 @@ const router = express.Router();
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const findUserByEmailOrCpf = require('../utils/findUser');
+const pool = require('../config/db');
 
 // Rota para renderizar a página de login
 router.get('/login', (req, res) => {
@@ -71,8 +72,24 @@ router.get('/perfil-contratante', isAuthenticated, (req, res) => {
 });
 
 // Rota de perfil do pedreiro
-router.get('/perfil-pedreiro', isAuthenticated, (req, res) => {
-    res.render('perfil-pedreiro', { userId: req.session.userId });
+router.get('/perfil-pedreiro', isAuthenticated, async (req, res) => {
+    try {
+        // Consulta para buscar os parceiros institucionais
+        const [instituicoes] = await pool.query('SELECT nome_parceiro, descricao, imagem, url FROM parceiros WHERE tipo_parceiro = ?', ['institucional']);
+        
+        // Consulta para buscar as lojas
+        const [lojas] = await pool.query('SELECT nome_parceiro, endereco, contato, imagem, url FROM parceiros WHERE tipo_parceiro = ?', ['loja']);
+        
+        // Consulta para buscar os dados do pedreiro
+        const [pedreiro] = await pool.query('SELECT * FROM pedreiros WHERE id = ?', [req.session.userId]);
+
+        // Renderiza a página 'perfil-pedreiro.ejs' e passa os dados necessários
+        res.render('perfil-pedreiro', { userId: req.session.userId, instituicoes, lojas, pedreiro });
+
+    } catch (error) {
+        console.error(error);
+        res.status(500).send('Erro ao carregar os dados do perfil.');
+    }
 });
 
 module.exports = router;

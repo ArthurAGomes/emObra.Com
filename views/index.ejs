@@ -14,14 +14,11 @@
 <body class="bg-light">
     <header>
         <nav class="global-nav">
-            <a href="/"><img src="https://i.ibb.co/KVZRVhw/logov4-preto.png" alt="logo-em-obra" class="logo-header"></a>
+            <img src="https://i.ibb.co/KVZRVhw/logov4-preto.png" alt="logo-em-obra" class="logo-header">
             <div class="conexao-global">
-                <% if (isAuthenticated) { %>
-                    <span><a href="/logout">Sair</a></span>
-                <% } else { %>
-                    <span><a href="/register">Cadastrar</a></span>
-                    <button><a href="/login">Entrar</a></button>
-                <% } %>
+                <span class="desconectar" style="display: none;">Sair</span>
+                <span><a href="/register">Cadastrar</a></span>
+                <button><a href="/login">Entrar</a></button>
             </div>
         </nav>
     </header>
@@ -34,11 +31,10 @@
         <section class="buscador">
             <form action="/buscar" method="get" class="form-buscar-index">
                 <h2>Encontre novos serviços ou um pedreiro para sua obra!</h2>
-                
                 <div class="radio-inputs">
                     <% servicos.forEach(servico=> { %>
                         <label>
-                            <input class="radio-input servicos" type="radio" name="engine" value="<%= servico.id %>" required />
+                            <input class="radio-input servicos" type="radio" name="engine" value="<%= servico.id %>" />
                             <span class="radio-tile">
                                 <span class="radio-servico">
                                     <%= servico.nome_servico %>
@@ -47,15 +43,14 @@
                         </label>
                     <% }) %>
                 </div>
-            
-                <input type="text" name="cep" placeholder="Informe um CEP...">
-            
+                
                 <div class="botoes-buscar">
-                    <button type="submit" name="tipo" value="servico" id="btn-buscar-servico">Buscar Serviço</button>
-                    <button type="submit" name="tipo" value="pedreiro" id="btn-buscar-pedreiro">Buscar Pedreiro</button>
+                    <input type="text" name="cep" placeholder="Informe um CEP...">
+                    <button id="btn-buscar-servico">Buscar Serviço</button>
+                    <button id="btn-buscar-pedreiro">Buscar Pedreiro</button>
                 </div>
             </form>
-            
+
         </section>
 
         <section class="instituicoes-parceiras">
@@ -189,6 +184,7 @@
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script src="/js/script.js"></script>
 
     <script>
         var swiper = new Swiper(".mySwiper", {

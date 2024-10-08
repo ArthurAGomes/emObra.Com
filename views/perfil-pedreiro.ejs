@@ -24,23 +24,28 @@
             </div>
         </nav>
     </header>
+    
     <main>
-        <aside class="container-perfil">
-            <div class="foto-perfil">
-                <img src="https://mdbcdn.b-cdn.net/img/new/avatars/2.webp" class="rounded-circle" style="width: 150px;"
-                    alt="Avatar" />
-                <form id="upload-form" enctype="multipart/form-data" method="POST" action="/upload-foto">
-                    <input type="file" name="fotoPerfil" accept="image/*" required />
-                    <button type="submit">Upload</button>
-                </form>
-            </div>
-
-            <div class="info-perfil">
-                <h2>Hello, Pedreiro!</h2>
-                <p>This is a basic HTML page.</p>
-            </div>
-
-        </aside>
+        <div class="container-container">
+            <aside class="container-perfil">
+                <div class="foto-perfil">
+                    <img src="imagensPedreiro/<%= pedreiro[0].img_perfil %>" class="rounded-circle perfil-img" alt="Avatar" />
+            
+                    <!-- Ícone de upload sobreposto à imagem -->
+                    <form id="upload-form" enctype="multipart/form-data" method="POST" action="/upload-foto">
+                        <label for="upload-file" class="upload-icon">
+                            <img src="/imgs-fixas/edit-icon.png" alt="Upload Icon">
+                        </label>
+                        <input type="file" id="upload-file" name="fotoPerfil" accept="image/*" required style="display: none;" />
+                    </form>
+                </div>
+            
+                <div class="info-perfil">
+                    <h2><%= pedreiro[0].nome %></h2>
+                    <p>This is a basic HTML page.</p>
+                </div>
+            </aside>
+        </div>
 
         <section class="container-categorias-perfil">
 
@@ -84,77 +89,55 @@
 
             </article>
 
-            <article class="">
-
-                <div class="titulo-banner-perfil">
-                    <h4></h4>
-                    <hr>
+            <article class="instituicoes-parceiras">
+                <div class="chamada-institu-parceiras">
+                    <h2>O seu futuro faz parte da nossa obra!</h2>
+                    <p>Conheça nossos parceiros que querem fazer parte dessa empreitada.</p>
                 </div>
-
                 <div class="container-parceiros">
                     <div class="swiper mySwiper ">
                         <div class="swiper-wrapper">
-                            <% instituicoes.forEach(instituicao=> { %>
-                                <div class="swiper-slide">
-                                    <div class="banner-institu-parceira">
-                                        <div class="info-institu-parceira">
-                                            <h4>
-                                                <%= instituicao.nome_parceiro %>
-                                            </h4>
-                                            <p>
-                                                <%= instituicao.descricao %>
-                                            </p>
-                                            <a href="<%= instituicao.url %>" class="btn-institu" target="_blank">Veja
-                                                mais</a>
-                                        </div>
-                                        <img src="/imgs-fixas/<%= instituicao.imagem %>" alt="Senai SP">
+                        
+                            <% instituicoes.forEach(instituicao=> { %>    
+                            <div class="swiper-slide">
+                                <div class="banner-institu-parceira">
+                                    <div class="info-institu-parceira">
+                                        <h4><%= instituicao.nome_parceiro %></h4>
+                                        <p><%= instituicao.descricao %></p>
+                                        <a href="<%= instituicao.url %>"
+                                            class="btn-institu" target="_blank">Veja mais</a>
                                     </div>
+                                    <img src="/imgs-fixas/<%= instituicao.imagem %>"
+                                        alt="Senai SP">
                                 </div>
-                                <% }) %>
+                            </div>
+                            <% }) %>
                         </div>
                         <div class="swiper-pagination"></div>
                     </div>
                 </div>
-
-
-
             </article>
 
-            <article class="">
-
-                <div class="titulo-banner-perfil">
-                    <h4></h4>
-                    <hr>
-                </div>
-
-                <div class="banners-lojas-parceiros">
-                    <h2 style="text-align: center;">Lojas Parceiras do EmObra.com</h2>
-                    <div class="swiper mySwiper ">
-                        <div class="swiper-wrapper">
-                            <% lojas.forEach(loja=> { %>
-                                <div class="swiper-slide banner-loja-fundo">
-                                    <div class="banner-loja-parceira">
-                                        <img src="imgs-fixas/<%= loja.imagem %>" alt="<%= loja.nome_parceiro %>">
-                                        <div class="info-loja-parceira">
-                                            <h4>
-                                                <%= loja.nome %>
-                                            </h4>
-                                            <p>
-                                                <%= loja.endereco %>
-                                            </p>
-                                            <p>
-                                                <%= !loja.url ? loja.contato : loja.url %>
-                                            </p>
-                                        </div>
-                                    </div>
+            <section class="banners-lojas-parceiros">
+                <h2 style="text-align: center;">Lojas Parceiras do EmObra.com</h2>
+                <div class="swiper mySwiper ">
+                    <div class="swiper-wrapper">
+                        <% lojas.forEach(loja=> { %>    
+                        <div class="swiper-slide banner-loja-fundo">
+                            <div class="banner-loja-parceira">
+                                <img src="imgs-fixas/<%= loja.imagem %>" alt="<%= loja.nome_parceiro %>">
+                                <div class="info-loja-parceira">
+                                    <h4><%= loja.nome %></h4>
+                                    <p><%= loja.endereco %></p>
+                                    <p><%= !loja.url ? loja.contato : loja.url %></p>
                                 </div>
-                                <% }) %>
+                            </div>
                         </div>
-                        <div class="swiper-pagination"></div>
+                        <% }) %>
                     </div>
+                    <div class="swiper-pagination"></div>
                 </div>
-
-            </article>
+            </section>
 
         </section>
 
@@ -162,7 +145,11 @@
 
     </main>
 
-
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script src="/js/script.js"></script>
     <script>
         // Opcional: JavaScript para manipular o upload, se necessário
         document.getElementById('upload-form').onsubmit = function () {
