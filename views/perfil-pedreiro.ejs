@@ -17,10 +17,10 @@
             <div class="conexao-global">
                 <% if (isAuthenticated) { %>
                     <span><a href="/logout">Sair</a></span>
-                <% } else { %>
-                    <span><a href="/register">Cadastrar</a></span>
-                    <button><a href="/login">Entrar</a></button>
-                <% } %>
+                    <% } else { %>
+                        <span><a href="/register">Cadastrar</a></span>
+                        <button><a href="/login">Entrar</a></button>
+                        <% } %>
             </div>
         </nav>
     </header>
@@ -42,37 +42,123 @@
 
         </aside>
 
-        <section class="categorias-perfil">
+        <section class="container-categorias-perfil">
 
-            <div class="categoria">
-                <img src="/img-fixas/perfil-icon.png" alt="Icone de Perfil">
-                <p>Meu perfil</p>
+            <div class="categorias-botoes">
+                <div class="categoria">
+                    <img src="/img-fixas/perfil-icon.png" alt="Icone de Perfil">
+                    <p>Meu perfil</p>
+                </div>
+                <div class="categoria">
+                    <img src="/img-fixas/minha-obra.png" alt="Icone minha obra">
+                    <p>Minha obra</p>
+                </div>
+                <div class="categoria">
+                    <img src="/img-fixas/ofertas.png" alt="Ofertas">
+                    <p>Ofertas</p>
+                </div>
+                <div class="categoria">
+                    <img src="/img-fixas/dicas.png" alt="Dicas">
+                    <p>Dicas</p>
+                </div>
             </div>
 
-            <div class="categoria">
-                <img src="/img-fixas/minha-obra.png" alt="Icone minha obra">
-                <p>Minha obra</p>
-            </div>
+            <article class="meu-perfil"></article>
 
-            <div class="categoria">
-                <img src="/img-fixas/ofertas.png" alt="Ofertas">
-                <p>Ofertas</p>
-            </div>
+            <article class="minha-obras"></article>
 
-            <div class="categoria">
-                <img src="/img-fixas/dicas.png" alt="Dicas">
-                <p>Dicas</p>
-            </div>
+            <article class="ofertas"></article>
+
+            <article class="dicas"></article>
 
         </section>
 
-        <article class="meu-perfil"></article>
+        <section class="banners-perfil">
 
-        <article class="minha-obras"></article>
+            <article class="">
 
-        <article class="ofertas"></article>
+                <div class="titulo-banner-perfil">
+                    <h4></h4>
+                    <hr>
+                </div>
 
-        <article class="dicas"></article>
+            </article>
+
+            <article class="">
+
+                <div class="titulo-banner-perfil">
+                    <h4></h4>
+                    <hr>
+                </div>
+
+                <div class="container-parceiros">
+                    <div class="swiper mySwiper ">
+                        <div class="swiper-wrapper">
+                            <% instituicoes.forEach(instituicao=> { %>
+                                <div class="swiper-slide">
+                                    <div class="banner-institu-parceira">
+                                        <div class="info-institu-parceira">
+                                            <h4>
+                                                <%= instituicao.nome_parceiro %>
+                                            </h4>
+                                            <p>
+                                                <%= instituicao.descricao %>
+                                            </p>
+                                            <a href="<%= instituicao.url %>" class="btn-institu" target="_blank">Veja
+                                                mais</a>
+                                        </div>
+                                        <img src="/imgs-fixas/<%= instituicao.imagem %>" alt="Senai SP">
+                                    </div>
+                                </div>
+                                <% }) %>
+                        </div>
+                        <div class="swiper-pagination"></div>
+                    </div>
+                </div>
+
+
+
+            </article>
+
+            <article class="">
+
+                <div class="titulo-banner-perfil">
+                    <h4></h4>
+                    <hr>
+                </div>
+
+                <div class="banners-lojas-parceiros">
+                    <h2 style="text-align: center;">Lojas Parceiras do EmObra.com</h2>
+                    <div class="swiper mySwiper ">
+                        <div class="swiper-wrapper">
+                            <% lojas.forEach(loja=> { %>
+                                <div class="swiper-slide banner-loja-fundo">
+                                    <div class="banner-loja-parceira">
+                                        <img src="imgs-fixas/<%= loja.imagem %>" alt="<%= loja.nome_parceiro %>">
+                                        <div class="info-loja-parceira">
+                                            <h4>
+                                                <%= loja.nome %>
+                                            </h4>
+                                            <p>
+                                                <%= loja.endereco %>
+                                            </p>
+                                            <p>
+                                                <%= !loja.url ? loja.contato : loja.url %>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <% }) %>
+                        </div>
+                        <div class="swiper-pagination"></div>
+                    </div>
+                </div>
+
+            </article>
+
+        </section>
+
+
 
     </main>
 
