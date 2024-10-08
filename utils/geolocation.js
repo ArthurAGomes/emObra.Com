@@ -1,6 +1,5 @@
-const { calculateDistances } = require('./calculateDistances');
 const pool = require('../config/db');
-
+const {calculateDistances} = require('./calculateDistances')
 async function buscarPorLocalizacao(tipo, cep, engine) {
     try {
         console.log(`Iniciando busca por ${tipo}s com CEP ${cep} e tipo de serviço ${engine}.`);
@@ -10,10 +9,9 @@ async function buscarPorLocalizacao(tipo, cep, engine) {
 
         if (tipo === 'servico') {
             query = `
-                SELECT sp.id, sp.descricao, sp.valor, c.cep
+                SELECT sp.id, sp.descricao, sp.valor, sp.cep
                 FROM servicos_postados sp
-                JOIN contratantes c ON sp.contratante_id = c.id
-                WHERE sp.status = 'finalizado' AND sp.tipo_servico = ?;
+                WHERE sp.status = 'andamento' AND sp.tipo_servico = ?;  -- Alterado para buscar serviços em andamento
             `;
             params.push(engine); // Adiciona o tipo de serviço para a busca
         } else if (tipo === 'pedreiro') {
@@ -34,7 +32,12 @@ async function buscarPorLocalizacao(tipo, cep, engine) {
         }
 
         console.log('Executando consulta ao banco de dados...');
+        console.log(`Consulta: ${query}`); // Log da consulta
+        console.log(`Parâmetros: ${JSON.stringify(params)}`); // Log dos parâmetros
+
         const [results] = await pool.query(query, params);
+
+        console.log('Resultados da consulta:', results); // Log dos resultados retornados
 
         if (results.length === 0) {
             console.log(`Nenhum ${tipo} encontrado.`);
@@ -59,7 +62,7 @@ async function buscarPorLocalizacao(tipo, cep, engine) {
             status: distances[index]?.status || 'UNKNOWN'
         }));
 
-        // Filtra os pedreiros dentro do raio de 15 km, ou até 30 km se forem premium
+        // Filtra os serviços dentro do raio de 15 km, ou até 30 km se forem premium
         const filteredResults = resultsWithDistance
             .filter(result => result.distancia !== null)
             .filter(result => (result.premium && result.distancia <= 30) || result.distancia <= 15)
@@ -83,4 +86,9 @@ async function buscarPorLocalizacao(tipo, cep, engine) {
     }
 }
 
-module.exports = { buscarPorLocalizacao };
+// Exemplo de exportação de função
+module.exports = {
+    buscarPorLocalizacao
+    
+};
+
