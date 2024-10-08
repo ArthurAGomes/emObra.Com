@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Perfil do Contratante</title>
+    <title>Postar Serviço</title>
     <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
@@ -21,20 +21,30 @@
         </nav>
     </header>
     
-    <h1>Hello, Contratante!</h1>
-    <p>This is a basic HTML page.</p>
-
-    <h2>Alterar Foto de Perfil</h2>
-    <form id="upload-form" enctype="multipart/form-data" method="POST" action="/upload-foto">
-        <input type="file" name="fotoPerfil" accept="image/*" required />
-        <button type="submit">Upload</button>
+    <h1>Postar um Novo Serviço</h1>
+    <form action="/postar-servico" method="POST">
+        <label for="descricao">Descrição:</label>
+        <textarea id="descricao" name="descricao" required></textarea>
+    
+        <label for="tipo_servico">Tipo de Serviço:</label>
+        <select id="tipo_servico" name="tipo_servico" required>
+            <% tipos_servicos.forEach(servico => { %>
+                <option value="<%= servico.id %>"><%= servico.nome_servico %></option>
+            <% }); %>
+        </select>
+    
+        <label for="cep">CEP:</label>
+        <input type="text" id="cep" name="cep">
+    
+        <label for="prazo_combinar">Prazo a Combinar:</label>
+        <input type="text" id="prazo_combinar" name="prazo_combinar" required>
+    
+        <label for="valor">Valor:</label>
+        <input type="number" id="valor" name="valor" required>
+    
+        <button type="submit">Postar Serviço</button>
     </form>
-   
-    <script>
-        // Opicional: JavaScript para manipular o upload, se necessário
-        document.getElementById('upload-form').onsubmit = function() {
-            // Pode adicionar alguma validação ou feedback para o usuário aqui
-        };
-    </script>
+    
+    
 </body>
 </html>

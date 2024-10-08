@@ -12,7 +12,6 @@ const routerWeb = require('./router/web');
 const routerPostagem = require('./router/postagem');
 const routerRegister = require('./router/register');
 const routerAuth = require('./router/auth');
-const routerUser = require('./router/user');
 const routerBuscar = require('./router/buscador');
 const app = express();
 
@@ -87,9 +86,9 @@ app.use((req, res, next) => {
 
 // Rotas
 app.use(routerWeb);         // Rotas principais do site
+app.use(routerPostagem)     //Rotas de postar serviço
 app.use(routerAuth);        // Rotas de autenticação
 app.use(routerRegister);    // Rotas de cadastro
-app.use(routerUser);        // Rotas de user (perfil, login, etc.)
 app.use(routerBuscar);      // Rotas de busca
 
 // Porta do servidor

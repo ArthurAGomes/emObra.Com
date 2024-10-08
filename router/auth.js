@@ -67,8 +67,14 @@ const isAuthenticated = (req, res, next) => {
 };
 
 // Rota de perfil do contratante
-router.get('/perfil-contratante', isAuthenticated, (req, res) => {
-    res.render('perfil-contratante', { userId: req.session.userId });
+router.get('/perfil-contratante', isAuthenticated, async (req, res) => {
+    try {
+        const [tiposServicos] = await pool.query('SELECT id, nome_servico FROM tipo_servicos');
+        res.render('perfil-contratante', { userId: req.session.userId, tipos_servicos: tiposServicos });
+    } catch (err) {
+        console.error('Erro ao carregar os tipos de serviço:', err);
+        res.status(500).send('Erro ao carregar os tipos de serviço.');
+    }
 });
 
 // Rota de perfil do pedreiro
