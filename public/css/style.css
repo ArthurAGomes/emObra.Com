@@ -819,6 +819,7 @@ footer {
 .info-principais-servico {
 
   width: 100%;
+  height: 100%;
   padding: 5px;
   text-align: center;
   display: flex;
@@ -830,6 +831,9 @@ footer {
     display: flex;
     align-items: center;
     flex-direction: column;
+    background-color: #fe891367;
+    padding: 5px 0;
+    border-radius: 5px;
 
     span {
       font-size: clamp (10px, 2vw, 14px);
@@ -915,9 +919,9 @@ footer {
 }
 
 .resultado-busca.animate-slide-in {
-  display: block; /* Exibe o elemento */
-  opacity: 1; /* Torna o elemento visível */
-  transform: translateX(0); /* Move o elemento para sua posição final */
+  transform: translateX(0);
+  opacity: 1;
+  transition: transform 1s ease, opacity 1s ease; /* 1 segundo para a animação */
 }
 
 /* From Uiverse.io by vinodjangid07 */ 
@@ -927,6 +931,13 @@ footer {
   display: flex;
   align-items: center;
   justify-content: center;
+  opacity: 0;
+  transition: opacity 1.5s ease-in-out;
+}
+
+.show-loader {
+  display: flex; /* Exibe o loader */
+  opacity: 1; /* Torna visível */
 }
 .wrapper {
   width: fit-content;

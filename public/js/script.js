@@ -14,18 +14,30 @@ document.getElementById('upload-file').addEventListener('change', function() {
 
 
 function testando() {
-    // Exibe o loader
     const loader = document.querySelector('.loader');
-    loader.style.display = 'flex'; // Mostra o loader
+    const resultadoBusca = document.querySelector('.resultado-busca');
 
-    // Define um timeout para simular o tempo de carregamento
+    // Reiniciar estado: esconder o resultado-busca e resetar o loader
+    resultadoBusca.style.display = 'none'; // Esconder o resultado se já estiver na tela
+    resultadoBusca.classList.remove('animate-slide-in'); // Remove a animação para resetar
+    
+    // Mostrar o loader com animação
+    loader.style.display = 'flex'; // Exibe o loader
     setTimeout(() => {
-        // Oculta o loader após 3 segundos
-        loader.style.display = 'none';
-        // Chama a função que mostra o resultado
-        mostrarResultadoBusca();
-    }, 3000); // 3000 milissegundos = 3 segundos
+        loader.classList.add('show-loader'); // Aplica a animação suave
+    }, 10);
+
+    // Após 3 segundos, remove o loader e mostra o resultado-busca novamente
+    setTimeout(() => {
+        loader.classList.remove('show-loader'); // Remove a animação do loader
+        setTimeout(() => {
+            loader.style.display = 'none'; // Esconde o loader
+            resultadoBusca.style.display = 'block'; // Exibe o resultado-busca novamente
+            resultadoBusca.classList.add('animate-slide-in'); // Adiciona a animação
+        }, 500); // Atraso para permitir que o loader desapareça suavemente
+    }, 3000); // Duração do loading
 }
+
 
 function mostrarResultadoBusca() {
     const resultadoBusca = document.querySelector('.resultado-busca');
