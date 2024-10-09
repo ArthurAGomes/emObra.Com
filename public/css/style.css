@@ -725,6 +725,144 @@ footer {
   gap: 5px;
 }
 
+
+/* ################################################################################################## */
+/* Servicos */
+/* Postagens */
+
+.super-container{
+  display: flex;
+  flex-direction: column;
+  /* align-items: center; */
+  justify-content: center;
+  max-width: 350px;
+  margin: 0 auto;
+  padding: 20px 10px;
+  border-radius: 20px;
+  box-shadow: 1px 1px 5px 5px rgba(0, 0, 0, 0.1);
+
+  h4{
+    font-size: clamp(16px, 2vw, 24px);
+  }
+
+  hr{
+    width: 70%;
+    border: 1px solid #FE8813;
+    margin: 25px  auto;
+  }
+  
+}
+
+.container-servico-top{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+}
+
+.background-icon-servico{
+  background-color: #020411;
+  border-radius: 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 210px;
+  height: 130px;
+
+  img{
+    width: 100%;
+    max-width: 80px;
+    height: auto;
+    object-fit: cover;
+  } 
+}
+
+.info-principais-servico{
+
+  width: 100%;
+  padding: 5px;
+  text-align: center;
+
+  h3{
+    font-size: clamp(20px, 4vw, 25px);
+    color: #020411;
+    font-weight: 600;
+    margin: 0;
+  }
+  
+  .distancia-servico{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+
+    span{
+      font-size: clamp (10px, 2vw, 14px);
+      font-weight: 600;
+    }
+    p{
+      margin: 0;
+    }
+  }
+
+  button{
+    background-color: #FE8813;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 12px;
+    padding: 10px 0;
+    width: 100%;
+  }
+  
+  
+}
+
+.descricao-post {
+  display: flex;
+  flex-direction: column;
+  position: static;
+}
+
+.descricao-post label.text {
+  font-size: 0.75rem;
+  color: #020411;
+  font-weight: 700;
+  position: relative;
+  top: 0.5rem;
+  margin: 0 0 0 7px;
+  padding: 0 3px;
+  background: #fff;
+  width: fit-content;
+}
+
+.descricao-post textarea[type=text].input {
+  padding: 11px 10px;
+  font-size: clamp(12px, 2vw, 14px);
+  border: 2px #020411 solid;
+  border-radius: 5px;
+  background: #fff;
+  width: 100%;
+}
+
+.descricao-post textarea[type=text].input:focus {
+  outline: none;
+}
+
+.footer-servico{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+
+  p{
+    font-weight: bold;
+    font-size: clamp(14px, 2vw, 14px);
+  }
+  
+}
+
+
 /* ############################################################################################# */
 /* Media Query */
 

@@ -4,53 +4,47 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Alterar Foto de Perfil</title>
-    <style>
-        /* Estiliza o ícone de perfil */
-        .profile-pic-container {
-            position: relative;
-            width: 100px;
-            height: 100px;
-            border-radius: 50%;
-            overflow: hidden;
-            cursor: pointer;
-        }
-        .profile-pic-container img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-        /* Botão de upload invisível */
-        input[type="file"] {
-            display: none;
-        }
-        /* Ícone de edição no canto inferior direito */
-        .edit-icon {
-            position: absolute;
-            bottom: 0;
-            right: 0;
-            background-color: #000;
-            color: #fff;
-            border-radius: 50%;
-            padding: 5px;
-            cursor: pointer;
-        }
-    </style>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    <script src="https://kit.fontawesome.com/fa60e4fa16.js" crossorigin="anonymous"></script>
+    
 </head>
 <body>
-    <h2>Alterar Foto de Perfil</h2>
+    <h2>teste card</h2>
 
-    <!-- Container da imagem do perfil -->
-    <form id="upload-form" enctype="multipart/form-data" method="POST" action="/upload-foto">
-        <label class="profile-pic-container">
-            <!-- Imagem do perfil -->
-            <img src="https://mdbcdn.b-cdn.net/img/new/avatars/2.webp" class="rounded-circle" style="width: 150px;"
-  alt="Avatar" />
-            <!-- Ícone de edição (opcional) -->
-            <span class="edit-icon">✏️</span>
-            <!-- Input de arquivo escondido -->
-            <input type="file" name="fotoPerfil" accept="image/*" onchange="this.form.submit()" />
-        </label>
+    <form class="super-container">
+        <div class="container-servico-top">
+            <div class="background-icon-servico">
+                <img src="/imgs-fixas/assentar-piso.png" alt="">
+            </div>
+            <div class="info-principais-servico">
+                <h3>Assentar Piso</h3>
+                <div class="distancia-servico">
+                    <span>distância</span>
+                    <p>12km de você</p>
+                </div>
+                <button type="submit">Candidatar-se</button>
+            </div>
+        </div>
+
+        <div class="input-descricao-servico">
+            
+
+            <div class="descricao-post">
+                <label for="input" class="text">Name:</label>
+                <textarea type="text" placeholder="Write here..." name="input" class="input" maxlength="300" rows="4" cols="50"></textarea>
+            </div>
+        </div>
+        <hr>
+        <div class="footer-servico">
+            <p>Valor: R$150,00</p>
+            <p>Prazo: A combinar</p>
+        </div>
+        <h4 >Rua dos bobos, nº 0 - Jd Tinha nada</h4>
+
     </form>
+   
 
 </body>
 </html>
