@@ -1,5 +1,6 @@
 const pool = require('../config/db');
-const {calculateDistances} = require('./calculateDistances')
+const { calculateDistances } = require('./calculateDistances');
+
 async function buscarPorLocalizacao(tipo, cep, engine) {
     try {
         console.log(`Iniciando busca por ${tipo}s com CEP ${cep} e tipo de serviço ${engine}.`);
@@ -9,14 +10,14 @@ async function buscarPorLocalizacao(tipo, cep, engine) {
 
         if (tipo === 'servico') {
             query = `
-                SELECT sp.id, sp.descricao, sp.valor, sp.cep
+                SELECT sp.id, sp.descricao, sp.valor, sp.prazo_combinar, sp.cep_obra AS cep_obra
                 FROM servicos_postados sp
-                WHERE sp.status = 'andamento' AND sp.tipo_servico = ?;  -- Alterado para buscar serviços em andamento
+                WHERE sp.status = 'andamento' AND sp.tipo_servico = ?; 
             `;
             params.push(engine); // Adiciona o tipo de serviço para a busca
         } else if (tipo === 'pedreiro') {
             query = `
-                SELECT p.id, p.nome, p.premium, p.cep
+                SELECT p.id, p.nome, p.premium, p.cep AS cep_obra
                 FROM pedreiros p
                 WHERE p.ativo = 1 AND (
                     p.tipo_servico_1 = ? OR
@@ -47,7 +48,7 @@ async function buscarPorLocalizacao(tipo, cep, engine) {
         console.log(`${results.length} ${tipo}(s) encontrado(s). Validando CEPs e calculando distâncias...`);
 
         // Filtra apenas os resultados que têm CEPs válidos
-        const validResults = results.filter(result => result.cep && typeof result.cep === 'string');
+        const validResults = results.filter(result => result.cep_obra && typeof result.cep_obra === 'string');
         if (validResults.length === 0) {
             console.log('Nenhum CEP válido encontrado nos resultados.');
             return [];
@@ -89,6 +90,4 @@ async function buscarPorLocalizacao(tipo, cep, engine) {
 // Exemplo de exportação de função
 module.exports = {
     buscarPorLocalizacao
-    
 };
-

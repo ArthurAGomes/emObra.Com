@@ -56,13 +56,13 @@ async function calculateDistances(originCep, destinationResults) {
         console.log('Geocodificando CEPs de destino...');
         const destinationsWithCoords = await Promise.all(
             destinationResults.map(async (destination) => {
-                const coords = await geocode(destination.cep);
+                const coords = await geocode(destination.cep_obra); // Usando cep_obra para obter coordenadas
                 return { ...destination, coords };
             })
         );
 
         // Filtrando destinos válidos
-        const validDestinations = destinationsWithCoords.filter(dest => dest.coords !== null);
+        const validDestinations = destinationsWithCoords.filter(dest => dest && dest.coords !== null);
         if (validDestinations.length === 0) {
             throw new Error('Nenhum CEP de destino válido encontrado para calcular distâncias.');
         }
@@ -77,7 +77,7 @@ async function calculateDistances(originCep, destinationResults) {
             const maxDistance = destination.premium ? 30 : 15;
 
             return {
-                destinationCep: destination.cep,
+                destinationCep: destination.cep_obra, // Usando cep_obra para o destino
                 distance: distance,
                 status: distance <= maxDistance ? 'OK' : 'DISTANCE_EXCEEDED',
                 premium: destination.premium
