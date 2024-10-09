@@ -17,8 +17,8 @@
             <img src="https://i.ibb.co/KVZRVhw/logov4-preto.png" alt="logo-em-obra" class="logo-header">
             <div class="conexao-global">
                 <span class="desconectar" style="display: none;">Sair</span>
-                <span><a href="/register">Cadastrar</a></span>
-                <a href="/login"> <button>Entrar</button></a>
+                <span><a href="/register/#cadastro">Cadastrar</a></span>
+                <a href="/login/#login"> <button>Entrar</button></a>
             </div>
         </nav>
     </header>
@@ -28,33 +28,127 @@
     </div>
 
     <main>
+        <button id="botaoteste" onclick="testando()">teste</button>
         <section class="buscador">
             <form action="/buscar" method="get" class="form-buscar-index">
                 <h2>Encontre novos serviços ou um pedreiro para sua obra!</h2>
                 <div class="radio-inputs">
                     <% servicos.forEach(servico=> { %>
                         <label>
-                            <input class="radio-input servicos" type="radio" name="engine" value="<%= servico.id %>" required />
+                            <input class="radio-input servicos" type="radio" name="engine" value="<%= servico.id %>"
+                                required />
                             <span class="radio-tile">
                                 <span class="radio-servico">
                                     <%= servico.nome_servico %>
                                 </span>
                             </span>
                         </label>
-                    <% }) %>
+                        <% }) %>
                 </div>
-                
+
                 <div class="botoes-buscar">
                     <input type="text" name="cep" placeholder="Informe um CEP..." required>
                     <!-- Campo oculto para tipo -->
                     <input type="hidden" name="tipo" id="tipo">
-        
-                    <button type="submit" id="btn-buscar-servico" onclick="document.getElementById('tipo').value='servico'">Buscar Serviço</button>
-                    <button type="submit" id="btn-buscar-pedreiro" onclick="document.getElementById('tipo').value='pedreiro'">Buscar Pedreiro</button>
+
+                    <button type="submit" id="btn-buscar-servico"
+                        onclick="document.getElementById('tipo').value='servico'">Buscar Serviço</button>
+                    <button type="submit" id="btn-buscar-pedreiro"
+                        onclick="document.getElementById('tipo').value='pedreiro'">Buscar Pedreiro</button>
                 </div>
+
+
             </form>
+
+            <div class="loader" style="display: none;">
+                <div class="wrapper">
+                    <div class="catContainer">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 733 673" class="catbody">
+                            <path fill="#212121"
+                                d="M111.002 139.5C270.502 -24.5001 471.503 2.4997 621.002 139.5C770.501 276.5 768.504 627.5 621.002 649.5C473.5 671.5 246 687.5 111.002 649.5C-23.9964 611.5 -48.4982 303.5 111.002 139.5Z">
+                            </path>
+                            <path fill="#212121" d="M184 9L270.603 159H97.3975L184 9Z"></path>
+                            <path fill="#212121" d="M541 0L627.603 150H454.397L541 0Z"></path>
+                        </svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 158 564" class="tail">
+                            <path fill="#191919"
+                                d="M5.97602 76.066C-11.1099 41.6747 12.9018 0 51.3036 0V0C71.5336 0 89.8636 12.2558 97.2565 31.0866C173.697 225.792 180.478 345.852 97.0691 536.666C89.7636 553.378 73.0672 564 54.8273 564V564C16.9427 564 -5.4224 521.149 13.0712 488.085C90.2225 350.15 87.9612 241.089 5.97602 76.066Z">
+                            </path>
+                        </svg>
+                        <div class="text">
+                            <span class="bigzzz">Z</span>
+                            <span class="zzz">Z</span>
+                        </div>
+                    </div>
+                    <div class="wallContainer">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 500 126" class="wall">
+                            <line stroke-width="6" stroke="#7C7C7C" y2="3" x2="450" y1="3" x1="50"></line>
+                            <line stroke-width="6" stroke="#7C7C7C" y2="85" x2="400" y1="85" x1="100"></line>
+                            <line stroke-width="6" stroke="#7C7C7C" y2="122" x2="375" y1="122" x1="125"></line>
+                            <line stroke-width="6" stroke="#7C7C7C" y2="43" x2="500" y1="43"></line>
+                            <line stroke-width="6" stroke="#7C7C7C" y2="1.99391" x2="115.5" y1="43.0061" x1="115.5">
+                            </line>
+                            <line stroke-width="6" stroke="#7C7C7C" y2="2.00002" x2="189" y1="43.0122" x1="189">
+                            </line>
+                            <line stroke-width="6" stroke="#7C7C7C" y2="2.00612" x2="262.5" y1="43.0183" x1="262.5">
+                            </line>
+                            <line stroke-width="6" stroke="#7C7C7C" y2="2.01222" x2="336" y1="43.0244" x1="336">
+                            </line>
+                            <line stroke-width="6" stroke="#7C7C7C" y2="2.01833" x2="409.5" y1="43.0305" x1="409.5">
+                            </line>
+                            <line stroke-width="6" stroke="#7C7C7C" y2="43" x2="153" y1="84.0122" x1="153"></line>
+                            <line stroke-width="6" stroke="#7C7C7C" y2="43" x2="228" y1="84.0122" x1="228"></line>
+                            <line stroke-width="6" stroke="#7C7C7C" y2="43" x2="303" y1="84.0122" x1="303"></line>
+                            <line stroke-width="6" stroke="#7C7C7C" y2="43" x2="378" y1="84.0122" x1="378"></line>
+                            <line stroke-width="6" stroke="#7C7C7C" y2="84" x2="192" y1="125.012" x1="192"></line>
+                            <line stroke-width="6" stroke="#7C7C7C" y2="84" x2="267" y1="125.012" x1="267"></line>
+                            <line stroke-width="6" stroke="#7C7C7C" y2="84" x2="342" y1="125.012" x1="342"></line>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="resultado-busca">
+                
+
+                <div class="swiper mySwiper">
+                    <div class="swiper-wrapper">
+                        <div class="swiper-slide card-resultado-busca">
+                            <form class="super-container">
+                                <h3>Assentar Piso</h3>
+                                <div class="container-servico-top">
+                                    <div class="background-icon-servico">
+                                        <img src="/imgs-fixas/assentar-piso.png" alt="">
+                                    </div>
+                                    <div class="info-principais-servico">
+                                        <div class="distancia-servico">
+                                            <span>distância</span>
+                                            <p>12km de você</p>
+                                        </div>
+                                        <button type="submit">Candidatar-se</button>
+                                    </div>
+                                </div>
+                                <div class="input-descricao-servico">
+                                    <div class="descricao-post">
+                                        <label for="input" class="text">Descrição do serviço</label>
+                                        <textarea type="text" placeholder="Write here..." name="input" class="input"
+                                            maxlength="300" rows="4" cols="50" disabled></textarea>
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="footer-servico">
+                                    <p>Valor: R$150,00</p>
+                                    <p>Prazo: A combinar</p>
+                                </div>
+                                <h4>Rua dos bobos, nº 0 - Jd Tinha nada</h4>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </section>
-        
+
 
         <section class="instituicoes-parceiras">
             <div class="chamada-institu-parceiras">
@@ -64,20 +158,23 @@
             <div class="container-parceiros">
                 <div class="swiper mySwiper ">
                     <div class="swiper-wrapper">
-                    <% instituicoes.forEach(instituicao=> { %>    
-                        <div class="swiper-slide">
-                            <div class="banner-institu-parceira">
-                                <div class="info-institu-parceira">
-                                    <h4><%= instituicao.nome_parceiro %></h4>
-                                    <p><%= instituicao.descricao %></p>
-                                    <a href="<%= instituicao.url %>"
-                                        class="btn-institu" target="_blank">Veja mais</a>
+                        <% instituicoes.forEach(instituicao=> { %>
+                            <div class="swiper-slide">
+                                <div class="banner-institu-parceira">
+                                    <div class="info-institu-parceira">
+                                        <h4>
+                                            <%= instituicao.nome_parceiro %>
+                                        </h4>
+                                        <p>
+                                            <%= instituicao.descricao %>
+                                        </p>
+                                        <a href="<%= instituicao.url %>" class="btn-institu" target="_blank">Veja
+                                            mais</a>
+                                    </div>
+                                    <img src="/imgs-fixas/<%= instituicao.imagem %>" alt="Senai SP">
                                 </div>
-                                <img src="/imgs-fixas/<%= instituicao.imagem %>"
-                                    alt="Senai SP">
                             </div>
-                        </div>
-                        <% }) %>
+                            <% }) %>
                     </div>
                     <div class="swiper-pagination"></div>
                 </div>
@@ -118,24 +215,30 @@
             <h2 style="text-align: center;">Lojas Parceiras do EmObra.com</h2>
             <div class="swiper mySwiper ">
                 <div class="swiper-wrapper">
-                    <% lojas.forEach(loja=> { %>    
-                    <div class="swiper-slide banner-loja-fundo">
-                        <div class="banner-loja-parceira">
-                            <img src="imgs-fixas/<%= loja.imagem %>" alt="<%= loja.nome_parceiro %>">
-                            <div class="info-loja-parceira">
-                                <h4><%= loja.nome %></h4>
-                                <p><%= loja.endereco %></p>
-                                <p><%= !loja.url ? loja.contato : loja.url %></p>
+                    <% lojas.forEach(loja=> { %>
+                        <div class="swiper-slide banner-loja-fundo">
+                            <div class="banner-loja-parceira">
+                                <img src="imgs-fixas/<%= loja.imagem %>" alt="<%= loja.nome_parceiro %>">
+                                <div class="info-loja-parceira">
+                                    <h4>
+                                        <%= loja.nome %>
+                                    </h4>
+                                    <p>
+                                        <%= loja.endereco %>
+                                    </p>
+                                    <p>
+                                        <%= !loja.url ? loja.contato : loja.url %>
+                                    </p>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <% }) %>
+                        <% }) %>
                 </div>
                 <div class="swiper-pagination"></div>
             </div>
         </section>
 
-        <section class="sobre-nos">
+        <section class="sobre-nos" id="sobre-nos">
             <h2>Vem saber mais sobre a gente</h2>
             <div class="sobre-nos-carrossel">
 
