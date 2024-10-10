@@ -1,17 +1,14 @@
 const express = require('express');
 const cors = require('cors');
-const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');  // Importa o cookie-parser
 const session = require('express-session');  // Importa express-session
-const multer = require('multer'); // Importa o multer
-const path = require('path'); // Importa path
-const fs = require('fs'); // Para manipular o sistema de arquivos
 require('dotenv').config();
 
 const routerWeb = require('./router/web');
 const routerPostagem = require('./router/postagem');
 const routerRegister = require('./router/register');
 const routerAuth = require('./router/auth');
+const routerUpload = require('./router/upload'); // Importa o novo arquivo de rotas de upload
 
 const app = express();
 
@@ -40,44 +37,6 @@ app.use(session({
     }
 }));
 
-// Configuração do multer para armazenamento de arquivos
-const storage = multer.diskStorage({
-    destination: (req, file, cb) => {
-        // Verifica o tipo de usuário na sessão
-        const userType = req.session.userType; // Supondo que você tenha o tipo de usuário na sessão
-        let uploadPath;
-
-        // Define o caminho de upload com base no tipo de usuário
-        if (userType === 'contratante') {
-            uploadPath = 'public/imagensContratante/';
-        } else if (userType === 'pedreiro') {
-            uploadPath = 'public/imagensPedreiro/';
-        } else {
-            return cb(new Error('Tipo de usuário inválido')); // Tratamento de erro caso o tipo não seja reconhecido
-        }
-
-        // Removeu a função createDirectoryIfNotExists
-        cb(null, uploadPath); // Define a pasta de destino
-    },
-    filename: (req, file, cb) => {
-        const userId = req.session.userId; // Obtém o ID do usuário da sessão
-        const fileExt = path.extname(file.originalname); // Obtém a extensão do arquivo
-        cb(null, `${userId}${fileExt}`); // Nomeia o arquivo como ID do usuário
-    }
-});
-
-const upload = multer({ storage });
-
-// Rota para upload da foto de perfil
-app.post('/upload-foto', upload.single('fotoPerfil'), (req, res) => {
-    if (!req.file) {
-        return res.status(400).send('Nenhum arquivo foi enviado.');
-    }
-
-    // Aqui você pode armazenar a nova foto de perfil no banco de dados, se necessário
-    res.send('Foto de perfil alterada com sucesso!');
-});
-
 // Middleware para disponibilizar a variável isAuthenticated nas views EJS
 app.use((req, res, next) => {
     res.locals.isAuthenticated = req.session.userId ? true : false;  // Define isAuthenticated com base na sessão
@@ -86,10 +45,10 @@ app.use((req, res, next) => {
 
 // Rotas
 app.use(routerWeb);         // Rotas principais do site
-app.use(routerPostagem)     //Rotas de postar serviço
+app.use(routerPostagem);    // Rotas de postar serviço
 app.use(routerAuth);        // Rotas de autenticação
 app.use(routerRegister);    // Rotas de cadastro
-
+app.use(routerUpload);      // Rotas de upload de arquivos
 
 // Porta do servidor
 const PORT = process.env.PORT || 3000;
