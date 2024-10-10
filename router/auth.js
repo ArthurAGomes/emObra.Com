@@ -28,10 +28,12 @@ router.post('/auth', async (req, res) => {
         }
 
         // Armazena informações do usuário na sessão
-        req.session.userId = user.id;
+        req.session.userId = user.id;  // Certifique-se de que isso está sendo executado
         req.session.userType = type;
 
-        // Redireciona para o perfil com base no tipo de usuário
+        console.log('Sessão após login:', req.session);  // Adicione este log para verificar a sessão
+
+        // Redireciona com base no tipo de usuário
         if (type === 'pedreiro') {
             return res.redirect('/perfil-pedreiro');
         } else {
