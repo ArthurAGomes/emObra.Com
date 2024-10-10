@@ -1,105 +1,416 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cadastro</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
 </head>
+
 <body>
-    <h1>Cadastro de Usuário</h1>
 
-    <div>
-        <button id="btnPedreiro" onclick="setUserType('pedreiro')">Cadastrar como Pedreiro</button>
-        <button id="btnContratante" onclick="setUserType('contratante')">Cadastrar como Contratante</button>
-    </div>
-
-    <form id="registrationForm" method="POST" action="/register/pedreiro" style="display:none;">
-        <input type="hidden" name="tipo" value="pedreiro">
-
-        <label for="nome">Nome:</label>
-        <input type="text" name="nome" required>
-
-        <label for="telefone">Telefone:</label>
-        <input type="text" name="telefone">
-
-        <label for="cpf">CPF:</label>
-        <input type="text" name="cpf" required>
-
-        <label for="email">Email:</label>
-        <input type="email" name="email" required>
-
-        <label for="senha">Senha:</label>
-        <input type="password" name="senha" required>
-
-        <label for="cep">CEP:</label>
-        <input type="text" name="cep" required>
-
-        <div id="servicosContainer" style="display:none;">
-            <h3>Tipos de Serviços (Máx. 3 para Pedreiro)</h3>
-            <input type="checkbox" name="tipos_servicos" value="1"> Pintura<br>
-            <input type="checkbox" name="tipos_servicos" value="2"> Reforma<br>
-            <input type="checkbox" name="tipos_servicos" value="3"> Elétrica<br>
-            <input type="checkbox" name="tipos_servicos" value="4"> Hidráulica<br>
-            <input type="checkbox" name="tipos_servicos" value="5"> Alvenaria<br>
-            <input type="checkbox" name="tipos_servicos" value="6"> Jardinagem<br>
-            <input type="checkbox" name="tipos_servicos" value="7"> Marcenaria<br>
-            <input type="checkbox" name="tipos_servicos" value="8"> Gesso<br>
-            <input type="checkbox" name="tipos_servicos" value="9"> Telhado<br>
-            <input type="checkbox" name="tipos_servicos" value="10"> Instalações de Ar-Condicionado<br>
-            <input type="checkbox" name="tipos_servicos" value="11"> Pisos e Revestimentos<br>
-            <input type="checkbox" name="tipos_servicos" value="12"> Limpeza Pós-Obra<br>
-            <input type="checkbox" name="tipos_servicos" value="13"> Vidraçaria<br>
-            <input type="checkbox" name="tipos_servicos" value="14"> Impermeabilização<br>
-            <input type="checkbox" name="tipos_servicos" value="15"> Serralheria<br>
-            <input type="checkbox" name="tipos_servicos" value="16"> Dedetização<br>
-            <input type="checkbox" name="tipos_servicos" value="17"> Solda<br>
-            <input type="checkbox" name="tipos_servicos" value="18"> CFTV e Segurança<br>
-            <input type="checkbox" name="tipos_servicos" value="19"> Encanamento de Gás<br>
-            <input type="checkbox" name="tipos_servicos" value="20"> Construção de Piscinas<br>
-            <input type="checkbox" name="tipos_servicos" value="21"> Instalações de Energia Solar<br>
-        </div>
+    <main class="main-login-cad">
         
+        <div class="banner-login">
+            <h1><a href="/"><img src="https://i.ibb.co/KVZRVhw/logov4-preto.png" alt="logo-em-obra"
+                        class="logo-header"></a></h1>
+            <h3>Facilitando conexões, <br>concretizando projetos.</h3>
+        </div>
 
-        <button type="submit">Cadastrar</button>
-    </form>
+        <div class="login-container">
+            <div class="form-login">
+                <h1>Cadastro</h1>
 
-    <form id="registrationFormContratante" method="POST" action="/register/contratante" style="display:none;">
-        <input type="hidden" name="tipo" value="contratante">
+                <div class="tipo-cadastro">
+                    <button id="btnPedreiro" onclick="setUserType('pedreiro')" class="botao-entrar">Cadastrar como
+                        Pedreiro</button>
+                    <button id="btnContratante" onclick="setUserType('contratante')" class="botao-entrar">Cadastrar como
+                        Contratante</button>
+                </div>
 
-        <label for="nome">Nome:</label>
-        <input type="text" name="nome" required>
+                <form id="registrationForm" method="POST" action="/register/pedreiro" style="display:none;">
 
-        <label for="telefone">Telefone:</label>
-        <input type="text" name="telefone">
+                    <div id="cadastroInicio" class="avancar-cadastro-pedreiro">
+                        <div class="input-control-login">
+                            <input type="hidden" name="tipo" value="pedreiro">
+                            <label for="nome" class="text">Nome:</label>
+                            <input type="text" name="nome" required class="input">
+                        </div>
+                        <div class="input-control-login">
+                            <label for="telefone" class="text">Telefone:</label>
+                            <input type="text" name="telefone" class="input">
+                        </div>
+                        <div class="input-control-login">
+                            <label for="cpf" class="text">CPF:</label>
+                            <input type="text" name="cpf" required class="input">
+                        </div>
+                        <div class="input-control-login">
+                            <label for="email" class="text">Email:</label>
+                            <input type="text" name="email" required class="input">
+                        </div>
+                        <div class="input-control-login">
+                            <label for="senha" class="text">Senha:</label>
+                            <input type="password" name="senha" required class="input">
+                        </div>
+                        
+                        <div class="input-control-login">
+                            <label for="cep" class="text">CEP:</label>
+                            <input type="text" name="cep" required class="input">
+                        </div>
+                    </div>
 
-        <label for="cpf">CPF:</label>
-        <input type="text" name="cpf" required>
+                    <div class="avancar-cadastro-pedreiro botao-entrar" onclick="avancarCadastro()"> Avançar</div>
+                    
+                    <div id="servicosContainer" style="display: none;" class="cadastro-tipo-servico">
+                        <h3>Agora, escolha os tipos de serviços que deseja oferecer <br><span>(Máx. 3 serviços)</span></h3>
 
-        <label for="email">Email:</label>
-        <input type="email" name="email" required>
+                        <div class="cadastro-pedreiro-checkbox">
+                            <input type="checkbox" id="pintura" name="tipos_servicos" value="1">
+                            <label for="pintura">
+                              <div class="icone-servico">
+                                <img src="/imgs-fixas/pintura.png" alt="Pintura">
+                              </div>
+                              <div class="info-servicos-cadastro">
+                                <span>Pintura</span>
+                                <p>Pintura de paredes internas e externas, garantindo acabamento de qualidade.</p>
+                              </div>
+                            </label>
+                          </div>
+                          
+                          <div class="cadastro-pedreiro-checkbox">
+                            <input type="checkbox" id="reforma" name="tipos_servicos" value="2">
+                            <label for="reforma">
+                              <div class="icone-servico">
+                                <img src="/imgs-fixas/reforma.png" alt="Reforma">
+                              </div>
+                              <div class="info-servicos-cadastro">
+                                <span>Reforma</span>
+                                <p>Reformas de espaços residenciais e comerciais, melhorando estrutura e estética.</p>
+                              </div>
+                            </label>
+                          </div>
+                          
+                          <div class="cadastro-pedreiro-checkbox">
+                            <input type="checkbox" id="eletrica" name="tipos_servicos" value="3">
+                            <label for="eletrica">
+                              <div class="icone-servico">
+                                <img src="/imgs-fixas/eletrica.png" alt="Elétrica">
+                              </div>
+                              <div class="info-servicos-cadastro">
+                                <span>Elétrica</span>
+                                <p>Instalação de sistemas elétricos, tomadas e painéis, com segurança garantida.</p>
+                              </div>
+                            </label>
+                          </div>
+                          
+                          <div class="cadastro-pedreiro-checkbox">
+                            <input type="checkbox" id="hidraulica" name="tipos_servicos" value="4">
+                            <label for="hidraulica">
+                              <div class="icone-servico">
+                                <img src="/imgs-fixas/hidraulica.png" alt="Hidráulica">
+                              </div>
+                              <div class="info-servicos-cadastro">
+                                <span>Hidráulica</span>
+                                <p>Serviços de encanamento e reparos de água e esgoto, com foco em eficiência.</p>
+                              </div>
+                            </label>
+                          </div>
+                          
+                          <div class="cadastro-pedreiro-checkbox">
+                            <input type="checkbox" id="alvenaria" name="tipos_servicos" value="5">
+                            <label for="alvenaria">
+                              <div class="icone-servico">
+                                <img src="/imgs-fixas/alvenaria.png" alt="Alvenaria">
+                              </div>
+                              <div class="info-servicos-cadastro">
+                                <span>Alvenaria</span>
+                                <p>Construção de paredes, fundações e outras estruturas em blocos ou tijolos.</p>
+                              </div>
+                            </label>
+                          </div>
+                          
+                          <div class="cadastro-pedreiro-checkbox">
+                            <input type="checkbox" id="jardinagem" name="tipos_servicos" value="6">
+                            <label for="jardinagem">
+                              <div class="icone-servico">
+                                <img src="/imgs-fixas/jardinagem.png" alt="Jardinagem">
+                              </div>
+                              <div class="info-servicos-cadastro">
+                                <span>Jardinagem</span>
+                                <p>Cuidados e design de áreas verdes, com manutenção de jardins e gramados.</p>
+                              </div>
+                            </label>
+                          </div>
+                          
+                          <div class="cadastro-pedreiro-checkbox">
+                            <input type="checkbox" id="marcenaria" name="tipos_servicos" value="7">
+                            <label for="marcenaria">
+                              <div class="icone-servico">
+                                <img src="/imgs-fixas/marcenaria.png" alt="Marcenaria">
+                              </div>
+                              <div class="info-servicos-cadastro">
+                                <span>Marcenaria</span>
+                                <p>Fabricação e instalação de móveis sob medida e peças de madeira.</p>
+                              </div>
+                            </label>
+                          </div>
+                          
+                          <div class="cadastro-pedreiro-checkbox">
+                            <input type="checkbox" id="gesso" name="tipos_servicos" value="8">
+                            <label for="gesso">
+                              <div class="icone-servico">
+                                <img src="/imgs-fixas/gesso.png" alt="Gesso">
+                              </div>
+                              <div class="info-servicos-cadastro">
+                                <span>Gesso</span>
+                                <p>Instalação de forros, sancas e acabamentos em gesso para ambientes internos.</p>
+                              </div>
+                            </label>
+                          </div>
+                          
+                          <div class="cadastro-pedreiro-checkbox">
+                            <input type="checkbox" id="telhado" name="tipos_servicos" value="9">
+                            <label for="telhado">
+                              <div class="icone-servico">
+                                <img src="/imgs-fixas/telhado.png" alt="Telhado">
+                              </div>
+                              <div class="info-servicos-cadastro">
+                                <span>Telhado</span>
+                                <p>Construção e reparo de telhados, garantindo proteção e durabilidade.</p>
+                              </div>
+                            </label>
+                          </div>
+                          
+                          <div class="cadastro-pedreiro-checkbox">
+                            <input type="checkbox" id="ar-condicionado" name="tipos_servicos" value="10">
+                            <label for="ar-condicionado">
+                              <div class="icone-servico">
+                                <img src="/imgs-fixas/ar-condicionado.png" alt="Ar-Condicionado">
+                              </div>
+                              <div class="info-servicos-cadastro">
+                                <span>Instalações de Ar-Condicionado</span>
+                                <p>Instalação e manutenção de ar-condicionado para conforto térmico.</p>
+                              </div>
+                            </label>
+                          </div>
+                          
+                          <div class="cadastro-pedreiro-checkbox">
+                            <input type="checkbox" id="pisos-revestimentos" name="tipos_servicos" value="11">
+                            <label for="pisos-revestimentos">
+                              <div class="icone-servico">
+                                <img src="/imgs-fixas/pisos-revestimentos.png" alt="Pisos e Revestimentos">
+                              </div>
+                              <div class="info-servicos-cadastro">
+                                <span>Pisos e Revestimentos</span>
+                                <p>Instalação de pisos cerâmicos, porcelanatos e revestimentos diversos.</p>
+                              </div>
+                            </label>
+                          </div>
+                          
+                          <div class="cadastro-pedreiro-checkbox">
+                            <input type="checkbox" id="limpeza-pos-obra" name="tipos_servicos" value="12">
+                            <label for="limpeza-pos-obra">
+                              <div class="icone-servico">
+                                <img src="/imgs-fixas/limpeza-pos-obra.png" alt="Limpeza Pós-Obra">
+                              </div>
+                              <div class="info-servicos-cadastro">
+                                <span>Limpeza Pós-Obra</span>
+                                <p>Limpeza final de obras para deixar o ambiente pronto para uso imediato.</p>
+                              </div>
+                            </label>
+                          </div>
+                          
+                          <div class="cadastro-pedreiro-checkbox">
+                            <input type="checkbox" id="vidracaria" name="tipos_servicos" value="13">
+                            <label for="vidracaria">
+                              <div class="icone-servico">
+                                <img src="/imgs-fixas/vidracaria.png" alt="Vidraçaria">
+                              </div>
+                              <div class="info-servicos-cadastro">
+                                <span>Vidraçaria</span>
+                                <p>Instalação e reparo de vidros, espelhos e janelas, com acabamentos perfeitos.</p>
+                              </div>
+                            </label>
+                          </div>
+                          
+                          <div class="cadastro-pedreiro-checkbox">
+                            <input type="checkbox" id="impermeabilizacao" name="tipos_servicos" value="14">
+                            <label for="impermeabilizacao">
+                              <div class="icone-servico">
+                                <img src="/imgs-fixas/impermeabilizacao.png" alt="Impermeabilização">
+                              </div>
+                              <div class="info-servicos-cadastro">
+                                <span>Impermeabilização</span>
+                                <p>Proteção contra infiltrações em paredes, telhados e lajes.</p>
+                              </div>
+                            </label>
+                          </div>
+                          
+                          <div class="cadastro-pedreiro-checkbox">
+                            <input type="checkbox" id="serralheria" name="tipos_servicos" value="15">
+                            <label for="serralheria">
+                              <div class="icone-servico">
+                                <img src="/imgs-fixas/serralheria.png" alt="Serralheria">
+                              </div>
+                              <div class="info-servicos-cadastro">
+                                <span>Serralheria</span>
+                                <p>Fabricação de estruturas metálicas, como portões, grades e escadas.</p>
+                              </div>
+                            </label>
+                          </div>
+                          
+                          <div class="cadastro-pedreiro-checkbox">
+                            <input type="checkbox" id="dedetizacao" name="tipos_servicos" value="16">
+                            <label for="dedetizacao">
+                              <div class="icone-servico">
+                                <img src="/imgs-fixas/dedetizacao.png" alt="Dedetização">
+                              </div>
+                              <div class="info-servicos-cadastro">
+                                <span>Dedetização</span>
+                                <p>Controle de pragas urbanas, mantendo ambientes livres de insetos e roedores.</p>
+                              </div>
+                            </label>
+                          </div>
+                          
+                          <div class="cadastro-pedreiro-checkbox">
+                            <input type="checkbox" id="solda" name="tipos_servicos" value="17">
+                            <label for="solda">
+                              <div class="icone-servico">
+                                <img src="/imgs-fixas/solda.png" alt="Solda">
+                              </div>
+                              <div class="info-servicos-cadastro">
+                                <span>Solda</span>
+                                <p>Serviços de solda em estruturas metálicas e tubulações para diversos fins.</p>
+                              </div>
+                            </label>
+                          </div>
+                          
+                          <div class="cadastro-pedreiro-checkbox">
+                            <input type="checkbox" id="cftv" name="tipos_servicos" value="18">
+                            <label for="cftv">
+                              <div class="icone-servico">
+                                <img src="/imgs-fixas/cftv.png" alt="CFTV e Segurança">
+                              </div>
+                              <div class="info-servicos-cadastro">
+                                <span>CFTV e Segurança</span>
+                                <p>Instalação de câmeras de segurança e sistemas de monitoramento em imóveis.</p>
+                              </div>
+                            </label>
+                          </div>
+                          
+                          <div class="cadastro-pedreiro-checkbox">
+                            <input type="checkbox" id="encanamento-gas" name="tipos_servicos" value="19">
+                            <label for="encanamento-gas">
+                              <div class="icone-servico">
+                                <img src="/imgs-fixas/encanamento-gas.png" alt="Encanamento de Gás">
+                              </div>
+                              <div class="info-servicos-cadastro">
+                                <span>Encanamento de Gás</span>
+                                <p>Instalação e manutenção de sistemas de gás para cozinhas e aquecedores.</p>
+                              </div>
+                            </label>
+                          </div>
+                          
+                          <div class="cadastro-pedreiro-checkbox">
+                            <input type="checkbox" id="piscinas" name="tipos_servicos" value="20">
+                            <label for="piscinas">
+                              <div class="icone-servico">
+                                <img src="/imgs-fixas/piscinas.png" alt="Construção de Piscinas">
+                              </div>
+                              <div class="info-servicos-cadastro">
+                                <span>Construção de Piscinas</span>
+                                <p>Projetos e construção de piscinas em diversos materiais e tamanhos.</p>
+                              </div>
+                            </label>
+                          </div>
+                          
+                          <div class="cadastro-pedreiro-checkbox">
+                            <input type="checkbox" id="energia-solar" name="tipos_servicos" value="21">
+                            <label for="energia-solar">
+                              <div class="icone-servico">
+                                <img src="/imgs-fixas/energia-solar.png" alt="Energia Solar">
+                              </div>
+                              <div class="info-servicos-cadastro">
+                                <span>Instalações de Energia Solar</span>
+                                <p>Instalação de painéis solares para gerar energia limpa e reduzir custos.</p>
+                              </div>
+                            </label>
+                          </div>
+                          
 
-        <label for="senha">Senha:</label>
-        <input type="password" name="senha" required>
+                        
+                    </div>
 
-        <label for="cep">CEP:</label>
-        <input type="text" name="cep" required>
+                    <div class="manter-conectado cadastro-tipo-servico" style="display: none;">
+                        <div>
+                            <input type="checkbox" id="conectado" name="conectado">
+                            <label for="conectado">Aceitar termos</label>
+                        </div>
 
-        <button type="submit">Cadastrar</button>
-    </form>
+                    </div>
 
-    <script>
-        function setUserType(type) {
-            if (type === 'pedreiro') {
-                document.getElementById('registrationForm').style.display = 'block';
-                document.getElementById('registrationFormContratante').style.display = 'none';
-                document.getElementById('servicosContainer').style.display = 'block';
-                document.getElementById('registrationForm').action = '/register/pedreiro';
-            } else {
-                document.getElementById('registrationFormContratante').style.display = 'block';
-                document.getElementById('registrationForm').style.display = 'none';
-                document.getElementById('registrationFormContratante').action = '/register/contratante';
-            }
-        }
-    </script>
+                    <button type="submit" class="botao-entrar cadastro-tipo-servico" style="display: none;">Cadastrar</button>
+                </form>
+
+                <form id="registrationFormContratante" method="POST" action="/register/contratante" style="display:none;">
+                    
+                    <div class="input-control-login">
+                        <input type="hidden" name="tipo" value="contratante">
+                        <label for="nome" class="text">Nome:</label>
+                        <input type="text" name="nome" required class="input">
+                    </div>
+
+                    <div class="input-control-login">
+                        <label for="telefone" class="text">Telefone:</label>
+                        <input type="text" name="telefone" class="input">
+                    </div>
+
+                    <div class="input-control-login">
+                        <label for="cpf" class="text">CPF:</label>
+                        <input type="text" name="cpf" required class="input">
+                    </div>
+
+                    <div class="input-control-login">
+                        <label for="email" class="text">Email:</label>
+                        <input type="text" name="email" required class="input">
+                    </div>
+
+                    <div class="input-control-login">
+                        <label for="senha" class="text">Senha:</label>
+                        <input type="password" name="senha" required class="input">
+                    </div>
+
+                    <div class="input-control-login">
+                        <label for="cep" class="text">CEP:</label>
+                        <input type="text" name="cep" required class="input">
+                    </div>
+
+                    <div class="manter-conectado">
+                        <div>
+                            <input type="checkbox" id="conectado" name="conectado">
+                            <label for="conectado">Aceitar termos</label>
+                        </div>
+
+                    </div>
+                    <button type="submit" class="botao-entrar">Cadastrar</button>
+                </form>
+                <div>
+                    <a href="/login" class="outras-acoes-login" style="display: none;" id="redirecionar-login">Já possui uma conta? Faça login</a>
+                   
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" defer></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js" defer></script>
+    <script src="/js/script.js" defer></script>
 </body>
+
 </html>

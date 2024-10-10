@@ -16,6 +16,10 @@ body {
   height: 100vh;
   max-width: 100vw;
   overflow-x: hidden;
+  align-items: center;
+  min-height: 100vh;
+  height: fit-content;
+  margin: 0;
 }
 
 header {
@@ -641,6 +645,132 @@ footer {
 /* ################################################################################# */
 /* Cadastro */
 
+.tipo-cadastro {
+  display: flex;
+  gap: 10px;
+}
+
+#btnPedreiro,
+#btnContratante {
+  background-color: #020411;
+}
+
+#btnPedreiro:focus,
+#btnContratante:focus {
+  outline: none;
+}
+
+#cadastroInicio {
+  width: 100%;
+}
+
+#servicosContainer {
+  overflow-y: auto;
+  height: 400px;
+  padding: 10px;
+
+  h3 {
+    font-size: clamp(14px, 2vw, 16px);
+    text-align: left;
+    margin-bottom: 15px;
+
+    span {
+      font-size: clamp(12px, 1vw, 14px);
+      font-style: italic;
+
+    }
+  }
+
+  ;
+
+}
+
+#servicosContainer {
+  scrollbar-width: 10px;
+  /* Para Firefox */
+  scrollbar-color: #020411 #fff;
+  /* Botão e fundo */
+  /* Arredondar bordas */
+}
+
+.cadastro-pedreiro-checkbox {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.cadastro-pedreiro-checkbox input[type="checkbox"] {
+  display: none;
+  /* Esconde o checkbox */
+}
+
+.cadastro-pedreiro-checkbox label {
+  display: flex;
+  align-items: center;
+  /* padding: 10px 20px; */
+  width: 100%;
+  height: 100px;
+  background-color: #f0f0f0;
+  border: 2px solid #020411;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.cadastro-pedreiro-checkbox .icone-servico {
+
+  background-color: #020411;
+  transition: background-color 0.3s ease;
+  width: 35%;
+  height: 100%;
+  padding: 25px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  img {
+    width: 100%;
+    max-width: 50px;
+    height: auto;
+    object-fit: cover;
+  }
+}
+
+.info-servicos-cadastro {
+  width: 70%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  color: #020411;
+  padding: 5px 10px;
+
+  p {
+    margin: 0;
+    font-size: clamp(10px, 1vw, 12px);
+    text-align: left
+  }
+
+  ;
+
+  span {
+    font-size: clamp(12px, 2vw, 14px);
+    font-weight: 700;
+    text-align: left;
+  }
+}
+
+.cadastro-pedreiro-checkbox input[type="checkbox"]:checked+label {
+  /* background-color: #FE8813; */
+  border-color: #FE8813;
+  box-shadow: inset 0 4px 8px rgba(0, 0, 0, 0.4);
+}
+
+.cadastro-pedreiro-checkbox input[type="checkbox"]:checked+label .icone-servico {
+  background-color: #FE8813;
+}
+
+
+
 /* ############################################################################## */
 /* Login */
 
@@ -652,9 +782,9 @@ footer {
   align-content: center;
   justify-content: center;
   gap: 10px;
-  margin: 0 auto;
+  margin: 10px auto;
   max-width: 720px;
-  height: 100vh;
+  min-height: 100vh;
 }
 
 .banner-login {
@@ -663,12 +793,12 @@ footer {
   padding: 0 10px;
 
   h1 {
-      width: fit-content;
-      margin: auto;
+    width: fit-content;
+    margin: auto;
   }
 
   h3 {
-      font-size: 1.3em;
+    font-size: 1.3em;
   }
 }
 
@@ -691,15 +821,15 @@ footer {
   padding: 10px 0;
 
   h1 {
-      font-size: 1.5em;
+    font-size: 1.5em;
   }
 
   form {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      width: 100%;
-      gap: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    gap: 10px;
   }
 }
 
@@ -749,11 +879,11 @@ footer {
   gap: 30px;
 
   a {
-      font-size: .9em;
-      cursor: pointer;
-      font-weight: 600;
-      text-decoration: none;
-      color: #020411;
+    font-size: .9em;
+    cursor: pointer;
+    font-weight: 600;
+    text-decoration: none;
+    color: #020411;
   }
 }
 
@@ -762,9 +892,9 @@ footer {
   align-items: center;
 
   label {
-      font-size: .9em;
-      margin: 0;
-      font-weight: 600;
+    font-size: .9em;
+    margin: 0;
+    font-weight: 600;
   }
 }
 
@@ -1073,6 +1203,7 @@ footer {
   justify-content: space-between;
   align-items: center;
   gap: 10px;
+
   p {
     font-weight: bold;
     font-size: clamp(14px, 2vw, 14px);
@@ -1084,9 +1215,12 @@ footer {
   width: 100%;
   max-width: 720px;
   margin: auto;
-  display: none; /*Inicia oculto*/
-  opacity: 0; /*Inicia invisível */
-  transform: translateX(100%); /* Começa fora da tela à direita */
+  display: none;
+  /*Inicia oculto*/
+  opacity: 0;
+  /*Inicia invisível */
+  transform: translateX(100%);
+  /* Começa fora da tela à direita */
   transition: transform 0.5s ease, opacity 0.5s ease;
 
   .card-resultado-busca {
@@ -1098,10 +1232,11 @@ footer {
 .resultado-busca.animate-slide-in {
   transform: translateX(0);
   opacity: 1;
-  transition: transform 1s ease, opacity 1s ease; /* 1 segundo para a animação */
+  transition: transform 1s ease, opacity 1s ease;
+  /* 1 segundo para a animação */
 }
 
-/* From Uiverse.io by vinodjangid07 */ 
+/* From Uiverse.io by vinodjangid07 */
 .loader {
   width: fit-content;
   height: fit-content;
@@ -1113,9 +1248,12 @@ footer {
 }
 
 .show-loader {
-  display: flex; /* Exibe o loader */
-  opacity: 1; /* Torna visível */
+  display: flex;
+  /* Exibe o loader */
+  opacity: 1;
+  /* Torna visível */
 }
+
 .wrapper {
   width: fit-content;
   height: fit-content;
@@ -1124,6 +1262,7 @@ footer {
   justify-content: center;
   align-items: center;
 }
+
 .catContainer {
   width: 100%;
   height: fit-content;
@@ -1132,9 +1271,11 @@ footer {
   justify-content: center;
   position: relative;
 }
+
 .catbody {
   width: 80px;
 }
+
 .tail {
   position: absolute;
   width: 17px;
@@ -1142,20 +1283,25 @@ footer {
   animation: tail 0.5s ease-in infinite alternate-reverse;
   transform-origin: top;
 }
+
 @keyframes tail {
   0% {
     transform: rotateZ(60deg);
   }
+
   50% {
     transform: rotateZ(0deg);
   }
+
   100% {
     transform: rotateZ(-20deg);
   }
 }
+
 .wall {
   width: 300px;
 }
+
 .text {
   display: flex;
   flex-direction: column;
@@ -1163,12 +1309,14 @@ footer {
   position: absolute;
   margin: 0px 0px 100px 120px;
 }
+
 .zzz {
   color: black;
   font-weight: 700;
   font-size: 15px;
   animation: zzz 2s linear infinite;
 }
+
 .bigzzz {
   color: black;
   font-weight: 700;
@@ -1176,13 +1324,16 @@ footer {
   margin-left: 10px;
   animation: zzz 2.3s linear infinite;
 }
+
 @keyframes zzz {
   0% {
     color: transparent;
   }
+
   50% {
     color: black;
   }
+
   100% {
     color: transparent;
   }
@@ -1206,18 +1357,20 @@ footer {
 
 @media screen and (max-width: 1199px) {
   .resultado-busca {
-      transform: none; /* Sem animação em telas pequenas */
+    transform: none;
+    /* Sem animação em telas pequenas */
   }
 }
 
 /* Alinhamento flexível dos elementos em resoluções menores */
-.buscador > * {
+.buscador>* {
   flex: 1 1 100%;
 }
 
 @media screen and (min-width: 1200px) {
-  .buscador > * {
-      flex: 1 1 48%; /* Aparecem lado a lado em telas maiores */
+  .buscador>* {
+    flex: 1 1 48%;
+    /* Aparecem lado a lado em telas maiores */
   }
 }
 
@@ -1225,7 +1378,7 @@ footer {
 
   .pedreiro-login,
   .contratante-login {
-      display: block;
-      /* Exibe as imagens a partir de 1000px */
+    display: block;
+    /* Exibe as imagens a partir de 1000px */
   }
 }

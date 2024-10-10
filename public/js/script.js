@@ -137,3 +137,47 @@ function buscarResultados() {
             resultadoContainer.innerHTML = '<p>Ocorreu um erro ao buscar os resultados.</p>';
         });
 }
+
+function setUserType(type) {
+    if (type === 'pedreiro') {
+        document.getElementById('registrationForm').style.display = 'flex';
+
+        document.getElementById('registrationFormContratante').style.display = 'none';
+
+        // document.getElementById('servicosContainer').style.display = 'flex';
+
+        document.getElementById('registrationForm').action = '/register/pedreiro';
+
+        document.getElementById('btnPedreiro').style.cssText = 'background-color: #fff; box-shadow: inset 0 4px 8px rgba(0, 0, 0, 0.4); color: #020411;';
+        
+        document.getElementById('btnContratante').style.cssText = 'background-color: #020411; box-shadow: none; color: #fff;';
+
+
+    } else {
+        document.getElementById('registrationFormContratante').style.display = 'flex';
+        document.getElementById('registrationForm').style.display = 'none';
+        document.getElementById('registrationFormContratante').action = '/register/contratante';
+        document.getElementById('redirecionar-login').style.display = 'block'
+
+        document.getElementById('btnContratante').style.cssText = 'background-color: #fff; box-shadow: inset 0 4px 8px rgba(0, 0, 0, 0.4); color: #020411;';
+        
+        document.getElementById('btnPedreiro').style.cssText = 'background-color: #020411; box-shadow: none; color: #fff;';
+    }
+}
+
+function avancarCadastro() {
+    const cadastrarTipoServico = document.querySelectorAll('.cadastro-tipo-servico');
+    const esconderInicio = document.querySelectorAll('.avancar-cadastro-pedreiro');
+    
+        cadastrarTipoServico.forEach(tipo => {
+            tipo.style.display = 'block';
+        });
+
+        esconderInicio.forEach(tipo => {
+            tipo.style.display = 'none'; // Oculta a primeira parte
+        });
+    
+}
+
+
+
