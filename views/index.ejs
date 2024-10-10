@@ -68,36 +68,45 @@
                 </div>
             </div>
         
-            <div class="resultado-busca" style="display: none;">
+            <div class="resultado-busca">
                 <div class="swiper mySwiper">
                     <div class="swiper-wrapper">
-                        <!-- Resultados serão exibidos aqui -->
                         <% resultados.forEach(resultado => { %>
                             <div class="swiper-slide card-resultado-busca">
-                                <h3><%= resultado.descricao %></h3>
-                                <div class="container-servico-top">
-                                    <div class="background-icon-servico">
-                                        <img src="/imgs-fixas/<%= resultado.img_servico || 'default.jpg' %>" alt="">
-                                    </div>
-                                    <div class="info-principais-servico">
-                                        <div class="distancia-servico">
-                                            <span>Distância</span>
-                                            <p><span><%= resultado.distancia || 0 %></span> km de você</p>
+                                <form class="super-container">
+                                    <h3><%= resultado.nome_servico %></h3>
+                                    <div class="container-servico-top">
+                                        <div class="background-icon-servico">
+                                            <img src="/imgs-fixas/<%= resultado.imagem_servico %>" alt="">
                                         </div>
-                                        <button type="submit">Candidatar-se</button>
+                                        <div class="info-principais-servico">
+                                            <div class="distancia-servico">
+                                                <span>Distância</span>
+                                                <p><span><%= resultado.distancia %></span> km de você</p>
+                                            </div>
+                                            <button type="submit">Candidatar-se</button>
+                                        </div>
                                     </div>
-                                </div>
-                                <hr>
-                                <div class="footer-servico">
-                                    <p>Valor: R$ <%= resultado.valor %>,00</p>
-                                    <p>Prazo: <%= resultado.prazo_combinar %></p>
-                                </div>
+                                    <div class="input-descricao-servico">
+                                        <div class="descricao-post">
+                                            <label for="input" class="text">Descrição do serviço</label>
+                                            <textarea type="text" placeholder="<%= resultado.descricao %>" name="input" class="input"
+                                                maxlength="300" rows="4" cols="50" disabled></textarea>
+                                        </div>
+                                    </div>
+                                    <hr>
+                                    <div class="footer-servico">
+                                        <p>Valor: R$ <%= resultado.valor %>,00</p>
+                                        <p>Prazo: <%= resultado.prazo_combinar %></p>
+                                    </div>
+                                    <h4><%= resultado.endereco %></h4>
+                                </form>
                             </div>
                         <% }) %>
                     </div>
                 </div>
-            </div>
-        </section>
+        </div>
+    </section>
         
         <section class="vantagens-premium">
             <h2>Conheça as vantagens de ser PedreiroPro</h2>

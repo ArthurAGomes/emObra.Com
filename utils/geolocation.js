@@ -51,8 +51,6 @@ async function buscarPorLocalizacao(tipo, cep, engine) {
             return [];
         }
 
-        console.log('Resultados válidos encontrados:', validResults);
-
         // Calcular distâncias usando os CEPs válidos
         const distances = await calculateDistances(cep, validResults);
 
@@ -66,17 +64,15 @@ async function buscarPorLocalizacao(tipo, cep, engine) {
         // Filtrar resultados com base na distância (15km para padrão, 30km para premium)
         const filteredResults = resultsWithDistance
             .filter(result => result.distancia !== null)
-            .filter(result => {
-                const isPremium = result.premium || false; // Define como false se undefined
-                return (isPremium && result.distancia <= 30) || (!isPremium && result.distancia <= 15);
+            .filter(result => (result.premium && result.distancia <= 30) || result.distancia <= 15)
+            .sort((a, b) => {
+                // Pedreiros premium têm prioridade
+                if (tipo === 'pedreiro' && a.premium !== b.premium) {
+                    return b.premium - a.premium;
+                }
+                // Ordenar pela distância
+                return a.distancia - b.distancia;
             });
-
-        console.log('Resultados após filtragem:', filteredResults);
-
-        if (filteredResults.length === 0) {
-            console.log(`Nenhum ${tipo} encontrado após filtragem.`);
-            return []; // Retorna array vazio se nenhum resultado for encontrado após filtragem
-        }
 
         // Retornar os resultados formatados
         return filteredResults.map(result => {
