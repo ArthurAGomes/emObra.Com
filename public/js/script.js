@@ -63,7 +63,7 @@ window.addEventListener('load', function() {
         loader.classList.remove('show-loader');
 
         // Exibe os resultados com a animação de deslizamento
-        resultadosContainer.style.display = 'block';
+        resultadosContainer.style.display = 'flex';
         setTimeout(() => {
             resultadosContainer.classList.add('animate-slide-in');
         }, 100); // Delay para a animação de deslizamento
