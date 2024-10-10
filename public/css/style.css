@@ -247,7 +247,7 @@ h2 {
     max-width: 250px;
     border-radius: 5px;
     border: 2px solid #020411;
-    line-height: 35px;
+    height: 40px;
     text-indent: 10px;
   }
 
@@ -266,6 +266,7 @@ h2 {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+  align-items: center;
   gap: 20px;
 
   button {
@@ -274,11 +275,13 @@ h2 {
     border: none;
     padding: 5px 20px;
     width: 170px;
+    height: 40px;
   }
 
   #btn-buscar-servico {
     background-color: #FE8813;
     transition: 0.15s ease;
+    margin: 5px
   }
 
   ;
