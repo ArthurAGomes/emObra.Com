@@ -8,13 +8,14 @@ async function buscarPorLocalizacao(tipo, cep, engine) {
         let query;
         let params = [];
 
+        // Definir a query de acordo com o tipo de busca
         if (tipo === 'servico') {
             query = `
                 SELECT sp.id, sp.descricao, sp.valor, sp.prazo_combinar, sp.cep_obra AS cep_obra
                 FROM servicos_postados sp
                 WHERE sp.status = 'andamento' AND sp.tipo_servico = ?; 
             `;
-            params.push(engine); // Adiciona o tipo de serviço para a busca
+            params.push(engine);
         } else if (tipo === 'pedreiro') {
             query = `
                 SELECT p.id, p.nome, p.premium, p.cep AS cep_obra
@@ -33,61 +34,65 @@ async function buscarPorLocalizacao(tipo, cep, engine) {
         }
 
         console.log('Executando consulta ao banco de dados...');
-        console.log(`Consulta: ${query}`); // Log da consulta
-        console.log(`Parâmetros: ${JSON.stringify(params)}`); // Log dos parâmetros
-
         const [results] = await pool.query(query, params);
 
-        console.log('Resultados da consulta:', results); // Log dos resultados retornados
-
+        // Verifica se há resultados
         if (results.length === 0) {
             console.log(`Nenhum ${tipo} encontrado.`);
-            return [];
+            return []; // Retorna um array vazio se nenhum resultado for encontrado
         }
 
         console.log(`${results.length} ${tipo}(s) encontrado(s). Validando CEPs e calculando distâncias...`);
 
-        // Filtra apenas os resultados que têm CEPs válidos
+        // Filtrar apenas resultados com CEPs válidos
         const validResults = results.filter(result => result.cep_obra && typeof result.cep_obra === 'string');
         if (validResults.length === 0) {
             console.log('Nenhum CEP válido encontrado nos resultados.');
             return [];
         }
 
-        // Faz o cálculo das distâncias usando os CEPs válidos
+        // Calcular distâncias usando os CEPs válidos
         const distances = await calculateDistances(cep, validResults);
 
         const resultsWithDistance = validResults.map((result, index) => ({
             ...result,
             distancia: distances[index]?.distance || null,
-            status: distances[index]?.status || 'UNKNOWN'
+            status: distances[index]?.status || 'UNKNOWN',
+            address: distances[index]?.address || null // Incluindo o endereço aqui
         }));
 
-        // Filtra os serviços dentro do raio de 15 km, ou até 30 km se forem premium
+        // Filtrar resultados com base na distância (15km para padrão, 30km para premium)
         const filteredResults = resultsWithDistance
             .filter(result => result.distancia !== null)
             .filter(result => (result.premium && result.distancia <= 30) || result.distancia <= 15)
             .sort((a, b) => {
+                // Pedreiros premium têm prioridade
                 if (tipo === 'pedreiro' && a.premium !== b.premium) {
-                    return b.premium - a.premium; // Pedreiros premium têm prioridade
+                    return b.premium - a.premium;
                 }
-                return a.distancia - b.distancia; // Ordena pela distância mais próxima
+                // Ordenar pela distância
+                return a.distancia - b.distancia;
             });
 
-        console.log(`${filteredResults.length} ${tipo}(s) dentro do raio limite de exibição.`);
+        // Retornar os resultados formatados
+        return filteredResults.map(result => {
+            const addressParts = result.address ? result.address.split(',') : []; // Dividir o endereço
+            const street = addressParts[0] || ''; // Rua
+            const neighborhood = addressParts[1] ? addressParts[1].trim() : ''; // Bairro
 
-        return filteredResults.map(result => ({
-            ...result,
-            distancia: result.distancia.toFixed(2),
-            mensagem: `${tipo === 'servico' ? 'Serviço' : 'Pedreiro'} a ${result.distancia.toFixed(2)} km de distância!`
-        }));
+            return {
+                ...result,
+                distancia: result.distancia.toFixed(2),
+                mensagem: `${tipo === 'servico' ? 'Serviço' : 'Pedreiro'} a ${result.distancia.toFixed(2)} km de distância!`,
+                endereco: `${street}, ${neighborhood}` // Retorna apenas rua e bairro
+            };
+        });
     } catch (error) {
         console.error(`Erro ao buscar ${tipo}s:`, error.message);
         throw new Error(`Erro ao buscar ${tipo}s.`);
     }
 }
 
-// Exemplo de exportação de função
 module.exports = {
     buscarPorLocalizacao
 };

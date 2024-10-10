@@ -12,7 +12,7 @@ const routerWeb = require('./router/web');
 const routerPostagem = require('./router/postagem');
 const routerRegister = require('./router/register');
 const routerAuth = require('./router/auth');
-const routerBuscar = require('./router/buscador');
+
 const app = express();
 
 // Configuração da view engine para EJS
@@ -24,9 +24,9 @@ app.use(cors({
     methods: "GET, PUT, POST, DELETE"
 }));
 
-app.use(express.json()); // Para fazer parsing do corpo JSON
+app.use(express.json()); 
 app.use(express.urlencoded({ extended: true }));
-app.use(cookieParser());  // Habilita o uso de cookies
+app.use(cookieParser()); 
 
 // Configuração da sessão
 app.use(session({
@@ -89,7 +89,7 @@ app.use(routerWeb);         // Rotas principais do site
 app.use(routerPostagem)     //Rotas de postar serviço
 app.use(routerAuth);        // Rotas de autenticação
 app.use(routerRegister);    // Rotas de cadastro
-app.use(routerBuscar);      // Rotas de busca
+
 
 // Porta do servidor
 const PORT = process.env.PORT || 3000;

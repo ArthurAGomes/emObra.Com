@@ -1,5 +1,4 @@
 const axios = require('axios');
-require('dotenv').config();
 const { getDistance } = require('geolib');
 
 async function geocode(cep) {
@@ -16,9 +15,10 @@ async function geocode(cep) {
 
         const { logradouro, bairro, localidade, uf } = viaCepResponse.data;
         const address = logradouro && bairro ? 
-            `${logradouro}, ${bairro}, ${localidade}, ${uf}, Brazil` : 
-            `${localidade}, ${uf}, Brazil`;
+            `${logradouro}, ${bairro}, ${localidade}, ${uf}` : 
+            `${localidade}, ${uf}`; 
 
+        console.log(`Endereço obtido: ${address}`);
         console.log(`Buscando coordenadas para o endereço: ${address}`);
         const nominatimResponse = await axios.get('https://nominatim.openstreetmap.org/search', {
             params: {
@@ -33,12 +33,15 @@ async function geocode(cep) {
 
         if (nominatimResponse.data.length === 0) {
             console.warn(`Nenhuma coordenada encontrada para o endereço: ${address}`);
-            return null;
+            return { address }; // Retorna o endereço mesmo se as coordenadas não forem encontradas
         }
 
         const { lat, lon } = nominatimResponse.data[0];
-        console.log(`CEP ${cep} geocodificado com sucesso: Latitude ${lat}, Longitude ${lon}`);
-        return { latitude: parseFloat(lat), longitude: parseFloat(lon) };
+        return { 
+            latitude: parseFloat(lat), 
+            longitude: parseFloat(lon),
+            address // Adicionando o endereço completo
+        };
     } catch (error) {
         console.error(`Erro na geocodificação do CEP ${cep}:`, error.message);
         return null;
@@ -56,13 +59,12 @@ async function calculateDistances(originCep, destinationResults) {
         console.log('Geocodificando CEPs de destino...');
         const destinationsWithCoords = await Promise.all(
             destinationResults.map(async (destination) => {
-                const coords = await geocode(destination.cep_obra); // Usando cep_obra para obter coordenadas
+                const coords = await geocode(destination.cep_obra);
                 return { ...destination, coords };
             })
         );
 
-        // Filtrando destinos válidos
-        const validDestinations = destinationsWithCoords.filter(dest => dest && dest.coords !== null);
+        const validDestinations = destinationsWithCoords.filter(dest => dest.coords !== null);
         if (validDestinations.length === 0) {
             throw new Error('Nenhum CEP de destino válido encontrado para calcular distâncias.');
         }
@@ -77,16 +79,15 @@ async function calculateDistances(originCep, destinationResults) {
             const maxDistance = destination.premium ? 30 : 15;
 
             return {
-                destinationCep: destination.cep_obra, // Usando cep_obra para o destino
+                destinationCep: destination.cep_obra,
                 distance: distance,
                 status: distance <= maxDistance ? 'OK' : 'DISTANCE_EXCEEDED',
-                premium: destination.premium
+                premium: destination.premium,
+                address: destination.coords.address // Incluindo o endereço no resultado
             };
         });
 
         const filteredDistances = distances.filter(d => d.status === 'OK');
-        console.log(`Distâncias calculadas: ${filteredDistances.length} dentro do raio de exibição.`);
-        
         return filteredDistances;
     } catch (error) {
         console.error('Erro ao calcular distâncias:', error.message);

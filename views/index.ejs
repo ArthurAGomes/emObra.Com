@@ -28,9 +28,9 @@
     </div>
 
     <main>
-        <button id="botaoteste" onclick="testando()">teste</button>
+        <!-- <button id="botaoteste" onclick="testando()">teste</button> -->
         <section class="buscador">
-            <form action="/buscar" method="get" class="form-buscar-index">
+            <form action="/buscar" method="get" class="form-buscar-index" id="buscaForm">
                 <h2>Encontre novos serviços ou um pedreiro para sua obra!</h2>
                 <div class="radio-inputs">
                     <% servicos.forEach(servico=> { %>
@@ -110,42 +110,43 @@
 
 
             <div class="resultado-busca">
-                
-
-                <div class="swiper mySwiper">
-                    <div class="swiper-wrapper">
-                        <div class="swiper-slide card-resultado-busca">
-                            <form class="super-container">
-                                <h3>serviço-banco</h3>
-                                <div class="container-servico-top">
-                                    <div class="background-icon-servico">
-                                        <img src="/imgs-fixas/assentar-piso.png" alt="">
-                                    </div>
-                                    <div class="info-principais-servico">
-                                        <div class="distancia-servico">
-                                            <span>distância</span>
-                                            <p><span>banco-distanca</span>km de você</p>
+                    <div class="swiper mySwiper">
+                        <div class="swiper-wrapper">
+                            <% resultados.forEach(resultado => { %>
+                                <div class="swiper-slide card-resultado-busca">
+                                    <form class="super-container">
+                                        <h3><%= resultado.nome_servico %></h3>
+                                        <div class="container-servico-top">
+                                            <div class="background-icon-servico">
+                                                <img src="/imgs-fixas/<%= resultado.imagem_servico %>" alt="">
+                                            </div>
+                                            <div class="info-principais-servico">
+                                                <div class="distancia-servico">
+                                                    <span>Distância</span>
+                                                    <p><span><%= resultado.distancia %></span> km de você</p>
+                                                </div>
+                                                <button type="submit">Candidatar-se</button>
+                                            </div>
                                         </div>
-                                        <button type="submit">Candidatar-se</button>
-                                    </div>
+                                        <div class="input-descricao-servico">
+                                            <div class="descricao-post">
+                                                <label for="input" class="text">Descrição do serviço</label>
+                                                <textarea type="text" placeholder="<%= resultado.descricao %>" name="input" class="input"
+                                                    maxlength="300" rows="4" cols="50" disabled></textarea>
+                                            </div>
+                                        </div>
+                                        <hr>
+                                        <div class="footer-servico">
+                                            <p>Valor: R$ <%= resultado.valor %>,00</p>
+                                            <p>Prazo: <%= resultado.prazo_combinar %></p>
+                                        </div>
+                                        <h4><%= resultado.endereco %></h4>
+                                    </form>
                                 </div>
-                                <div class="input-descricao-servico">
-                                    <div class="descricao-post">
-                                        <label for="input" class="text">Descrição do serviço</label>
-                                        <textarea type="text" placeholder="descrição-banco" name="input" class="input"
-                                            maxlength="300" rows="4" cols="50" disabled></textarea>
-                                    </div>
-                                </div>
-                                <hr>
-                                <div class="footer-servico">
-                                    <p>Valor: R$banco,00</p>
-                                    <p>Prazo: aCombinar-banco</p>
-                                </div>
-                                <h4>Endereço-banco</h4>
-                            </form>
+                            <% }) %>
                         </div>
                     </div>
-                </div>
+            
             </div>
         </section>
 

@@ -13,46 +13,70 @@ document.getElementById('upload-file').addEventListener('change', function() {
 });
 
 
-function testando() {
-    const loader = document.querySelector('.loader');
-    const resultadoBusca = document.querySelector('.resultado-busca');
+document.getElementById('buscarBtn').addEventListener('click', function(event) {
+    event.preventDefault(); // Previne o comportamento padrão (recarregamento da página)
+    buscarResultados(); // Chama a função para buscar resultados
+});
 
-    // Reiniciar estado: esconder o resultado-busca e resetar o loader
-    resultadoBusca.style.display = 'none'; // Esconder o resultado se já estiver na tela
-    resultadoBusca.classList.remove('animate-slide-in'); // Remove a animação para resetar
-    
-    // Mostrar o loader com animação
+async function buscarResultados() {
+    const loader = document.querySelector('.loader');
+    const resultadoModal = document.getElementById('resultadoModal');
+    const resultadoBuscaContainer = document.getElementById('resultadoBuscaContainer');
+
+    // Reiniciar estado: limpar resultados anteriores e mostrar o loader
+    resultadoBuscaContainer.innerHTML = ''; // Limpa o conteúdo anterior
     loader.style.display = 'flex'; // Exibe o loader
+
     setTimeout(() => {
         loader.classList.add('show-loader'); // Aplica a animação suave
     }, 10);
 
-    // Após 3 segundos, remove o loader e mostra o resultado-busca novamente
-    setTimeout(() => {
+    // Simula uma chamada de API para buscar resultados
+    const cep = document.querySelector('#cepInput').value; // Supondo que você tenha um input para o CEP
+    const tipo = 'servico'; // ou 'pedreiro', conforme necessário
+    const engine = 'seuEngineAqui'; // Substitua pelo valor correto
+
+    try {
+        const response = await fetch(`/buscar?cep=${cep}&tipo=${tipo}&engine=${engine}`);
+        const data = await response.json();
+
+        if (data.resultados.length > 0) {
+            exibirResultados(data.resultados);
+        } else {
+            alert(data.mensagem); // Exibe mensagem se não houver resultados
+        }
+    } catch (error) {
+        console.error('Erro ao buscar resultados:', error);
+        alert('Erro ao buscar resultados.');
+    } finally {
         loader.classList.remove('show-loader'); // Remove a animação do loader
-        setTimeout(() => {
-            loader.style.display = 'none'; // Esconde o loader
-            resultadoBusca.style.display = 'block'; // Exibe o resultado-busca novamente
-            resultadoBusca.classList.add('animate-slide-in'); // Adiciona a animação
-        }, 500); // Atraso para permitir que o loader desapareça suavemente
-    }, 3000); // Duração do loading
-}
-
-
-function mostrarResultadoBusca() {
-    const resultadoBusca = document.querySelector('.resultado-busca');
-
-    // Verifica se o display está 'none' e altera para 'block' se necessário
-    if (resultadoBusca.style.display === 'none' || resultadoBusca.style.display === '') {
-        resultadoBusca.style.display = 'block'; // Exibe o elemento
-
-        // Força um reflow para garantir que a animação seja aplicada corretamente
-        resultadoBusca.offsetHeight;
-
-        // Adiciona a classe de animação para efeito de deslizar da direita
-        resultadoBusca.classList.add('animate-slide-in');
+        loader.style.display = 'none'; // Esconde o loader
     }
 }
 
+function exibirResultados(resultados) {
+    const resultadoBuscaContainer = document.getElementById('resultadoBuscaContainer');
 
+    resultados.forEach(resultado => {
+        const card = document.createElement('div');
+        card.classList.add('card-resultado-busca');
+        card.innerHTML = `
+            <h3>${resultado.nome_servico}</h3>
+            <div class="container-servico-top">
+                <img src="/imgs-fixas/${resultado.imagem_servico}" alt="">
+                <p>Distância: ${resultado.distancia} km</p>
+                <p>Valor: R$ ${resultado.valor},00</p>
+                <p>Prazo: ${resultado.prazo_combinar}</p>
+                <h4>${resultado.endereco}</h4>
+            </div>
+        `;
+        resultadoBuscaContainer.appendChild(card);
+    });
 
+    // Exibe o modal
+    document.getElementById('resultadoModal').style.display = 'block';
+}
+
+function closeModal() {
+    document.getElementById('resultadoModal').style.display = 'none';
+}
