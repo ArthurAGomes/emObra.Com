@@ -18,20 +18,20 @@
             <div class="conexao-global">
                 <% if (isAuthenticated) { %>
                     <span><a href="/logout">Sair</a></span>
-                    <% } else { %>
-                        <span><a href="/register">Cadastrar</a></span>
-                        <button><a href="/login">Entrar</a></button>
-                        <% } %>
+                <% } else { %>
+                    <span><a href="/register">Cadastrar</a></span>
+                    <button><a href="/login">Entrar</a></button>
+                <% } %>
             </div>
         </nav>
     </header>
-    
+
     <main>
         <div class="container-container">
             <aside class="container-perfil">
                 <div class="foto-perfil">
-                    <img src="imagensPedreiro/<%= pedreiro[0].img_perfil %>" class="rounded-circle perfil-img" alt="Avatar" />
-            
+                    <img id="perfil-img" src="imagensPedreiro/<%= pedreiro[0].img_perfil %>" class="rounded-circle perfil-img" alt="Avatar" />
+
                     <!-- Ícone de upload sobreposto à imagem -->
                     <form id="upload-form" enctype="multipart/form-data" method="POST" action="/upload-foto">
                         <label for="upload-file" class="upload-icon">
@@ -40,7 +40,7 @@
                         <input type="file" id="upload-file" name="fotoPerfil" accept="image/*" required style="display: none;" />
                     </form>
                 </div>
-            
+
                 <div class="info-perfil">
                     <h2><%= pedreiro[0].nome %></h2>
                     <p>This is a basic HTML page.</p>
@@ -49,7 +49,6 @@
         </div>
 
         <section class="container-categorias-perfil">
-
             <div class="categorias-botoes">
                 <div class="categoria-box">
                     <label>
@@ -74,7 +73,7 @@
                     </label>
                     <p>Obras</p>
                 </div>
-                
+
                 <div class="categoria-box">
                     <label>
                         <input type="radio" class="radio-input" name="engine" value="perfil-pedreiro">
@@ -98,28 +97,20 @@
                     </label>
                     <p>Dicas</p>
                 </div>
-
             </div>
 
             <article class="meu-perfil"></article>
-
             <article class="minha-obras"></article>
-
             <article class="ofertas"></article>
-
             <article class="dicas"></article>
-
         </section>
 
         <section class="banners-perfil">
-
             <article class="">
-
                 <div class="titulo-banner-perfil">
                     <h4></h4>
                     <hr>
                 </div>
-
             </article>
 
             <article class="instituicoes-parceiras">
@@ -128,20 +119,17 @@
                     <p>Conheça nossos parceiros que querem fazer parte dessa empreitada.</p>
                 </div>
                 <div class="container-parceiros">
-                    <div class="swiper mySwiper ">
+                    <div class="swiper mySwiper">
                         <div class="swiper-wrapper">
-                        
-                            <% instituicoes.forEach(instituicao=> { %>    
+                            <% instituicoes.forEach(instituicao=> { %>
                             <div class="swiper-slide">
                                 <div class="banner-institu-parceira">
                                     <div class="info-institu-parceira">
                                         <h4><%= instituicao.nome_parceiro %></h4>
                                         <p><%= instituicao.descricao %></p>
-                                        <a href="<%= instituicao.url %>"
-                                            class="btn-institu" target="_blank">Veja mais</a>
+                                        <a href="<%= instituicao.url %>" class="btn-institu" target="_blank">Veja mais</a>
                                     </div>
-                                    <img src="/imgs-fixas/<%= instituicao.imagem %>"
-                                        alt="Senai SP">
+                                    <img src="/imgs-fixas/<%= instituicao.imagem %>" alt="Senai SP">
                                 </div>
                             </div>
                             <% }) %>
@@ -153,9 +141,9 @@
 
             <section class="banners-lojas-parceiros">
                 <h2 style="text-align: center;">Lojas Parceiras do EmObra.com</h2>
-                <div class="swiper mySwiper ">
+                <div class="swiper mySwiper">
                     <div class="swiper-wrapper">
-                        <% lojas.forEach(loja=> { %>    
+                        <% lojas.forEach(loja=> { %>
                         <div class="swiper-slide banner-loja-fundo">
                             <div class="banner-loja-parceira">
                                 <img src="imgs-fixas/<%= loja.imagem %>" alt="<%= loja.nome_parceiro %>">
@@ -171,23 +159,75 @@
                     <div class="swiper-pagination"></div>
                 </div>
             </section>
-
         </section>
-
-
-
     </main>
 
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script src="/js/script.js"></script>
+
     <script>
-        // Opcional: JavaScript para manipular o upload, se necessário
-        document.getElementById('upload-form').onsubmit = function () {
-            // Pode adicionar alguma validação ou feedback para o usuário aqui
+        // Seletor do input de arquivo e da imagem de perfil
+        const inputFile = document.querySelector("#upload-file");
+        const pictureImage = document.getElementById("perfil-img");
+
+        // Função para definir a imagem padrão
+        function setDefaultImage() {
+            pictureImage.src = "imagensPedreiro/default-image.jpg"; // Defina uma imagem padrão
+        }
+
+        // Recupera a imagem do perfil armazenada no localStorage
+        window.onload = function() {
+            const storedImage = localStorage.getItem('perfilImg');
+            if (storedImage) {
+                pictureImage.src = storedImage; // Atualiza a imagem com a armazenada
+            } else {
+                setDefaultImage(); // Define a imagem padrão se não houver imagem armazenada
+            }
         };
+
+        // Adiciona um ouvinte de evento ao input de arquivo
+        inputFile.addEventListener("change", function (e) {
+            const file = e.target.files[0];
+
+            // Verifica se um arquivo foi selecionado
+            if (file) {
+                const reader = new FileReader();
+
+                // Quando a leitura do arquivo estiver completa, atualiza a imagem
+                reader.addEventListener("load", function (e) {
+                    // Atualiza a imagem de perfil com a nova imagem
+                    pictureImage.src = e.target.result; // Atualiza a URL da imagem
+                    localStorage.setItem('perfilImg', e.target.result); // Armazena a nova imagem no localStorage
+                });
+
+                // Lê o arquivo como uma URL de dados
+                reader.readAsDataURL(file);
+
+                // Função para fazer o upload usando AJAX
+                const formData = new FormData();
+                formData.append("fotoPerfil", file);
+
+                $.ajax({
+                    url: "/upload-foto",
+                    type: "POST",
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    success: function (response) {
+                        alert("Upload realizado com sucesso!");
+                    },
+                    error: function (err) {
+                        alert("Ocorreu um erro ao fazer o upload.");
+                    }
+                });
+            } else {
+                // Se não houver arquivo, define a imagem padrão
+                setDefaultImage();
+            }
+        });
     </script>
 </body>
 
