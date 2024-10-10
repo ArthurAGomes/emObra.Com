@@ -50,8 +50,10 @@
                 <div class="botoes-buscar">
                     <input type="text" name="cep" placeholder="Informe um CEP..." required>
                     <input type="hidden" name="tipo" id="tipo">
-                    <button type="button" id="btn-buscar-servico" onclick="document.getElementById('tipo').value='servico'; buscarResultados();">Buscar Serviço</button>
-                    <button type="button" id="btn-buscar-pedreiro" onclick="document.getElementById('tipo').value='pedreiro'; buscarResultados();">Buscar Pedreiro</button>
+                    <div>
+                        <button type="button" id="btn-buscar-servico" onclick="document.getElementById('tipo').value='servico'; buscarResultados();">Buscar Serviço</button>
+                        <button type="button" id="btn-buscar-pedreiro" onclick="document.getElementById('tipo').value='pedreiro'; buscarResultados();">Buscar Pedreiro</button>
+                    </div>
                 </div>
             </form>
 

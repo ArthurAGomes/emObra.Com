@@ -2,7 +2,14 @@
 //     document.getElementById('upload-form').submit();
 // });
 
-let swiper;
+var swiper = new Swiper(".mySwiper", {
+    slidesPerView: "auto",
+    spaceBetween: 10,
+    pagination: {
+        el: ".swiper-pagination",
+        clickable: true,
+    },
+});
 
 document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('btn-buscar-servico').addEventListener('click', function(event) {
@@ -18,16 +25,16 @@ document.addEventListener('DOMContentLoaded', () => {
     initSwiper();
 });
 
-function initSwiper() {
-    swiper = new Swiper(".mySwiper", {
-        slidesPerView: "auto",
-        spaceBetween: 30,
-        pagination: {
-            el: ".swiper-pagination",
-            clickable: true,
-        },
-    });
-}
+// function initSwiper() {
+//     swiper = new Swiper(".mySwiper", {
+//         slidesPerView: "auto",
+//         spaceBetween: 30,
+//         pagination: {
+//             el: ".swiper-pagination",
+//             clickable: true,
+//         },
+//     });
+// }
 
 function buscarResultados() {
     const loader = document.getElementById('loader');
