@@ -35,7 +35,7 @@
         </section>
 
         <section class="buscador">
-            <form class="form-buscar-index" id="buscaForm">
+            <form class="form-buscar-index" id="buscaForm" action="/buscar" method="get">
                 <h2>Encontre novos serviços ou um pedreiro para sua obra!</h2>
                 <div class="radio-inputs">
                     <% servicos.forEach(servico => { %>
@@ -59,49 +59,46 @@
                     </div>
                 </div>
             </form>
-
-            <!-- Loader Section -->
+        
+            <!-- Loader -->
             <div class="loader" id="loader" style="display: none;">
                 <div class="wrapper">
-                    <!-- SVG Loader -->
+                    
+                    <p>Carregando...</p>
                 </div>
             </div>
         
-            <div class="resultado-busca">
+            <div class="resultado-busca" style="display: none;">
                 <div class="swiper mySwiper">
                     <div class="swiper-wrapper">
-                        <!-- Os slides serão inseridos aqui -->
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section class="instituicoes-parceiras">
-            <div class="chamada-institu-parceiras">
-                <h2>O seu futuro faz parte da nossa obra!</h2>
-                <p>Conheça nossos parceiros que querem fazer parte dessa empreitada.</p>
-            </div>
-            <div class="container-parceiros">
-                <div class="swiper mySwiper ">
-                    <div class="swiper-wrapper">
-                        <% instituicoes.forEach(instituicao => { %>
-                            <article class="swiper-slide">
-                                <div class="banner-institu-parceira">
-                                    <div class="info-institu-parceira">
-                                        <h3><%= instituicao.nome_parceiro %></h3>
-                                        <p><%= instituicao.descricao %></p>
-                                        <a href="<%= instituicao.url %>" class="btn-institu" target="_blank" rel="noopener noreferrer">Veja mais</a>
+                        <!-- Resultados serão exibidos aqui -->
+                        <% resultados.forEach(resultado => { %>
+                            <div class="swiper-slide card-resultado-busca">
+                                <h3><%= resultado.descricao %></h3>
+                                <div class="container-servico-top">
+                                    <div class="background-icon-servico">
+                                        <img src="/imgs-fixas/<%= resultado.img_servico || 'default.jpg' %>" alt="">
                                     </div>
-                                    <img src="/imgs-fixas/<%= instituicao.imagem %>" alt="<%= instituicao.nome_parceiro %>">
+                                    <div class="info-principais-servico">
+                                        <div class="distancia-servico">
+                                            <span>Distância</span>
+                                            <p><span><%= resultado.distancia || 0 %></span> km de você</p>
+                                        </div>
+                                        <button type="submit">Candidatar-se</button>
+                                    </div>
                                 </div>
-                            </article>
+                                <hr>
+                                <div class="footer-servico">
+                                    <p>Valor: R$ <%= resultado.valor %>,00</p>
+                                    <p>Prazo: <%= resultado.prazo_combinar %></p>
+                                </div>
+                            </div>
                         <% }) %>
                     </div>
-                    <div class="swiper-pagination"></div>
                 </div>
             </div>
         </section>
-
+        
         <section class="vantagens-premium">
             <h2>Conheça as vantagens de ser PedreiroPro</h2>
 
