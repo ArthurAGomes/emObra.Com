@@ -13,7 +13,7 @@ body {
   /* box-sizing: border-box;
   margin: 0; */
   font-family: 'Poppins', sans-serif;
-  max-height: 100vh;
+  height: 100vh;
   max-width: 100vw;
   overflow-x: hidden;
 }
@@ -644,6 +644,184 @@ footer {
 /* ############################################################################## */
 /* Login */
 
+
+.main-login-cad {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  align-content: center;
+  justify-content: center;
+  gap: 10px;
+  margin: 0 auto;
+  max-width: 720px;
+  height: 100vh;
+}
+
+.banner-login {
+  width: fit-content;
+  max-width: 350px;
+  padding: 0 10px;
+
+  h1 {
+      width: fit-content;
+      margin: auto;
+  }
+
+  h3 {
+      font-size: 1.3em;
+  }
+}
+
+.login-container {
+  width: 100%;
+  max-width: 350px;
+
+  background-color: white;
+  border-radius: 5px;
+  /* box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1); */
+  padding: 20px;
+  text-align: center;
+}
+
+.form-login {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  padding: 10px 0;
+
+  h1 {
+      font-size: 1.5em;
+  }
+
+  form {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 100%;
+      gap: 10px;
+  }
+}
+
+.input-control-login {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  position: static;
+  /* margin-bottom: 15px;  */
+}
+
+.input-control-login label.text {
+  font-size: .9rem;
+  color: #020411;
+  font-weight: 600;
+  position: relative;
+  top: 0.8rem;
+  margin: 0 0 0 7px;
+  padding: 0 5px;
+  background: #ffffff;
+  width: fit-content;
+}
+
+.input-control-login input[type=text].input,
+.input-control-login input[type=password].input {
+  padding: 11px 10px;
+  font-size: 0.75rem;
+  border: 2px #020411 solid;
+  border-radius: 5px;
+  background: #ffffff;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.input-control-login input[type=text].input:focus,
+.input-control-login input[type=password].input:focus {
+  outline: none;
+  border-color: #020411;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+}
+
+.manter-conectado {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 20px;
+  gap: 30px;
+
+  a {
+      font-size: .9em;
+      cursor: pointer;
+      font-weight: 600;
+      text-decoration: none;
+      color: #020411;
+  }
+}
+
+.manter-conectado div {
+  display: flex;
+  align-items: center;
+
+  label {
+      font-size: .9em;
+      margin: 0;
+      font-weight: 600;
+  }
+}
+
+.manter-conectado input {
+  margin-right: 5px;
+}
+
+.botao-entrar {
+  width: 100%;
+  padding: 10px;
+  background-color: #FE8813;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.botao-entrar:hover {
+  background-color: #ff8c00;
+}
+
+.outras-acoes-login {
+  display: block;
+  margin-top: 15px;
+  text-decoration: underline;
+  font-size: 14px;
+  font-weight: 600;
+  color: #FE8813;
+}
+
+.pedreiro-login,
+.contratante-login {
+  position: absolute;
+  height: 70%;
+  bottom: 0;
+  object-fit: cover;
+  /* Impede distorção */
+  /* width: 50vw; */
+  /* Cada imagem ocupa metade da largura da viewport */
+  display: none;
+  /* Oculta em telas menores */
+}
+
+.pedreiro-login {
+  left: 0;
+  /* object-position: left; */
+  /* Centraliza a imagem na metade esquerda */
+}
+
+.contratante-login {
+  right: 0px;
+  /* object-position: right; */
+  /* Centraliza a imagem na metade direita */
+}
+
 /* ###########################################################################################*/
 /* Perfil */
 
@@ -1015,7 +1193,7 @@ footer {
 /* ############################################################################################# */
 /* Media Query */
 
-@media (min-width: 725px) {
+@media screen and (min-width: 725px) {
   .banner-index {
     background-image: url(../imgs-fixas/banner-topo-grande.jpg);
     /* height: 100vh; */
@@ -1040,5 +1218,14 @@ footer {
 @media screen and (min-width: 1200px) {
   .buscador > * {
       flex: 1 1 48%; /* Aparecem lado a lado em telas maiores */
+  }
+}
+
+@media screen and (min-width: 1400px) {
+
+  .pedreiro-login,
+  .contratante-login {
+      display: block;
+      /* Exibe as imagens a partir de 1000px */
   }
 }

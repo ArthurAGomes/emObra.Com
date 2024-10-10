@@ -1,23 +1,59 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
-
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
 </head>
+
 <body>
-    <div class="login-container">
-        <h1>Login</h1>
-        <form action="/auth" method="POST">  <!-- Alterado para POST -->
-            <label for="identifier">Email ou CPF:</label>
-            <input type="text" id="identifier" name="identifier" placeholder="Digite seu email ou CPF" required>
 
-            <label for="senha">Senha:</label>
-            <input type="password" id="senha" name="senha" placeholder="Digite sua senha" required>
+    <main class="main-login-cad">
+        <!-- <img src="/imgs-fixas/pedreiro-login.png" class="pedreiro-login" alt="Pedreiro Login"> -->
+        <!-- <img src="/imgs-fixas/contratante-login.png" class="contratante-login" alt="Contratante Login"> -->
+        <div class="banner-login">
+            <h1><a href="/"><img src="https://i.ibb.co/KVZRVhw/logov4-preto.png" alt="logo-em-obra"
+                        class="logo-header"></a></h1>
+            <h3>Facilitando conexões, <br>concretizando projetos.</h3>
+        </div>
 
-            <button type="submit">Entrar</button>
-        </form>
-    </div>
+        <div class="login-container">
+            <div class="form-login">
+                <h1>Login</h1>
+                <form action="/auth" method="POST">
+                    <div class="input-control-login">
+                        <label for="identifier" class="text">CPF</label>
+                        <input type="text" id="identifier" name="identifier" placeholder="Digite seu email ou CPF"
+                            required class="input">
+                    </div>
+
+                    <div class="input-control-login">
+                        <label for="senha" class="text">Senha</label>
+                        <input type="password" id="senha" name="senha" placeholder="Digite sua senha" required
+                            class="input">
+                    </div>
+
+                    <div class="manter-conectado">
+                        <div>
+                            <input type="checkbox" id="conectado" name="conectado">
+                            <label for="conectado">Manter-se conectado</label>
+                        </div>
+
+                    </div>
+                    <button type="submit" class="botao-entrar">Entrar</button>
+                </form>
+                <div>
+                    <a href="/register" class="outras-acoes-login">Cadastre-se</a>
+                    <a href="#" class="outras-acoes-login">Esqueceu sua senha?</a>
+                </div>
+            </div>
+        </div>
+
+    </main>
 </body>
+
 </html>
