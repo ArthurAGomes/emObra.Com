@@ -4,7 +4,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Encontre pedreiros e serviços próximos para suas obras. Conecte-se rapidamente e realize seus projetos.">
     <title>Encontre Pedreiros Próximos</title>
+    
     <!-- CSS do Bootstrap -->
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="/css/style.css">
@@ -14,7 +16,7 @@
 <body class="bg-light">
     <header>
         <nav class="global-nav">
-            <img src="https://i.ibb.co/KVZRVhw/logov4-preto.png" alt="logo-em-obra" class="logo-header">
+            <img src="https://i.ibb.co/KVZRVhw/logov4-preto.png" alt="Logo Em Obra" class="logo-header">
             <div class="conexao-global">
                 <span class="desconectar" style="display: none;">Sair</span>
                 <span><a href="/register/#cadastro">Cadastrar</a></span>
@@ -22,134 +24,52 @@
             </div>
         </nav>
     </header>
-    <div class="banner-index">
-        <h1>Estamos <span>Em Obra!</span></h1>
-        <h2>Facilitando conexões, <br>concretizando projetos.</h2>
-    </div>
 
     <main>
-        <!-- <button id="botaoteste" onclick="testando()">teste</button> -->
+        <section class="banner-index">
+            <h1>Estamos <span>Em Obra!</span></h1>
+            <h2>Facilitando conexões, <br>concretizando projetos.</h2>
+        </section>
+
         <section class="buscador">
-            <form action="/buscar" method="get" class="form-buscar-index" id="buscaForm">
+            <form class="form-buscar-index" id="buscaForm">
                 <h2>Encontre novos serviços ou um pedreiro para sua obra!</h2>
                 <div class="radio-inputs">
-                    <% servicos.forEach(servico=> { %>
+                    <% servicos.forEach(servico => { %>
                         <label>
-                            <input class="radio-input servicos" type="radio" name="engine" value="<%= servico.id %>"
-                                required />
+                            <input class="radio-input servicos" type="radio" name="engine" value="<%= servico.id %>" required />
                             <span class="radio-tile">
                                 <span class="radio-servico">
                                     <%= servico.nome_servico %>
                                 </span>
                             </span>
                         </label>
-                        <% }) %>
+                    <% }) %>
                 </div>
-
+        
                 <div class="botoes-buscar">
                     <input type="text" name="cep" placeholder="Informe um CEP..." required>
-                    <!-- Campo oculto para tipo -->
                     <input type="hidden" name="tipo" id="tipo">
-
-                    <button type="submit" id="btn-buscar-servico"
-                        onclick="document.getElementById('tipo').value='servico'">Buscar Serviço</button>
-                    <button type="submit" id="btn-buscar-pedreiro"
-                        onclick="document.getElementById('tipo').value='pedreiro'">Buscar Pedreiro</button>
+                    <button type="button" id="btn-buscar-servico" onclick="document.getElementById('tipo').value='servico'; buscarResultados();">Buscar Serviço</button>
+                    <button type="button" id="btn-buscar-pedreiro" onclick="document.getElementById('tipo').value='pedreiro'; buscarResultados();">Buscar Pedreiro</button>
                 </div>
-
-
             </form>
 
-            <div class="loader" style="display: none;">
+            <!-- Loader Section -->
+            <div class="loader" id="loader" style="display: none;">
                 <div class="wrapper">
-                    <div class="catContainer">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 733 673" class="catbody">
-                            <path fill="#212121"
-                                d="M111.002 139.5C270.502 -24.5001 471.503 2.4997 621.002 139.5C770.501 276.5 768.504 627.5 621.002 649.5C473.5 671.5 246 687.5 111.002 649.5C-23.9964 611.5 -48.4982 303.5 111.002 139.5Z">
-                            </path>
-                            <path fill="#212121" d="M184 9L270.603 159H97.3975L184 9Z"></path>
-                            <path fill="#212121" d="M541 0L627.603 150H454.397L541 0Z"></path>
-                        </svg>
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 158 564" class="tail">
-                            <path fill="#191919"
-                                d="M5.97602 76.066C-11.1099 41.6747 12.9018 0 51.3036 0V0C71.5336 0 89.8636 12.2558 97.2565 31.0866C173.697 225.792 180.478 345.852 97.0691 536.666C89.7636 553.378 73.0672 564 54.8273 564V564C16.9427 564 -5.4224 521.149 13.0712 488.085C90.2225 350.15 87.9612 241.089 5.97602 76.066Z">
-                            </path>
-                        </svg>
-                        <div class="text">
-                            <span class="bigzzz">Z</span>
-                            <span class="zzz">Z</span>
-                        </div>
-                    </div>
-                    <div class="wallContainer">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 500 126" class="wall">
-                            <line stroke-width="6" stroke="#7C7C7C" y2="3" x2="450" y1="3" x1="50"></line>
-                            <line stroke-width="6" stroke="#7C7C7C" y2="85" x2="400" y1="85" x1="100"></line>
-                            <line stroke-width="6" stroke="#7C7C7C" y2="122" x2="375" y1="122" x1="125"></line>
-                            <line stroke-width="6" stroke="#7C7C7C" y2="43" x2="500" y1="43"></line>
-                            <line stroke-width="6" stroke="#7C7C7C" y2="1.99391" x2="115.5" y1="43.0061" x1="115.5">
-                            </line>
-                            <line stroke-width="6" stroke="#7C7C7C" y2="2.00002" x2="189" y1="43.0122" x1="189">
-                            </line>
-                            <line stroke-width="6" stroke="#7C7C7C" y2="2.00612" x2="262.5" y1="43.0183" x1="262.5">
-                            </line>
-                            <line stroke-width="6" stroke="#7C7C7C" y2="2.01222" x2="336" y1="43.0244" x1="336">
-                            </line>
-                            <line stroke-width="6" stroke="#7C7C7C" y2="2.01833" x2="409.5" y1="43.0305" x1="409.5">
-                            </line>
-                            <line stroke-width="6" stroke="#7C7C7C" y2="43" x2="153" y1="84.0122" x1="153"></line>
-                            <line stroke-width="6" stroke="#7C7C7C" y2="43" x2="228" y1="84.0122" x1="228"></line>
-                            <line stroke-width="6" stroke="#7C7C7C" y2="43" x2="303" y1="84.0122" x1="303"></line>
-                            <line stroke-width="6" stroke="#7C7C7C" y2="43" x2="378" y1="84.0122" x1="378"></line>
-                            <line stroke-width="6" stroke="#7C7C7C" y2="84" x2="192" y1="125.012" x1="192"></line>
-                            <line stroke-width="6" stroke="#7C7C7C" y2="84" x2="267" y1="125.012" x1="267"></line>
-                            <line stroke-width="6" stroke="#7C7C7C" y2="84" x2="342" y1="125.012" x1="342"></line>
-                        </svg>
+                    <!-- SVG Loader -->
+                </div>
+            </div>
+        
+            <div class="resultado-busca">
+                <div class="swiper mySwiper">
+                    <div class="swiper-wrapper">
+                        <!-- Os slides serão inseridos aqui -->
                     </div>
                 </div>
             </div>
-
-
-            <div class="resultado-busca">
-                    <div class="swiper mySwiper">
-                        <div class="swiper-wrapper">
-                            <% resultados.forEach(resultado => { %>
-                                <div class="swiper-slide card-resultado-busca">
-                                    <form class="super-container">
-                                        <h3><%= resultado.nome_servico %></h3>
-                                        <div class="container-servico-top">
-                                            <div class="background-icon-servico">
-                                                <img src="/imgs-fixas/<%= resultado.imagem_servico %>" alt="">
-                                            </div>
-                                            <div class="info-principais-servico">
-                                                <div class="distancia-servico">
-                                                    <span>Distância</span>
-                                                    <p><span><%= resultado.distancia %></span> km de você</p>
-                                                </div>
-                                                <button type="submit">Candidatar-se</button>
-                                            </div>
-                                        </div>
-                                        <div class="input-descricao-servico">
-                                            <div class="descricao-post">
-                                                <label for="input" class="text">Descrição do serviço</label>
-                                                <textarea type="text" placeholder="<%= resultado.descricao %>" name="input" class="input"
-                                                    maxlength="300" rows="4" cols="50" disabled></textarea>
-                                            </div>
-                                        </div>
-                                        <hr>
-                                        <div class="footer-servico">
-                                            <p>Valor: R$ <%= resultado.valor %>,00</p>
-                                            <p>Prazo: <%= resultado.prazo_combinar %></p>
-                                        </div>
-                                        <h4><%= resultado.endereco %></h4>
-                                    </form>
-                                </div>
-                            <% }) %>
-                        </div>
-                    </div>
-            
-            </div>
         </section>
-
 
         <section class="instituicoes-parceiras">
             <div class="chamada-institu-parceiras">
@@ -159,23 +79,18 @@
             <div class="container-parceiros">
                 <div class="swiper mySwiper ">
                     <div class="swiper-wrapper">
-                        <% instituicoes.forEach(instituicao=> { %>
-                            <div class="swiper-slide">
+                        <% instituicoes.forEach(instituicao => { %>
+                            <article class="swiper-slide">
                                 <div class="banner-institu-parceira">
                                     <div class="info-institu-parceira">
-                                        <h4>
-                                            <%= instituicao.nome_parceiro %>
-                                        </h4>
-                                        <p>
-                                            <%= instituicao.descricao %>
-                                        </p>
-                                        <a href="<%= instituicao.url %>" class="btn-institu" target="_blank">Veja
-                                            mais</a>
+                                        <h3><%= instituicao.nome_parceiro %></h3>
+                                        <p><%= instituicao.descricao %></p>
+                                        <a href="<%= instituicao.url %>" class="btn-institu" target="_blank" rel="noopener noreferrer">Veja mais</a>
                                     </div>
-                                    <img src="/imgs-fixas/<%= instituicao.imagem %>" alt="Senai SP">
+                                    <img src="/imgs-fixas/<%= instituicao.imagem %>" alt="<%= instituicao.nome_parceiro %>">
                                 </div>
-                            </div>
-                            <% }) %>
+                            </article>
+                        <% }) %>
                     </div>
                     <div class="swiper-pagination"></div>
                 </div>
@@ -183,57 +98,49 @@
         </section>
 
         <section class="vantagens-premium">
+            <h2>Conheça as vantagens de ser PedreiroPro</h2>
 
-            <h2>Conheças as vantagens de ser PedreiroPro</h2>
-
-            <div class="vantagem-premium">
-                <img src="imgs-fixas/alcance.png" alt="">
+            <article class="vantagem-premium">
+                <img src="imgs-fixas/alcance.png" alt="Ícone de alcance">
                 <div class="explicacao-premium">
-                    <h4>Maior alcance</h4>
+                    <h3>Maior alcance</h3>
                     <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Deleniti, beatae magni.</p>
                 </div>
-            </div>
+            </article>
 
-            <div class="vantagem-premium">
-                <img src="imgs-fixas/alcance.png" alt="">
+            <article class="vantagem-premium">
+                <img src="imgs-fixas/alcance.png" alt="Ícone de visibilidade">
                 <div class="explicacao-premium">
-                    <h4>Maior visibilidade</h4>
+                    <h3>Maior visibilidade</h3>
                     <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Deleniti, beatae magni.</p>
                 </div>
-            </div>
+            </article>
 
-            <div class="vantagem-premium">
-                <img src="imgs-fixas/alcance.png" alt="">
+            <article class="vantagem-premium">
+                <img src="imgs-fixas/alcance.png" alt="Ícone de notificação">
                 <div class="explicacao-premium">
-                    <h4>Notificação em tempo real</h4>
+                    <h3>Notificação em tempo real</h3>
                     <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Deleniti, beatae magni.</p>
                 </div>
-            </div>
-
+            </article>
         </section>
 
         <section class="banners-lojas-parceiros">
-            <h2 style="text-align: center;">Lojas Parceiras do EmObra.com</h2>
-            <div class="swiper mySwiper ">
+            <h2>Lojas Parceiras do EmObra.com</h2>
+            <div class="swiper mySwiper">
                 <div class="swiper-wrapper">
-                    <% lojas.forEach(loja=> { %>
-                        <div class="swiper-slide banner-loja-fundo">
+                    <% lojas.forEach(loja => { %>
+                        <article class="swiper-slide banner-loja-fundo">
                             <div class="banner-loja-parceira">
                                 <img src="imgs-fixas/<%= loja.imagem %>" alt="<%= loja.nome_parceiro %>">
                                 <div class="info-loja-parceira">
-                                    <h4>
-                                        <%= loja.nome %>
-                                    </h4>
-                                    <p>
-                                        <%= loja.endereco %>
-                                    </p>
-                                    <p>
-                                        <%= !loja.url ? loja.contato : loja.url %>
-                                    </p>
+                                    <h3><%= loja.nome %></h3>
+                                    <p><%= loja.endereco %></p>
+                                    <p><%= !loja.url ? loja.contato : loja.url %></p>
                                 </div>
                             </div>
-                        </div>
-                        <% }) %>
+                        </article>
+                    <% }) %>
                 </div>
                 <div class="swiper-pagination"></div>
             </div>
@@ -242,68 +149,52 @@
         <section class="sobre-nos" id="sobre-nos">
             <h2>Vem saber mais sobre a gente</h2>
             <div class="sobre-nos-carrossel">
-
-                <div class="sobre-nos-card">
-                    <h4>A nossa Obra</h4>
-                    <p>Aqui, a ideia é simples: conectar quem precisa com quem sabe fazer, de um jeito rápido e fácil.
-                    </p>
+                <article class="sobre-nos-card">
+                    <h3>A nossa Obra</h3>
+                    <p>Aqui, a ideia é simples: conectar quem precisa com quem sabe fazer, de um jeito rápido e fácil.</p>
                     <div class="sobre-nos-icones">
-                        <img src="/imgs-fixas/tijolo.png" alt="missão" class="sobre-nos-icone">
+                        <img src="/imgs-fixas/tijolo.png" alt="Ícone de missão" class="sobre-nos-icone">
                     </div>
-                </div>
+                </article>
 
-
-                <div class="sobre-nos-card">
-                    <h4>A Obra que Queremos Entregar</h4>
+                <article class="sobre-nos-card">
+                    <h3>A Obra que Queremos Entregar</h3>
                     <p>Ser a solução prática que todo mundo usa no dia a dia.</p>
                     <div class="sobre-nos-icones">
-                        <img src="/imgs-fixas/muro1.png" alt="visão" class="sobre-nos-icone">
+                        <img src="/imgs-fixas/muro1.png" alt="Ícone de visão" class="sobre-nos-icone">
                     </div>
-                </div>
+                </article>
 
-                <div class="sobre-nos-card">
-                    <h4>Nosso alicerces</h4>
+                <article class="sobre-nos-card">
+                    <h3>Nossos alicerces</h3>
                     <p>Oportunidade para todos e respeito em cada ação. Aqui, todo mundo tem espaço.</p>
                     <div class="sobre-nos-icones">
-                        <img src="/imgs-fixas/acordo.png" alt="valores" class="sobre-nos-icone">
+                        <img src="/imgs-fixas/acordo.png" alt="Ícone de valores" class="sobre-nos-icone">
                     </div>
-                </div>
+                </article>
             </div>
         </section>
-
     </main>
 
     <footer>
-        <h5>Contato</h5>
+        <h2>Contato</h2>
         <div class="info-contato-footer">
             <p>(11) 8989898989</p>
             <p>emobracom@gmail.com</p>
         </div>
         <div class="redes-sociais-footer">
-            <a href="https://www.tiktok.com/pt-BR/" target="_blank"><img src="/imgs-fixas/tiktok.png" alt=""></a>
-            <a href="https://www.youtube.com/" target="_blank"><img src="/imgs-fixas/youtube.png" alt=""></a>
-            <a href="https://www.instagram.com/" target="_blank"><img src="/imgs-fixas/instagram.png" alt=""></a>
+            <a href="https://www.tiktok.com/pt-BR/" target="_blank" rel="noopener noreferrer" aria-label="TikTok"><img src="/imgs-fixas/tiktok.png" alt="TikTok"></a>
+            <a href="https://www.youtube.com/" target="_blank" rel="noopener noreferrer" aria-label="YouTube"><img src="/imgs-fixas/youtube.png" alt="YouTube"></a>
+            <a href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><img src="/imgs-fixas/instagram.png" alt="Instagram"></a>
         </div>
     </footer>
 
     <!-- JS do Bootstrap e dependências -->
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-    <script src="/js/script.js"></script>
-
-    <script>
-        var swiper = new Swiper(".mySwiper", {
-            slidesPerView: "auto",
-            spaceBetween: 30,
-            pagination: {
-                el: ".swiper-pagination",
-                clickable: true,
-            },
-        });
-    </script>
-
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" defer></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js" defer></script>
+    <script src="/js/script.js" defer></script>
 </body>
 
 </html>

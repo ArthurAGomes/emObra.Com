@@ -1084,8 +1084,8 @@ footer {
   width: 100%;
   max-width: 720px;
   margin: auto;
-  /* display: none; Inicia oculto */
-  /* opacity: 0; Inicia invisível */
+  display: none; /*Inicia oculto*/
+  opacity: 0; /*Inicia invisível */
   transform: translateX(100%); /* Começa fora da tela à direita */
   transition: transform 0.5s ease, opacity 0.5s ease;
 
