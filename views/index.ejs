@@ -16,11 +16,14 @@
 <body class="bg-light">
     <header>
         <nav class="global-nav">
-            <img src="https://i.ibb.co/KVZRVhw/logov4-preto.png" alt="Logo Em Obra" class="logo-header">
+            <a href="/"><img src="https://i.ibb.co/KVZRVhw/logov4-preto.png" alt="logo-em-obra" class="logo-header"></a>
             <div class="conexao-global">
-                <span class="desconectar" style="display: none;">Sair</span>
-                <span><a href="/register/#cadastro">Cadastrar</a></span>
-                <a href="/login/#login"> <button>Entrar</button></a>
+                <% if (isAuthenticated) { %>
+                    <span><a href="/logout">Sair</a></span>
+                <% } else { %>
+                    <span><a href="/register">Cadastrar</a></span>
+                    <button><a href="/login">Entrar</a></button>
+                <% } %>
             </div>
         </nav>
     </header>
