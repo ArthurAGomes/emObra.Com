@@ -30,15 +30,16 @@ app.use(cookieParser());
 
 // Configuração da sessão
 app.use(session({
-    secret: process.env.SESSION_SECRET || 'seu_segredo_aqui',  // Chave secreta para assinatura do cookie da sessão
-    resave: false,  // Não re-salvar a sessão se não houve alterações
-    saveUninitialized: false,  // Não salvar a sessão até que algo seja armazenado
-    cookie: {
-        httpOnly: true,  // O cookie não pode ser acessado pelo JavaScript
-        secure: process.env.NODE_ENV === 'production',  // Enviar cookie apenas por HTTPS em produção
-        maxAge: 3600000  // Tempo de expiração do cookie (1 hora)
+    secret: process.env.SESSION_SECRET || 'seu_segredo_aqui',
+    resave: false,
+    saveUninitialized: false,
+    cookie: { 
+        httpOnly: true, 
+        secure: process.env.NODE_ENV === 'production', 
+        maxAge: 3600000  // 1 hora
     }
 }));
+
 
 // Middleware para disponibilizar a variável isAuthenticated nas views EJS
 app.use((req, res, next) => {
