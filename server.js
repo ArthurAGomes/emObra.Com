@@ -10,6 +10,7 @@ const routerRegister = require('./router/register');
 const routerAuth = require('./router/auth');
 const routerUpload = require('./router/upload'); 
 const routerExcluir = require('./router/excluir'); 
+const routerAccont = require('./router/accont');
 
 
 
@@ -54,6 +55,7 @@ app.use(routerAuth);        // Rotas de autenticação
 app.use(routerRegister);    // Rotas de cadastro
 app.use(routerUpload);      // Rotas de upload de arquivos
 app.use(routerExcluir);      // Rotas de upload de arquivos
+app.use(routerAccont);  
 
 // Porta do servidor
 const PORT = process.env.PORT || 3000;

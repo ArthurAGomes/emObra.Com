@@ -30,10 +30,20 @@ router.get('/excluir', async (req, res) => {
         }
 
         // Limpa a sessão após a exclusão
-        req.session = null; // Remove os dados da sessão do usuário
+        req.session.destroy((err) => {
+            if (err) {
+                console.error('Erro ao destruir a sessão:', err);
+                return res.status(500).send('Erro ao encerrar a sessão após a exclusão.');
+            }
 
-        // Redireciona para a página de cadastro
-        res.redirect('/web'); // Altere para a URL da página de cadastro
+            // Remover cookies (se necessário)
+            res.clearCookie('connect.sid', { path: '/' }); // Altere 'connect.sid' para o nome correto do seu cookie de sessão, se necessário
+
+            // Redireciona para a página inicial após a exclusão da conta
+            return res.redirect('/');
+
+            
+        });
     } catch (error) {
         console.error(error);
         res.status(500).send('Ocorreu um erro ao tentar excluir a conta.');
