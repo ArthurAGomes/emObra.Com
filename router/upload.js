@@ -5,7 +5,7 @@ const path = require('path');
 
 const router = express.Router();
 
-// Configuração do multer para armazenamento de arquivos
+// Configuração do multer para armazenamento de arquivos.
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
         const userType = req.session.userType; // Supondo que você tenha o tipo de usuário na sessão

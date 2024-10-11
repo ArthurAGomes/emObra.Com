@@ -8,7 +8,10 @@ const routerWeb = require('./router/web');
 const routerPostagem = require('./router/postagem');
 const routerRegister = require('./router/register');
 const routerAuth = require('./router/auth');
-const routerUpload = require('./router/upload'); // Importa o novo arquivo de rotas de upload
+const routerUpload = require('./router/upload'); 
+const routerExcluir = require('./router/excluir'); 
+
+
 
 const app = express();
 
@@ -49,6 +52,7 @@ app.use(routerPostagem);    // Rotas de postar serviço
 app.use(routerAuth);        // Rotas de autenticação
 app.use(routerRegister);    // Rotas de cadastro
 app.use(routerUpload);      // Rotas de upload de arquivos
+app.use(routerExcluir);      // Rotas de upload de arquivos
 
 // Porta do servidor
 const PORT = process.env.PORT || 3000;
