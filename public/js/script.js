@@ -1,50 +1,8 @@
-// document.getElementById('upload-file').addEventListener('change', function() {
-//     document.getElementById('upload-form').submit();
-// });
-
-var swiper = new Swiper(".mySwiper", {
-    slidesPerView: "auto",
-    spaceBetween: 10,
-    pagination: {
-        el: ".swiper-pagination",
-        clickable: true,
-    },
-});
-
-document.addEventListener('DOMContentLoaded', () => {
-    document.getElementById('btn-buscar-servico').addEventListener('click', function(event) {
-        event.preventDefault();
-        buscarResultados();
-    });
-
-    document.getElementById('btn-buscar-pedreiro').addEventListener('click', function(event) {
-        event.preventDefault();
-        buscarResultados();
-    });
-});
-
-// Função para mostrar o loader e enviar o formulário de busca
-function buscarResultados() {
-    const loader = document.getElementById('loader');
-    const resultadosContainer = document.querySelector('.resultado-busca');
-
-    // Exibe o loader e oculta os resultados anteriores
-    loader.classList.add('show-loader');
-    resultadosContainer.style.display = 'none';
-    resultadosContainer.classList.remove('animate-slide-in');
-
-    // Envia o formulário após um pequeno delay para o loader ser exibido
-    setTimeout(() => {
-        const form = document.getElementById('buscaForm');
-        form.submit(); // Submete o formulário para realizar a busca
-    }, 300); // Delay de 300ms para exibir o loader antes da submissão
-}
-
 // Função para inicializar o swiper com os resultados
 function initSwiper() {
     swiper = new Swiper(".mySwiper", {
         slidesPerView: "auto",
-        spaceBetween: 30,
+        spaceBetween: 10,
         pagination: {
             el: ".swiper-pagination",
             clickable: true,
@@ -52,40 +10,56 @@ function initSwiper() {
     });
 }
 
+// Função para mostrar o loader e enviar o formulário de busca
+// function buscarResultados() {
+//     const loader = document.getElementById('loader');
+//     const resultadosContainer = document.querySelector('.resultado-busca');
+
+//     // Exibe o loader e oculta os resultados anteriores
+//     loader.classList.add('show-loader');
+//     resultadosContainer.style.display = 'none';
+//     resultadosContainer.classList.remove('animate-slide-in');
+
+//     // Envia o formulário após um pequeno delay para o loader ser exibido
+//     setTimeout(() => {
+//         const form = document.getElementById('buscaForm');
+//         form.submit(); // Submete o formulário para realizar a busca
+//     }, 300); // Delay de 300ms para exibir o loader antes da submissão
+// }
+
 // Evento quando a página carrega completamente com os resultados
-window.addEventListener('load', function() {
-    const loader = document.getElementById('loader');
-    const resultadosContainer = document.querySelector('.resultado-busca');
+// window.addEventListener('load', function() {
+//     const loader = document.getElementById('loader');
+//     const resultadosContainer = document.querySelector('.resultado-busca');
 
-    // Verifica se há parâmetros na URL (indicando que uma busca foi feita)
-    const urlParams = new URLSearchParams(window.location.search);
-    const temParametros = urlParams.toString().length > 0;
+//     // Verifica se há parâmetros na URL (indicando que uma busca foi feita)
+//     const urlParams = new URLSearchParams(window.location.search);
+//     const temParametros = urlParams.toString().length > 0;
 
-    // Só rola a página para os resultados se houver parâmetros de busca
-    if (temParametros && resultadosContainer && resultadosContainer.children.length > 0) {
-        // Oculta o loader com uma transição suave
-        loader.classList.remove('show-loader');
+//     // Só rola a página para os resultados se houver parâmetros de busca
+//     if (temParametros && resultadosContainer && resultadosContainer.children.length > 0) {
+//         // Oculta o loader com uma transição suave
+//         loader.classList.remove('show-loader');
 
-        // Exibe os resultados com a animação de deslizamento
-        setTimeout(() => {
-            resultadosContainer.style.display = 'flex';
-            resultadosContainer.classList.add('animate-slide-in');
+//         // Exibe os resultados com a animação de deslizamento
+//         setTimeout(() => {
+//             resultadosContainer.style.display = 'flex';
+//             resultadosContainer.classList.add('animate-slide-in');
 
-            // Faz o scroll suave até o contêiner de resultados
-            resultadosContainer.scrollIntoView({ behavior: 'smooth' });
-        }, 100); // Delay para a animação de deslizamento
+//             // Faz o scroll suave até o contêiner de resultados
+//             resultadosContainer.scrollIntoView({ behavior: 'smooth' });
+//         }, 300); // Delay para a animação de deslizamento
 
-        // Inicializa o swiper para que funcione corretamente após os resultados
-        initSwiper();
-    }
-});
+//         // Inicializa o swiper para que funcione corretamente após os resultados
+//         initSwiper();
+//     }
+// });
 
 
 function setUserType(type) {
     if (type === 'pedreiro') {
         document.getElementById('registrationForm').style.display = 'flex';
         document.getElementById('registrationFormContratante').style.display = 'none';
-        // document.getElementById('servicosContainer').style.display = 'flex';
         document.getElementById('registrationForm').action = '/register/pedreiro';
         document.getElementById('btnPedreiro').style.cssText = 'background-color: #fff; box-shadow: inset 0 4px 8px rgba(0, 0, 0, 0.4); color: #020411;';
         

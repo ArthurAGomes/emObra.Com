@@ -26,7 +26,7 @@ router.get('/buscar', async (req, res) => {
     const { cep, tipo, engine } = req.query;
 
     if (!cep || !tipo || !engine) {
-        return res.status(400).render('index', { 
+        return res.status(400).json({ 
             mensagem: 'CEP, tipo e engine são obrigatórios.', 
             resultados: [], 
             servicos: [],
@@ -36,7 +36,7 @@ router.get('/buscar', async (req, res) => {
     }
 
     if (tipo !== 'servico' && tipo !== 'pedreiro') {
-        return res.status(400).render('index', { 
+        return res.status(400).json({ 
             mensagem: 'Tipo de busca inválido. Use "servico" ou "pedreiro".', 
             resultados: [], 
             servicos: [],
@@ -52,7 +52,7 @@ router.get('/buscar', async (req, res) => {
         const [instituicoes] = await pool.query('SELECT nome_parceiro, descricao, imagem, url FROM parceiros WHERE tipo_parceiro = "institucional"');
         const [lojas] = await pool.query('SELECT nome_parceiro, endereco, contato, imagem, url FROM parceiros WHERE tipo_parceiro = "loja"');
 
-        res.render('index', {
+        res.json({
             servicos: servicos || [],
             instituicoes: instituicoes || [],
             lojas: lojas || [],
@@ -61,7 +61,7 @@ router.get('/buscar', async (req, res) => {
         });
     } catch (error) {
         console.error('Erro na busca:', error);
-        res.status(500).render('index', { 
+        res.status(500).json({ 
             mensagem: `Erro ao buscar ${tipo}s.`,
             resultados: [], 
             servicos: [],
@@ -70,5 +70,6 @@ router.get('/buscar', async (req, res) => {
         });
     }
 });
+
 
 module.exports=router

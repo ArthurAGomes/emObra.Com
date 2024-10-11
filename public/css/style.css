@@ -1263,12 +1263,9 @@ footer {
 
 .resultado-busca {
   width: 100%;
-  /* max-width: 720px; */
   margin: auto;
   display: none;
-  /*Inicia oculto*/
   opacity: 0;
-  /*Inicia invisível */
   transform: translateX(100%);
   /* Começa fora da tela à direita */
   transition: transform 0.5s ease, opacity 0.5s ease;
@@ -1293,6 +1290,7 @@ footer {
   display: flex;
   align-items: center;
   justify-content: center;
+  display: none;
   opacity: 0;
   transition: opacity 1.5s ease-in-out;
 }
