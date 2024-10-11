@@ -37,34 +37,34 @@
 
 
         <section class="buscador">
-            
+
             <form class="form-buscar-index" id="buscaForm" action="/buscar" method="get">
                 <h2>Encontre novos serviços ou um pedreiro para sua obra!</h2>
                 <div class="radio-inputs">
-                    <% servicos.forEach(servico => { %>
+                    <% servicos.forEach(servico=> { %>
                         <label>
-                            <input class="radio-input servicos" type="radio" name="engine" value="<%= servico.id %>" required />
+                            <input class="radio-input servicos" type="radio" name="engine" value="<%= servico.id %>"
+                                required />
                             <span class="radio-tile">
                                 <span class="radio-servico">
                                     <%= servico.nome_servico %>
                                 </span>
                             </span>
                         </label>
-                    <% }) %>
+                        <% }) %>
                 </div>
-            
+
                 <div class="botoes-buscar">
                     <input type="text" name="cep" placeholder="Informe um CEP..." required>
-                    <input type="hidden" name="tipo" id="tipo" value="servico">
                     <div>
                         <!-- Botão para Buscar Serviço -->
-                        <button type="submit" id="btn-buscar-servico">Buscar Serviço</button>
-                        <!-- Botão Buscar Pedreiro que não faz submit -->
-                        <button type="button" id="btn-buscar-pedreiro" onclick="buscarPedreiro()">Buscar Pedreiro</button>
+                        <button type="button" id="btn-buscar-servico">Buscar Serviço</button>
+                        <!-- Botão para Buscar Pedreiro -->
+                        <button type="button" id="btn-buscar-pedreiro">Buscar Pedreiro</button>
                     </div>
                 </div>
             </form>
-            
+
             <!-- Loader -->
             <div class="loader" id="loader">
                 <div class="wrapper">
@@ -117,19 +117,20 @@
             <div class="resultado-busca" id="resultado-busca">
                 <div class="swiper mySwiper">
                     <div class="swiper-wrapper" id="swiper-wrapper">
-                        
+
                     </div>
                 </div>
             </div>
 
         </section>
+
         <section class="instituicoes-parceiras">
             <div class="chamada-institu-parceiras">
                 <h2>O seu futuro faz parte da nossa obra!</h2>
                 <p>Conheça nossos parceiros que querem fazer parte dessa empreitada.</p>
             </div>
             <div class="container-parceiros">
-                <div class="swiper mySwiper ">
+                <div class="swiper myCaroussel ">
                     <div class="swiper-wrapper">
                         <% instituicoes.forEach(instituicao=> { %>
                             <article class="swiper-slide">
@@ -154,6 +155,7 @@
                 </div>
             </div>
         </section>
+
         <section class="vantagens-premium">
             <h2>Conheça as vantagens de ser PedreiroPro</h2>
 
@@ -264,103 +266,14 @@
     <script src="/js/script.js" defer></script>
 
     <script>
-        document.getElementById('buscaForm').addEventListener('submit', function(event) {
-    event.preventDefault(); // Impede o refresh da página
-
-    const loader = document.getElementById('loader');
-    const resultadosContainer = document.getElementById('swiper-wrapper');
-    const resultadoBusca = document.getElementById('resultado-busca');
-
-    // Exibe o loader e esconde os resultados enquanto os dados estão sendo carregados
-    loader.classList.add('show-loader');
-    loader.scrollIntoView({ behavior: 'smooth', block: 'center' }); // Faz a página rolar para o loader
-    resultadoBusca.style.display = 'none';
-
-    // Captura os dados do formulário
-    const formData = new FormData(this);
-    const queryString = new URLSearchParams(formData).toString();
-
-    // Faz a requisição AJAX
-    fetch(`/buscar?${queryString}`)
-        .then(response => response.json())
-        .then(data => {
-            // Oculta o loader e exibe os resultados
-            loader.classList.remove('show-loader');
-
-            // Limpa o container antes de exibir novos resultados
-            resultadosContainer.innerHTML = '';
-
-            if (data.mensagem) {
-                resultadosContainer.innerHTML = `<p>${data.mensagem}</p>`;
-            } else {
-                // Exibe os resultados recebidos
-                data.resultados.forEach(resultado => {
-                    const card = `
-                        <div class="swiper-slide card-resultado-busca">
-                            <form class="super-container">
-                                <h3>${resultado.nome_servico}</h3>
-                                <div class="container-servico-top">
-                                    <div class="background-icon-servico">
-                                        <img src="/imgs-fixas/${resultado.imagem_servico}" alt="">
-                                    </div>
-                                    <div class="info-principais-servico">
-                                        <div class="distancia-servico">
-                                            <span>Distância</span>
-                                            <p><span>${resultado.distancia}</span> km de você</p>
-                                        </div>
-                                        <button type="submit">Candidatar-se</button>
-                                    </div>
-                                </div>
-                                <div class="input-descricao-servico">
-                                    <div class="descricao-post">
-                                        <label for="input" class="text">Descrição do serviço</label>
-                                        <textarea type="text" placeholder="${resultado.descricao}" name="input"
-                                            class="input" maxlength="300" rows="4" cols="50" disabled></textarea>
-                                    </div>
-                                </div>
-                                <hr>
-                                <div class="footer-servico">
-                                    <p>Valor: R$ ${resultado.valor},00</p>
-                                    <p>Prazo: ${resultado.prazo_combinar}</p>
-                                </div>
-                                <h4>${resultado.endereco}</h4>
-                            </form>
-                        </div>
-                    `;
-                    resultadosContainer.innerHTML += card;
-                });
-
-                // Inicializa o Swiper novamente após adicionar os novos slides
-                initSwiper(); 
-
-                // Torna o container de resultados visível
-                resultadoBusca.style.display = 'block';  
-                setTimeout(() => {
-                    resultadoBusca.classList.add('animate-slide-in');  
-                }, 100);
-            }
-        })
-        .catch(error => {
-            console.error('Erro:', error);
-            loader.classList.remove('show-loader'); // Oculta o loader mesmo em caso de erro
-        });
-});
+       
 
 
-        function initSwiper() {
-    if (swiper) {
-        swiper.destroy(); // Destrói a instância anterior, se existir
-    }
+        
 
-    swiper = new Swiper(".mySwiper", {
-        slidesPerView: "auto",
-        spaceBetween: 10,
-        pagination: {
-            el: ".swiper-pagination",
-            clickable: true,
-        },
-    });
-}
+
+        
+
 
     </script>
 </body>

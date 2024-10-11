@@ -25,20 +25,22 @@ router.get('/', async (req, res) => {
 router.get('/buscar', async (req, res) => {
     const { cep, tipo, engine } = req.query;
 
+    // Validação de parâmetros obrigatórios
     if (!cep || !tipo || !engine) {
         return res.status(400).json({ 
             mensagem: 'CEP, tipo e engine são obrigatórios.', 
-            resultados: [], 
+            resultados: [],
             servicos: [],
             instituicoes: [],
             lojas: []
         });
     }
 
-    if (tipo !== 'servico' && tipo !== 'pedreiro') {
+    const tiposPermitidos = ['servico', 'pedreiro'];
+    if (!tiposPermitidos.includes(tipo)) {
         return res.status(400).json({ 
             mensagem: 'Tipo de busca inválido. Use "servico" ou "pedreiro".', 
-            resultados: [], 
+            resultados: [],
             servicos: [],
             instituicoes: [],
             lojas: []
@@ -46,17 +48,20 @@ router.get('/buscar', async (req, res) => {
     }
 
     try {
+        // Chama a função buscarPorLocalizacao para fazer a busca de serviços ou pedreiros
         const resultados = await buscarPorLocalizacao(tipo, cep, engine);
 
+        // Consulta para buscar serviços, instituições e lojas adicionais
         const [servicos] = await pool.query('SELECT id, nome_servico, img_servico FROM tipo_servicos');
         const [instituicoes] = await pool.query('SELECT nome_parceiro, descricao, imagem, url FROM parceiros WHERE tipo_parceiro = "institucional"');
         const [lojas] = await pool.query('SELECT nome_parceiro, endereco, contato, imagem, url FROM parceiros WHERE tipo_parceiro = "loja"');
 
+        // Montagem da resposta
         res.json({
+            resultados: resultados.length > 0 ? resultados : [],
             servicos: servicos || [],
             instituicoes: instituicoes || [],
             lojas: lojas || [],
-            resultados: resultados.length > 0 ? resultados : [],
             mensagem: resultados.length === 0 ? 'Nenhum resultado encontrado.' : null
         });
     } catch (error) {

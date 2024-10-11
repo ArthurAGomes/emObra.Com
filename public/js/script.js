@@ -1,6 +1,181 @@
-// Função para inicializar o swiper com os resultados
-function initSwiper() {
-    swiper = new Swiper(".mySwiper", {
+let tipoBusca = '';
+
+document.getElementById('btn-buscar-servico').addEventListener('click', function () {
+    tipoBusca = 'servico'; // Define o tipo de busca como 'servico'
+    buscar(); // Chama a função de busca
+});
+
+document.getElementById('btn-buscar-pedreiro').addEventListener('click', function () {
+    tipoBusca = 'pedreiro'; // Define o tipo de busca como 'pedreiro'
+    buscar(); // Chama a função de busca
+});
+
+function buscar() {
+    const queryString = new URLSearchParams(new FormData(document.getElementById('buscaForm'))).toString();
+    const loader = document.getElementById('loader');
+    const resultadosContainer = document.getElementById('swiper-wrapper');
+    const resultadoBusca = document.getElementById('resultado-busca');
+
+    // Exibe o loader enquanto os resultados são carregados
+    loader.classList.add('show-loader');
+    loader.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    resultadoBusca.style.display = 'none';
+
+    if (tipoBusca === 'servico') {
+        buscarServicos(queryString, resultadosContainer, loader, resultadoBusca);
+    } else if (tipoBusca === 'pedreiro') {
+        buscarPedreiros(queryString, resultadosContainer, loader, resultadoBusca);
+    }
+}
+
+function buscarServicos(queryString, resultadosContainer, loader, resultadoBusca) {
+    // Exibe o loader
+    loader.classList.add('show-loader');
+
+    fetch(`/buscar?${queryString}&tipo=servico`)
+        .then(response => response.json())
+        .then(data => {
+            // Remove o loader após receber os dados
+            loader.classList.remove('show-loader');
+
+            // Limpa o container de resultados
+            resultadosContainer.innerHTML = '';
+            const swiperWrapper = document.getElementById('swiper-wrapper');
+            swiperWrapper.innerHTML = '';
+
+            if (data.mensagem) {
+                resultadosContainer.innerHTML = `<p>${data.mensagem}</p>`;
+            } else {
+                data.resultados.forEach(resultado => {
+                    const card = `
+                <div class="swiper-slide card-resultado-busca">
+                    <form class="super-container">
+                        <h3>${resultado.nome_servico}</h3>
+                        <div class="container-servico-top">
+                            <div class="background-icon-servico">
+                                <img src="/imgs-fixas/${resultado.imagem_servico}" alt="">
+                            </div>
+                            <div class="info-principais-servico">
+                                <div class="distancia-servico">
+                                    <span>Distância</span>
+                                    <p><span>${resultado.distancia}</span> km de você</p>
+                                </div>
+                                <button type="submit">Candidatar-se</button>
+                            </div>
+                        </div>
+                        <div class="input-descricao-servico">
+                            <div class="descricao-post">
+                                <label for="input" class="text">Descrição do serviço</label>
+                                <textarea type="text" placeholder="${resultado.descricao}" name="input"
+                                    class="input" maxlength="300" rows="4" cols="50" disabled></textarea>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="footer-servico">
+                            <p>Valor: R$ ${resultado.valor},00</p>
+                            <p>Prazo: ${resultado.prazo_combinar}</p>
+                        </div>
+                        <h4>${resultado.endereco}</h4>
+                    </form>
+                </div>
+            `;
+                    swiperWrapper.innerHTML += card;
+                });
+
+                resultadoBusca.style.display = 'block';
+                setTimeout(() => {
+                    resultadoBusca.classList.add('animate-slide-in');
+                }, 100);
+
+                // Inicialize o swiper para os resultados de serviços
+                initSwiperResultados();
+            }
+        })
+        .catch(error => {
+            console.error('Erro:', error);
+            loader.classList.remove('show-loader');
+        });
+}
+
+
+function buscarPedreiros(queryString, resultadosContainer, loader, resultadoBusca) {
+    // Exibe o loader
+    loader.classList.add('show-loader');
+
+    fetch(`/buscar?${queryString}&tipo=pedreiro`)
+        .then(response => response.json())
+        .then(data => {
+            // Remove o loader
+            loader.classList.remove('show-loader');
+
+            // Limpa o container de resultados e o swiper-wrapper
+            resultadosContainer.innerHTML = '';
+            const swiperWrapper = document.getElementById('swiper-wrapper');
+            swiperWrapper.innerHTML = '';
+
+            if (data.mensagem) {
+                resultadosContainer.innerHTML = `<p>${data.mensagem}</p>`;
+            } else {
+                data.resultados.forEach(resultado => {
+                    const card = `
+                <div class="swiper-slide card-resultado-busca">
+                    <form class="super-container">
+                        <h3>${resultado.nome}</h3>
+                        <div class="container-servico-top">
+                            <div class="background-icon-servico">
+                                <img src="/imagensPerfil/${resultado.img_perfil}" alt="">
+                            </div>
+                            <div class="info-principais-servico">
+                                <div class="distancia-servico">
+                                    <span>Distância</span>
+                                    <p><span>${resultado.distancia}</span> km de você</p>
+                                </div>
+                                <button type="submit">Ver Perfil</button>
+                            </div>
+                        </div>
+                        <div class="input-descricao-servico">
+                            <div class="descricao-post">
+                                <label for="input" class="text">Serviço oferecido</label>
+                                <textarea type="text" placeholder="${resultado.tipo_servico_1}" name="input"
+                                    class="input" maxlength="300" rows="4" cols="50" disabled></textarea>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="footer-servico">
+                            <p>Premium: ${resultado.premium ? 'Sim' : 'Não'}</p>
+                        </div>
+                        <h4>${resultado.endereco}</h4>
+                    </form>
+                </div>
+            `;
+                    swiperWrapper.innerHTML += card;
+                });
+
+                resultadoBusca.style.display = 'block';
+                setTimeout(() => {
+                    resultadoBusca.classList.add('animate-slide-in');
+                }, 100);
+
+                // Inicialize o swiper dos resultados de busca
+                initSwiperResultados();
+            }
+        })
+        .catch(error => {
+            console.error('Erro:', error);
+            loader.classList.remove('show-loader');
+        });
+}
+
+// Variáveis para armazenar as instâncias do swiper
+let swiperBanners, swiperResultados;
+
+// Função para inicializar o swiper de banners
+function initSwiperBanners() {
+    if (swiperBanners) {
+        swiperBanners.destroy(); // Destrói a instância anterior, se existir
+    }
+
+    swiperBanners = new Swiper(".myCaroussel", {
         slidesPerView: "auto",
         spaceBetween: 10,
         pagination: {
@@ -10,50 +185,27 @@ function initSwiper() {
     });
 }
 
-// Função para mostrar o loader e enviar o formulário de busca
-// function buscarResultados() {
-//     const loader = document.getElementById('loader');
-//     const resultadosContainer = document.querySelector('.resultado-busca');
+// Função para inicializar o swiper de resultados de busca
+function initSwiperResultados() {
+    if (swiperResultados) {
+        swiperResultados.destroy(); // Destroi a instância anterior, se existir
+    }
 
-//     // Exibe o loader e oculta os resultados anteriores
-//     loader.classList.add('show-loader');
-//     resultadosContainer.style.display = 'none';
-//     resultadosContainer.classList.remove('animate-slide-in');
+    swiperResultados = new Swiper(".resultado-busca .mySwiper", {
+        slidesPerView: "auto",
+        spaceBetween: 10,
+        pagination: {
+            el: ".swiper-pagination",
+            clickable: true,
+        },
+    });
+}
 
-//     // Envia o formulário após um pequeno delay para o loader ser exibido
-//     setTimeout(() => {
-//         const form = document.getElementById('buscaForm');
-//         form.submit(); // Submete o formulário para realizar a busca
-//     }, 300); // Delay de 300ms para exibir o loader antes da submissão
-// }
 
-// Evento quando a página carrega completamente com os resultados
-// window.addEventListener('load', function() {
-//     const loader = document.getElementById('loader');
-//     const resultadosContainer = document.querySelector('.resultado-busca');
-
-//     // Verifica se há parâmetros na URL (indicando que uma busca foi feita)
-//     const urlParams = new URLSearchParams(window.location.search);
-//     const temParametros = urlParams.toString().length > 0;
-
-//     // Só rola a página para os resultados se houver parâmetros de busca
-//     if (temParametros && resultadosContainer && resultadosContainer.children.length > 0) {
-//         // Oculta o loader com uma transição suave
-//         loader.classList.remove('show-loader');
-
-//         // Exibe os resultados com a animação de deslizamento
-//         setTimeout(() => {
-//             resultadosContainer.style.display = 'flex';
-//             resultadosContainer.classList.add('animate-slide-in');
-
-//             // Faz o scroll suave até o contêiner de resultados
-//             resultadosContainer.scrollIntoView({ behavior: 'smooth' });
-//         }, 300); // Delay para a animação de deslizamento
-
-//         // Inicializa o swiper para que funcione corretamente após os resultados
-//         initSwiper();
-//     }
-// });
+// Inicializa todos os swipers na primeira carga
+document.addEventListener('DOMContentLoaded', function () {
+    initSwiperBanners(); // Inicia o swiper dos banners
+});
 
 
 function setUserType(type) {
@@ -86,3 +238,164 @@ function avancarCadastro() {
         });
     
 }
+
+
+// Função para inicializar o swiper com os resultados
+// function initSwiper() {
+    
+// }
+
+// swiper = new Swiper(".mySwiper", {
+//     slidesPerView: "auto",
+//     spaceBetween: 10,
+//     pagination: {
+//         el: ".swiper-pagination",
+//         clickable: true,
+//     },
+// });
+
+// Função para mostrar o loader e enviar o formulário de busca
+// function buscarResultados() {
+//     const loader = document.getElementById('loader');
+//     const resultadosContainer = document.querySelector('.resultado-busca');
+
+//     // Exibe o loader e oculta os resultados anteriores
+//     loader.classList.add('show-loader');
+//     resultadosContainer.style.display = 'none';
+//     resultadosContainer.classList.remove('animate-slide-in');
+
+//     // Envia o formulário após um pequeno delay para o loader ser exibido
+//     setTimeout(() => {
+//         const form = document.getElementById('buscaForm');
+//         form.submit(); // Submete o formulário para realizar a busca
+//     }, 300); // Delay de 300ms para exibir o loader antes da submissão
+// }
+
+// // Evento quando a página carrega completamente com os resultados
+// window.addEventListener('load', function() {
+//     const loader = document.getElementById('loader');
+//     const resultadosContainer = document.querySelector('.resultado-busca');
+
+//     // Verifica se há parâmetros na URL (indicando que uma busca foi feita)
+//     const urlParams = new URLSearchParams(window.location.search);
+//     const temParametros = urlParams.toString().length > 0;
+
+//     // Só rola a página para os resultados se houver parâmetros de busca
+//     if (temParametros && resultadosContainer && resultadosContainer.children.length > 0) {
+//         // Oculta o loader com uma transição suave
+//         loader.classList.remove('show-loader');
+
+//         // Exibe os resultados com a animação de deslizamento
+//         setTimeout(() => {
+//             resultadosContainer.style.display = 'flex';
+//             resultadosContainer.classList.add('animate-slide-in');
+
+//             // Faz o scroll suave até o contêiner de resultados
+//             resultadosContainer.scrollIntoView({ behavior: 'smooth' });
+//         }, 300); // Delay para a animação de deslizamento
+
+//         // Inicializa o swiper para que funcione corretamente após os resultados
+//         initSwiper();
+//     }
+// });
+
+// document.getElementById('buscaForm').addEventListener('submit', function (event) {
+        //     event.preventDefault(); // Impede o refresh da página
+
+        //     const loader = document.getElementById('loader');
+        //     const resultadosContainer = document.getElementById('swiper-wrapper');
+        //     const resultadoBusca = document.getElementById('resultado-busca');
+
+        //     // Exibe o loader e esconde os resultados enquanto os dados estão sendo carregados
+        //     loader.classList.add('show-loader');
+        //     loader.scrollIntoView({ behavior: 'smooth', block: 'center' }); // Faz a página rolar para o loader
+        //     resultadoBusca.style.display = 'none';
+
+        //     // Captura os dados do formulário
+        //     const formData = new FormData(this);
+        //     const queryString = new URLSearchParams(formData).toString();
+
+        //     // Faz a requisição AJAX
+        //     fetch(`/buscar?${queryString}`)
+        //         .then(response => response.json())
+        //         .then(data => {
+        //             // Oculta o loader e exibe os resultados
+        //             loader.classList.remove('show-loader');
+
+        //             // Limpa o container antes de exibir novos resultados
+        //             resultadosContainer.innerHTML = '';
+
+        //             if (data.mensagem) {
+        //                 resultadosContainer.innerHTML = `<p>${data.mensagem}</p>`;
+        //             } else {
+        //                 // Exibe os resultados recebidos
+        //                 data.resultados.forEach(resultado => {
+        //                     const card = `
+        //                 <div class="swiper-slide card-resultado-busca">
+        //                     <form class="super-container">
+        //                         <h3>${resultado.nome_servico}</h3>
+        //                         <div class="container-servico-top">
+        //                             <div class="background-icon-servico">
+        //                                 <img src="/imgs-fixas/${resultado.imagem_servico}" alt="">
+        //                             </div>
+        //                             <div class="info-principais-servico">
+        //                                 <div class="distancia-servico">
+        //                                     <span>Distância</span>
+        //                                     <p><span>${resultado.distancia}</span> km de você</p>
+        //                                 </div>
+        //                                 <button type="submit">Candidatar-se</button>
+        //                             </div>
+        //                         </div>
+        //                         <div class="input-descricao-servico">
+        //                             <div class="descricao-post">
+        //                                 <label for="input" class="text">Descrição do serviço</label>
+        //                                 <textarea type="text" placeholder="${resultado.descricao}" name="input"
+        //                                     class="input" maxlength="300" rows="4" cols="50" disabled></textarea>
+        //                             </div>
+        //                         </div>
+        //                         <hr>
+        //                         <div class="footer-servico">
+        //                             <p>Valor: R$ ${resultado.valor},00</p>
+        //                             <p>Prazo: ${resultado.prazo_combinar}</p>
+        //                         </div>
+        //                         <h4>${resultado.endereco}</h4>
+        //                     </form>
+        //                 </div>
+        //             `;
+        //                     resultadosContainer.innerHTML += card;
+        //                 });
+
+        //                 // Inicializa o Swiper novamente após adicionar os novos slides
+        //                 initSwiper();
+
+        //                 // Torna o container de resultados visível
+        //                 resultadoBusca.style.display = 'block';
+        //                 setTimeout(() => {
+        //                     resultadoBusca.classList.add('animate-slide-in');
+        //                 }, 100);
+        //             }
+        //         })
+        //         .catch(error => {
+        //             console.error('Erro:', error);
+        //             loader.classList.remove('show-loader'); // Oculta o loader mesmo em caso de erro
+        //         });
+        // });
+
+
+        // function initSwiper() {
+        //     if (swiper) {
+        //         swiper.destroy(); // Destrói a instância anterior, se existir
+        //     }
+
+        //     swiper = new Swiper(".mySwiper", {
+        //         slidesPerView: "auto",
+        //         spaceBetween: 10,
+        //         pagination: {
+        //             el: ".swiper-pagination",
+        //             clickable: true,
+        //         },
+        //     });
+        // }
+
+
+
