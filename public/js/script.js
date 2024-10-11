@@ -57,22 +57,29 @@ window.addEventListener('load', function() {
     const loader = document.getElementById('loader');
     const resultadosContainer = document.querySelector('.resultado-busca');
 
-    // Verifica se há resultados e os exibe com animação
-    if (resultadosContainer && resultadosContainer.children.length > 0) {
+    // Verifica se há parâmetros na URL (indicando que uma busca foi feita)
+    const urlParams = new URLSearchParams(window.location.search);
+    const temParametros = urlParams.toString().length > 0;
+
+    // Só rola a página para os resultados se houver parâmetros de busca
+    if (temParametros && resultadosContainer && resultadosContainer.children.length > 0) {
         // Oculta o loader com uma transição suave
         loader.classList.remove('show-loader');
 
         // Exibe os resultados com a animação de deslizamento
-        ;
         setTimeout(() => {
-            resultadosContainer.style.display = 'flex'
+            resultadosContainer.style.display = 'flex';
             resultadosContainer.classList.add('animate-slide-in');
+
+            // Faz o scroll suave até o contêiner de resultados
+            resultadosContainer.scrollIntoView({ behavior: 'smooth' });
         }, 100); // Delay para a animação de deslizamento
 
         // Inicializa o swiper para que funcione corretamente após os resultados
         initSwiper();
     }
 });
+
 
 function setUserType(type) {
     if (type === 'pedreiro') {

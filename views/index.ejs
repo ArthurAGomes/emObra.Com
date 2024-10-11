@@ -4,9 +4,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Encontre pedreiros e serviços próximos para suas obras. Conecte-se rapidamente e realize seus projetos.">
+    <meta name="description"
+        content="Encontre pedreiros e serviços próximos para suas obras. Conecte-se rapidamente e realize seus projetos.">
     <title>Encontre Pedreiros Próximos</title>
-    
+
     <!-- CSS do Bootstrap -->
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="/css/style.css">
@@ -20,10 +21,10 @@
             <div class="conexao-global">
                 <% if (isAuthenticated) { %>
                     <span><a href="/logout">Sair</a></span>
-                <% } else { %>
-                    <span><a href="/register">Cadastrar</a></span>
-                    <button><a href="/login">Entrar</a></button>
-                <% } %>
+                    <% } else { %>
+                        <span><a href="/register">Cadastrar</a></span>
+                        <button><a href="/login">Entrar</a></button>
+                        <% } %>
             </div>
         </nav>
     </header>
@@ -36,13 +37,54 @@
 
 
         <section class="buscador">
-            <div class="resultado-busca">
+            
+            <form class="form-buscar-index" id="buscaForm" action="/buscar" method="get">
+                <h2>Encontre novos serviços ou um pedreiro para sua obra!</h2>
+                <div class="radio-inputs">
+                    <% servicos.forEach(servico=> { %>
+                        <label>
+                            <input class="radio-input servicos" type="radio" name="engine" value="<%= servico.id %>"
+                                required />
+                            <span class="radio-tile">
+                                <span class="radio-servico">
+                                    <%= servico.nome_servico %>
+                                </span>
+                            </span>
+                        </label>
+                        <% }) %>
+                </div>
+
+                <div class="botoes-buscar">
+                    <input type="text" name="cep" placeholder="Informe um CEP..." required>
+                    <input type="hidden" name="tipo" id="tipo">
+                    <div>
+                        <button type="button" id="btn-buscar-servico"
+                            onclick="document.getElementById('tipo').value='servico'; buscarResultados();">Buscar
+                            Serviço</button>
+                        <button type="button" id="btn-buscar-pedreiro"
+                            onclick="document.getElementById('tipo').value='pedreiro'; buscarResultados();">Buscar
+                            Pedreiro</button>
+                    </div>
+                </div>
+            </form>
+
+            <!-- Loader -->
+            <div class="loader" id="loader" style="display: none;">
+                <div class="wrapper">
+
+                    <p>Carregando...</p>
+                </div>
+            </div>
+
+            <div class="resultado-busca" id="resultado-busca">
                 <div class="swiper mySwiper">
                     <div class="swiper-wrapper">
-                        <% resultados.forEach(resultado => { %>
+                        <% resultados.forEach(resultado=> { %>
                             <div class="swiper-slide card-resultado-busca">
                                 <form class="super-container">
-                                    <h3><%= resultado.nome_servico %></h3>
+                                    <h3>
+                                        <%= resultado.nome_servico %>
+                                    </h3>
                                     <div class="container-servico-top">
                                         <div class="background-icon-servico">
                                             <img src="/imgs-fixas/<%= resultado.imagem_servico %>" alt="">
@@ -50,7 +92,9 @@
                                         <div class="info-principais-servico">
                                             <div class="distancia-servico">
                                                 <span>Distância</span>
-                                                <p><span><%= resultado.distancia %></span> km de você</p>
+                                                <p><span>
+                                                        <%= resultado.distancia %>
+                                                    </span> km de você</p>
                                             </div>
                                             <button type="submit">Candidatar-se</button>
                                         </div>
@@ -58,82 +102,59 @@
                                     <div class="input-descricao-servico">
                                         <div class="descricao-post">
                                             <label for="input" class="text">Descrição do serviço</label>
-                                            <textarea type="text" placeholder="<%= resultado.descricao %>" name="input" class="input"
-                                                maxlength="300" rows="4" cols="50" disabled></textarea>
+                                            <textarea type="text" placeholder="<%= resultado.descricao %>" name="input"
+                                                class="input" maxlength="300" rows="4" cols="50" disabled></textarea>
                                         </div>
                                     </div>
                                     <hr>
                                     <div class="footer-servico">
                                         <p>Valor: R$ <%= resultado.valor %>,00</p>
-                                        <p>Prazo: <%= resultado.prazo_combinar %></p>
+                                        <p>Prazo: <%= resultado.prazo_combinar %>
+                                        </p>
                                     </div>
-                                    <h4><%= resultado.endereco %></h4>
+                                    <h4>
+                                        <%= resultado.endereco %>
+                                    </h4>
                                 </form>
                             </div>
-                        <% }) %>
+                            <% }) %>
                     </div>
-                </div>
-        </div>
-            <form class="form-buscar-index" id="buscaForm" action="/buscar" method="get">
-                <h2>Encontre novos serviços ou um pedreiro para sua obra!</h2>
-                <div class="radio-inputs">
-                    <% servicos.forEach(servico => { %>
-                        <label>
-                            <input class="radio-input servicos" type="radio" name="engine" value="<%= servico.id %>" required />
-                            <span class="radio-tile">
-                                <span class="radio-servico">
-                                    <%= servico.nome_servico %>
-                                </span>
-                            </span>
-                        </label>
-                    <% }) %>
-                </div>
-        
-                <div class="botoes-buscar">
-                    <input type="text" name="cep" placeholder="Informe um CEP..." required>
-                    <input type="hidden" name="tipo" id="tipo">
-                    <div>
-                        <button type="button" id="btn-buscar-servico" onclick="document.getElementById('tipo').value='servico'; buscarResultados();">Buscar Serviço</button>
-                        <button type="button" id="btn-buscar-pedreiro" onclick="document.getElementById('tipo').value='pedreiro'; buscarResultados();">Buscar Pedreiro</button>
-                    </div>
-                </div>
-            </form>
-        
-            <!-- Loader -->
-            <div class="loader" id="loader" style="display: none;">
-                <div class="wrapper">
-                    
-                    <p>Carregando...</p>
                 </div>
             </div>
-        
-            
-    </section>
-    <section class="instituicoes-parceiras">
-        <div class="chamada-institu-parceiras">
-            <h2>O seu futuro faz parte da nossa obra!</h2>
-            <p>Conheça nossos parceiros que querem fazer parte dessa empreitada.</p>
-        </div>
-        <div class="container-parceiros">
-            <div class="swiper mySwiper ">
-                <div class="swiper-wrapper">
-                    <% instituicoes.forEach(instituicao => { %>
-                        <article class="swiper-slide">
-                            <div class="banner-institu-parceira">
-                                <div class="info-institu-parceira">
-                                    <h3><%= instituicao.nome_parceiro %></h3>
-                                    <p><%= instituicao.descricao %></p>
-                                    <a href="<%= instituicao.url %>" class="btn-institu" target="_blank" rel="noopener noreferrer">Veja mais</a>
+
+
+        </section>
+        <section class="instituicoes-parceiras">
+            <div class="chamada-institu-parceiras">
+                <h2>O seu futuro faz parte da nossa obra!</h2>
+                <p>Conheça nossos parceiros que querem fazer parte dessa empreitada.</p>
+            </div>
+            <div class="container-parceiros">
+                <div class="swiper mySwiper ">
+                    <div class="swiper-wrapper">
+                        <% instituicoes.forEach(instituicao=> { %>
+                            <article class="swiper-slide">
+                                <div class="banner-institu-parceira">
+                                    <div class="info-institu-parceira">
+                                        <h3>
+                                            <%= instituicao.nome_parceiro %>
+                                        </h3>
+                                        <p>
+                                            <%= instituicao.descricao %>
+                                        </p>
+                                        <a href="<%= instituicao.url %>" class="btn-institu" target="_blank"
+                                            rel="noopener noreferrer">Veja mais</a>
+                                    </div>
+                                    <img src="/imgs-fixas/<%= instituicao.imagem %>"
+                                        alt="<%= instituicao.nome_parceiro %>">
                                 </div>
-                                <img src="/imgs-fixas/<%= instituicao.imagem %>" alt="<%= instituicao.nome_parceiro %>">
-                            </div>
-                        </article>
-                    <% }) %>
+                            </article>
+                            <% }) %>
+                    </div>
+                    <div class="swiper-pagination"></div>
                 </div>
-                <div class="swiper-pagination"></div>
             </div>
-        </div>
-    </section>
+        </section>
         <section class="vantagens-premium">
             <h2>Conheça as vantagens de ser PedreiroPro</h2>
 
@@ -166,18 +187,24 @@
             <h2>Lojas Parceiras do EmObra.com</h2>
             <div class="swiper mySwiper">
                 <div class="swiper-wrapper">
-                    <% lojas.forEach(loja => { %>
+                    <% lojas.forEach(loja=> { %>
                         <article class="swiper-slide banner-loja-fundo">
                             <div class="banner-loja-parceira">
                                 <img src="imgs-fixas/<%= loja.imagem %>" alt="<%= loja.nome_parceiro %>">
                                 <div class="info-loja-parceira">
-                                    <h3><%= loja.nome %></h3>
-                                    <p><%= loja.endereco %></p>
-                                    <p><%= !loja.url ? loja.contato : loja.url %></p>
+                                    <h3>
+                                        <%= loja.nome %>
+                                    </h3>
+                                    <p>
+                                        <%= loja.endereco %>
+                                    </p>
+                                    <p>
+                                        <%= !loja.url ? loja.contato : loja.url %>
+                                    </p>
                                 </div>
                             </div>
                         </article>
-                    <% }) %>
+                        <% }) %>
                 </div>
                 <div class="swiper-pagination"></div>
             </div>
@@ -188,7 +215,8 @@
             <div class="sobre-nos-carrossel">
                 <article class="sobre-nos-card">
                     <h3>A nossa Obra</h3>
-                    <p>Aqui, a ideia é simples: conectar quem precisa com quem sabe fazer, de um jeito rápido e fácil.</p>
+                    <p>Aqui, a ideia é simples: conectar quem precisa com quem sabe fazer, de um jeito rápido e fácil.
+                    </p>
                     <div class="sobre-nos-icones">
                         <img src="/imgs-fixas/tijolo.png" alt="Ícone de missão" class="sobre-nos-icone">
                     </div>
@@ -220,9 +248,12 @@
             <p>emobracom@gmail.com</p>
         </div>
         <div class="redes-sociais-footer">
-            <a href="https://www.tiktok.com/pt-BR/" target="_blank" rel="noopener noreferrer" aria-label="TikTok"><img src="/imgs-fixas/tiktok.png" alt="TikTok"></a>
-            <a href="https://www.youtube.com/" target="_blank" rel="noopener noreferrer" aria-label="YouTube"><img src="/imgs-fixas/youtube.png" alt="YouTube"></a>
-            <a href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><img src="/imgs-fixas/instagram.png" alt="Instagram"></a>
+            <a href="https://www.tiktok.com/pt-BR/" target="_blank" rel="noopener noreferrer" aria-label="TikTok"><img
+                    src="/imgs-fixas/tiktok.png" alt="TikTok"></a>
+            <a href="https://www.youtube.com/" target="_blank" rel="noopener noreferrer" aria-label="YouTube"><img
+                    src="/imgs-fixas/youtube.png" alt="YouTube"></a>
+            <a href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><img
+                    src="/imgs-fixas/instagram.png" alt="Instagram"></a>
         </div>
     </footer>
 
