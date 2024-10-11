@@ -11,15 +11,20 @@ async function buscarPorLocalizacao(tipo, cep, engine) {
         // Definir a query de acordo com o tipo de busca
         if (tipo === 'servico') {
             query = `
-                SELECT sp.id, sp.descricao, sp.valor, sp.prazo_combinar, sp.cep_obra AS cep_obra
+                SELECT sp.id, sp.descricao, sp.valor, sp.prazo_combinar, sp.cep_obra AS cep_obra, ts.nome_servico
                 FROM servicos_postados sp
+                JOIN tipo_servicos ts ON sp.tipo_servico = ts.id
                 WHERE sp.status = 'andamento' AND sp.tipo_servico = ?; 
             `;
             params.push(engine);
         } else if (tipo === 'pedreiro') {
             query = `
-                SELECT p.id, p.nome, p.premium, p.cep AS cep_obra
+                SELECT p.id, p.nome, p.premium, p.cep AS cep_obra, ts.nome_servico
                 FROM pedreiros p
+                JOIN tipo_servicos ts ON 
+                    (p.tipo_servico_1 = ts.id OR p.tipo_servico_2 = ts.id OR 
+                    p.tipo_servico_3 = ts.id OR p.tipo_servico_4 = ts.id OR 
+                    p.tipo_servico_5 = ts.id)
                 WHERE p.ativo = 1 AND (
                     p.tipo_servico_1 = ? OR
                     p.tipo_servico_2 = ? OR
@@ -84,7 +89,8 @@ async function buscarPorLocalizacao(tipo, cep, engine) {
                 ...result,
                 distancia: result.distancia.toFixed(2),
                 mensagem: `${tipo === 'servico' ? 'Serviço' : 'Pedreiro'} a ${result.distancia.toFixed(2)} km de distância!`,
-                endereco: `${street}, ${neighborhood}` // Retorna apenas rua e bairro
+                endereco: `${street}, ${neighborhood}`, // Retorna apenas rua e bairro
+                nome_servico: result.nome_servico // Incluindo o nome do serviço
             };
         });
     } catch (error) {
