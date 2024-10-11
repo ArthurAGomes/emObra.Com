@@ -124,7 +124,7 @@ h2 {
 .buscador {
   margin: 50px auto;
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: column;
   align-items: center;
 }
 
@@ -1287,7 +1287,7 @@ footer {
 .loader {
   width: fit-content;
   height: fit-content;
-  display: flex;
+  margin: 50px 0;
   align-items: center;
   justify-content: center;
   display: none;

@@ -65,7 +65,6 @@
                 </div>
             </form>
             
-
             <!-- Loader -->
             <div class="loader" id="loader">
                 <div class="wrapper">
@@ -122,7 +121,6 @@
                     </div>
                 </div>
             </div>
-
 
         </section>
         <section class="instituicoes-parceiras">
@@ -274,7 +272,8 @@
     const resultadoBusca = document.getElementById('resultado-busca');
 
     // Exibe o loader e esconde os resultados enquanto os dados estão sendo carregados
-    loader.classList.add('show');
+    loader.classList.add('show-loader');
+    loader.scrollIntoView({ behavior: 'smooth', block: 'center' }); // Faz a página rolar para o loader
     resultadoBusca.style.display = 'none';
 
     // Captura os dados do formulário
@@ -286,7 +285,7 @@
         .then(response => response.json())
         .then(data => {
             // Oculta o loader e exibe os resultados
-            loader.classList.remove('show');
+            loader.classList.remove('show-loader');
 
             // Limpa o container antes de exibir novos resultados
             resultadosContainer.innerHTML = '';
@@ -343,13 +342,9 @@
         })
         .catch(error => {
             console.error('Erro:', error);
-            loader.classList.remove('show'); // Oculta o loader mesmo em caso de erro
+            loader.classList.remove('show-loader'); // Oculta o loader mesmo em caso de erro
         });
 });
-
-
-
-
 
 
         function initSwiper() {
