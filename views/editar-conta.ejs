@@ -1,5 +1,8 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
 <head>
     <meta charset="UTF-8">
     <title>Editar Conta</title>
@@ -23,29 +26,98 @@
         <input type="text" id="cpf" name="cpf" value="<%= user.cpf %>" required>
 
         <h2>Tipos de Serviço</h2>
-        <% const servicosSelecionados = [user.tipo_servico_1, user.tipo_servico_2, user.tipo_servico_3, user.tipo_servico_4, user.tipo_servico_5]; %>
-
         <div class="cadastro-pedreiro-checkbox">
-            <input type="checkbox" id="eletrica" name="tipos_servicos[]" value="3" <%= servicosSelecionados.includes(3) ? 'checked' : '' %> >
-            <label for="eletrica">Elétrica</label>
+            <input type="checkbox" id="pintura" name="tipos_servicos[]" value="1" <%= user.tipo_servico_1 ? 'checked' : '' %> >
+            <label for="pintura">
+                <div class="icone-servico">
+                    <img src="/imgs-fixas/pintura.png" alt="Pintura">
+                </div>
+                <div class="info-servicos-cadastro">
+                    <span>Pintura</span>
+                    <p>Pintura de paredes internas e externas, garantindo acabamento de qualidade.</p>
+                </div>
+            </label>
+        </div>
+        
+        <div class="cadastro-pedreiro-checkbox">
+            <input type="checkbox" id="reforma" name="tipos_servicos[]" value="2" <%= user.tipo_servico_2 ? 'checked' : '' %> >
+            <label for="reforma">
+                <div class="icone-servico">
+                    <img src="/imgs-fixas/reforma.png" alt="Reforma">
+                </div>
+                <div class="info-servicos-cadastro">
+                    <span>Reforma</span>
+                    <p>Reformas de espaços residenciais e comerciais, melhorando estrutura e estética.</p>
+                </div>
+            </label>
         </div>
 
         <div class="cadastro-pedreiro-checkbox">
-            <input type="checkbox" id="hidraulica" name="tipos_servicos[]" value="4" <%= servicosSelecionados.includes(4) ? 'checked' : '' %> >
-            <label for="hidraulica">Hidráulica</label>
+            <input type="checkbox" id="eletrica" name="tipos_servicos[]" value="3" <%= user.tipo_servico_3 ? 'checked' : '' %> >
+            <label for="eletrica">
+                <div class="icone-servico">
+                    <img src="/imgs-fixas/eletrica.png" alt="Elétrica">
+                </div>
+                <div class="info-servicos-cadastro">
+                    <span>Elétrica</span>
+                    <p>Instalação de sistemas elétricos, tomadas e painéis, com segurança garantida.</p>
+                </div>
+            </label>
         </div>
 
         <div class="cadastro-pedreiro-checkbox">
-            <input type="checkbox" id="alvenaria" name="tipos_servicos[]" value="5" <%= servicosSelecionados.includes(5) ? 'checked' : '' %> >
-            <label for="alvenaria">Alvenaria</label>
+            <input type="checkbox" id="hidraulica" name="tipos_servicos[]" value="4" <%= user.tipo_servico_4 ? 'checked' : '' %> >
+            <label for="hidraulica">
+                <div class="icone-servico">
+                    <img src="/imgs-fixas/hidraulica.png" alt="Hidráulica">
+                </div>
+                <div class="info-servicos-cadastro">
+                    <span>Hidráulica</span>
+                    <p>Serviços de encanamento e reparos de água e esgoto, com foco em eficiência.</p>
+                </div>
+            </label>
         </div>
 
         <div class="cadastro-pedreiro-checkbox">
-            <input type="checkbox" id="jardinagem" name="tipos_servicos[]" value="6" <%= servicosSelecionados.includes(6) ? 'checked' : '' %> >
-            <label for="jardinagem">Jardinagem</label>
+            <input type="checkbox" id="alvenaria" name="tipos_servicos[]" value="5" <%= user.tipo_servico_5 ? 'checked' : '' %> >
+            <label for="alvenaria">
+                <div class="icone-servico">
+                    <img src="/imgs-fixas/alvenaria.png" alt="Alvenaria">
+                </div>
+                <div class="info-servicos-cadastro">
+                    <span>Alvenaria</span>
+                    <p>Construção de paredes, fundações e outras estruturas em blocos ou tijolos.</p>
+                </div>
+            </label>
+        </div>
+
+        <div class="cadastro-pedreiro-checkbox">
+            <input type="checkbox" id="jardinagem" name="tipos_servicos[]" value="6" <%= user.tipo_servico_6 ? 'checked' : '' %> >
+            <label for="jardinagem">
+                <div class="icone-servico">
+                    <img src="/imgs-fixas/jardinagem.png" alt="Jardinagem">
+                </div>
+                <div class="info-servicos-cadastro">
+                    <span>Jardinagem</span>
+                    <p>Cuidados e design de áreas verdes, com manutenção de jardins e gramados.</p>
+                </div>
+            </label>
         </div>
 
         <!-- Adicione os outros serviços seguindo o mesmo padrão -->
+        <!-- Exemplo para o próximo tipo de serviço -->
+        <div class="cadastro-pedreiro-checkbox">
+            <input type="checkbox" id="marcenaria" name="tipos_servicos[]" value="7" <%= user.tipo_servico_7 ? 'checked' : '' %> >
+            <label for="marcenaria">
+                <div class="icone-servico">
+                    <img src="/imgs-fixas/marcenaria.png" alt="Marcenaria">
+                </div>
+                <div class="info-servicos-cadastro">
+                    <span>Marcenaria</span>
+                    <p>Fabricação e instalação de móveis sob medida e peças de madeira.</p>
+                </div>
+            </label>
+        </div>
 
         <button type="submit">Salvar Alterações</button>
     </form>
