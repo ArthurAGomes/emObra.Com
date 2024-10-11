@@ -27,63 +27,6 @@ async function getUserById(userId) {
     return user.length > 0 ? user[0] : null;
 }
 
-// Rota para exibir o formulário de edição de serviços
-router.get('/editar-servicos', async (req, res) => {
-    const userId = req.session.userId; // Obter o ID do usuário da sessão
-    if (!userId) {
-        return res.status(403).send('Você deve estar logado para editar seus serviços.');
-    }
-
-    const user = await getUserById(userId);
-    
-    if (!user || user.tipo !== 'pedreiro') {
-        return res.status(404).send('Usuário não encontrado ou não é um pedreiro.');
-    }
-
-    // Busca todos os tipos de serviço disponíveis
-    const [servicos] = await pool.query('SELECT * FROM tipo_servicos');
-
-    // Renderiza o formulário de edição de serviços, passando os dados do usuário e os serviços disponíveis
-    res.render('editar-servicos', { user, servicos });
-});
-
-// Rota para atualizar os tipos de serviço do usuário
-router.post('/editar-servicos', async (req, res) => {
-    const userId = req.session.userId;
-    if (!userId) {
-        return res.status(403).send('Você deve estar logado para editar seus serviços.');
-    }
-
-    // Obtendo os tipos de serviços selecionados
-    const tipos_servicos = req.body.tipos_servicos || []; // Garantir que seja um array
-    console.log('Tipos de serviços recebidos:', tipos_servicos); // Log para depuração
-
-    // Garantindo que temos 5 serviços, preenchendo com null se necessário
-    const updatedTiposServicos = [
-        tipos_servicos[0] || null, 
-        tipos_servicos[1] || null, 
-        tipos_servicos[2] || null, 
-        tipos_servicos[3] || null, 
-        tipos_servicos[4] || null
-    ];
-
-    console.log('Tipos de serviços atualizados:', updatedTiposServicos); // Log para depuração
-
-    // Atualiza os tipos de serviço do pedreiro no banco de dados
-    const [result] = await pool.query(`
-        UPDATE pedreiros 
-        SET tipo_servico_1 = ?, tipo_servico_2 = ?, tipo_servico_3 = ?, tipo_servico_4 = ?, tipo_servico_5 = ? 
-        WHERE id = ?`, 
-        [...updatedTiposServicos, userId]);
-
-    // Verificação se a atualização foi realizada
-    if (result.affectedRows === 0) {
-        return res.status(404).send('Usuário não encontrado ou tipos de serviço não atualizados.');
-    }
-
-    res.status(200).send('Tipos de serviço atualizados com sucesso.');
-});
-
 // Rota para exibir o formulário de edição
 router.get('/editar-conta', async (req, res) => {
     const userId = req.session.userId; // Obter o ID do usuário da sessão
@@ -108,14 +51,37 @@ router.post('/editar', async (req, res) => {
         return res.status(403).send('Você deve estar logado para editar sua conta.');
     }
 
+    // Log para depuração: verificar os dados recebidos
+    console.log('Dados recebidos para atualização:', req.body);
+
     const { nome, email, telefone, cep, cpf, tipos_servicos } = req.body;
 
-    // Atualiza os dados do usuário no banco de dados
+    // Atualiza os tipos de serviços, garantindo que sejam números ou nulos
+    const updatedTiposServicos = [
+        parseInt(tipos_servicos[0], 10) || null, 
+        parseInt(tipos_servicos[1], 10) || null, 
+        parseInt(tipos_servicos[2], 10) || null, 
+        parseInt(tipos_servicos[3], 10) || null, 
+        parseInt(tipos_servicos[4], 10) || null
+    ];
+
+    // Log para depuração: verificar os tipos de serviços que estão sendo atualizados
+    console.log('Tipos de serviços a serem atualizados:', updatedTiposServicos);
+
+    // Atualiza os dados do usuário e os tipos de serviço em uma única consulta
     const [result] = await pool.query(`
         UPDATE pedreiros 
-        SET nome = ?, email = ?, telefone = ?, cep = ?, cpf = ? 
+        SET nome = ?, email = ?, telefone = ?, cep = ?, cpf = ?, 
+            tipo_servico_1 = ?, tipo_servico_2 = ?, tipo_servico_3 = ?, tipo_servico_4 = ?, tipo_servico_5 = ? 
         WHERE id = ?`, 
-        [nome, email, telefone, cep, cpf, userId]);
+        [
+            nome, email, telefone, cep, cpf, 
+            ...updatedTiposServicos, 
+            userId
+        ]);
+
+    // Log para depuração: verificar o resultado da atualização
+    console.log('Resultado da atualização do pedreiro:', result);
 
     // Verifica se nenhum usuário foi encontrado na tabela pedreiros
     if (result.affectedRows === 0) {
@@ -125,27 +91,12 @@ router.post('/editar', async (req, res) => {
             WHERE id = ?`, 
             [nome, email, telefone, cep, cpf, userId]);
         
+        // Log para depuração: verificar o resultado da atualização do contratante
+        console.log('Resultado da atualização do contratante:', contratanteResult);
+        
         if (contratanteResult.affectedRows === 0) {
             return res.status(404).send('Usuário não encontrado em ambas as tabelas.');
         }
-    }
-
-    // Atualiza os tipos de serviço se for um pedreiro
-    if (tipos_servicos && req.session.userTipo === 'pedreiro') {
-        const updatedTiposServicos = [
-            tipos_servicos[0] || null, 
-            tipos_servicos[1] || null, 
-            tipos_servicos[2] || null, 
-            tipos_servicos[3] || null, 
-            tipos_servicos[4] || null
-        ];
-
-        // Atualiza os tipos de serviço do pedreiro no banco de dados
-        await pool.query(`
-            UPDATE pedreiros 
-            SET tipo_servico_1 = ?, tipo_servico_2 = ?, tipo_servico_3 = ?, tipo_servico_4 = ?, tipo_servico_5 = ? 
-            WHERE id = ?`, 
-            [...updatedTiposServicos, userId]);
     }
 
     res.status(200).send('Dados atualizados com sucesso.');
