@@ -41,16 +41,16 @@ function buscarResultados() {
 }
 
 // Função para inicializar o swiper com os resultados
-// function initSwiper() {
-//     swiper = new Swiper(".mySwiper", {
-//         slidesPerView: "auto",
-//         spaceBetween: 30,
-//         pagination: {
-//             el: ".swiper-pagination",
-//             clickable: true,
-//         },
-//     });
-// }
+function initSwiper() {
+    swiper = new Swiper(".mySwiper", {
+        slidesPerView: "auto",
+        spaceBetween: 30,
+        pagination: {
+            el: ".swiper-pagination",
+            clickable: true,
+        },
+    });
+}
 
 // Evento quando a página carrega completamente com os resultados
 window.addEventListener('load', function() {

@@ -235,12 +235,13 @@ h2 {
 .form-buscar-index {
   margin: 10px auto;
   max-width: 800px;
+  width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
   text-align: center;
   padding: 15px;
-  position: relative;
+  /* position: relative; */
 
   input {
     width: 90%;
@@ -1404,24 +1405,12 @@ footer {
   }
 }
 
-@media screen and (max-width: 1199px) {
-  .resultado-busca {
-    transform: none;
-    /* Sem animação em telas pequenas */
-  }
-}
 
 /* Alinhamento flexível dos elementos em resoluções menores */
-.buscador>* {
+/* .buscador>* {
   flex: 1 1 100%;
-}
+} */
 
-@media screen and (min-width: 1200px) {
-  .buscador>* {
-    flex: 1 1 48%;
-    /* Aparecem lado a lado em telas maiores */
-  }
-}
 
 @media screen and (min-width: 1400px) {
 
