@@ -116,39 +116,46 @@ function buscarPedreiros(queryString, resultadosContainer, loader, resultadoBusc
             if (data.mensagem) {
                 resultadosContainer.innerHTML = `<p>${data.mensagem}</p>`;
             } else {
+                // Criar um Set para controlar pedreiros já adicionados e evitar duplicações
+                const pedreirosAdicionados = new Set();
+
                 data.resultados.forEach(resultado => {
-                    const card = `
-                <div class="swiper-slide card-resultado-busca">
-                    <form class="super-container">
-                        <h3>${resultado.nome}</h3>
-                        <div class="container-servico-top">
-                            <div class="background-icon-servico">
-                                <img src="/imagensPerfil/${resultado.img_perfil}" alt="">
+                    if (!pedreirosAdicionados.has(resultado.id)) {
+                        pedreirosAdicionados.add(resultado.id); // Marca o pedreiro como já adicionado
+
+                        const card = `
+                            <div class="swiper-slide card-resultado-busca">
+                                <form class="super-container">
+                                    <h3>${resultado.nome}</h3>
+                                    <div class="container-servico-top">
+                                        <div class="background-icon-servico">
+                                            <img src="/imagensPerfil/${resultado.img_perfil}" alt="">
+                                        </div>
+                                        <div class="info-principais-servico">
+                                            <div class="distancia-servico">
+                                                <span>Distância</span>
+                                                <p><span>${resultado.distancia}</span> km de você</p>
+                                            </div>
+                                            <button type="submit">Ver Perfil</button>
+                                        </div>
+                                    </div>
+                                    <div class="input-descricao-servico">
+                                        <div class="descricao-post">
+                                            <label for="input" class="text">Serviços oferecidos</label>
+                                            <textarea type="text" placeholder="${resultado.nome_servico}" name="input"
+                                                class="input" maxlength="300" rows="4" cols="50" disabled></textarea>
+                                        </div>
+                                    </div>
+                                    <hr>
+                                    <div class="footer-servico">
+                                        <p>Premium: ${resultado.premium ? 'Sim' : 'Não'}</p>
+                                    </div>
+                                    <h4>${resultado.endereco}</h4>
+                                </form>
                             </div>
-                            <div class="info-principais-servico">
-                                <div class="distancia-servico">
-                                    <span>Distância</span>
-                                    <p><span>${resultado.distancia}</span> km de você</p>
-                                </div>
-                                <button type="submit">Ver Perfil</button>
-                            </div>
-                        </div>
-                        <div class="input-descricao-servico">
-                            <div class="descricao-post">
-                                <label for="input" class="text">Serviço oferecido</label>
-                                <textarea type="text" placeholder="${resultado.tipo_servico_1}" name="input"
-                                    class="input" maxlength="300" rows="4" cols="50" disabled></textarea>
-                            </div>
-                        </div>
-                        <hr>
-                        <div class="footer-servico">
-                            <p>Premium: ${resultado.premium ? 'Sim' : 'Não'}</p>
-                        </div>
-                        <h4>${resultado.endereco}</h4>
-                    </form>
-                </div>
-            `;
-                    swiperWrapper.innerHTML += card;
+                        `;
+                        swiperWrapper.innerHTML += card;
+                    }
                 });
 
                 resultadoBusca.style.display = 'block';
@@ -165,6 +172,7 @@ function buscarPedreiros(queryString, resultadosContainer, loader, resultadoBusc
             loader.classList.remove('show-loader');
         });
 }
+
 
 // Variáveis para armazenar as instâncias do swiper
 let swiperBanners, swiperResultados;

@@ -19,19 +19,22 @@ async function buscarPorLocalizacao(tipo, cep, engine) {
             params.push(engine);
         } else if (tipo === 'pedreiro') {
             query = `
-                SELECT p.id, p.nome, p.premium, p.cep AS cep_obra, ts.nome_servico
-                FROM pedreiros p
-                JOIN tipo_servicos ts ON 
-                    (p.tipo_servico_1 = ts.id OR p.tipo_servico_2 = ts.id OR 
-                    p.tipo_servico_3 = ts.id OR p.tipo_servico_4 = ts.id OR 
-                    p.tipo_servico_5 = ts.id)
-                WHERE p.ativo = 1 AND (
-                    p.tipo_servico_1 = ? OR
-                    p.tipo_servico_2 = ? OR
-                    p.tipo_servico_3 = ? OR
-                    p.tipo_servico_4 = ? OR
-                    p.tipo_servico_5 = ?
-                );
+            SELECT 
+            p.id, 
+            p.nome, 
+            p.premium, 
+            p.cep AS cep_obra, 
+            GROUP_CONCAT(ts.nome_servico SEPARATOR ', ') AS tipos_servico
+        FROM 
+            pedreiros p
+        JOIN 
+            tipo_servicos ts 
+            ON (p.tipo_servico_1 = ts.id OR p.tipo_servico_2 = ts.id OR p.tipo_servico_3 = ts.id OR p.tipo_servico_4 = ts.id OR p.tipo_servico_5 = ts.id)
+        WHERE 
+            p.ativo = 1 
+            AND (p.tipo_servico_1 = ? OR p.tipo_servico_2 = ? OR p.tipo_servico_3 = ? OR p.tipo_servico_4 = ? OR p.tipo_servico_5 = ?)
+        GROUP BY 
+            p.id;        
             `;
             params.push(engine, engine, engine, engine, engine);
         } else {
@@ -89,8 +92,8 @@ async function buscarPorLocalizacao(tipo, cep, engine) {
                 ...result,
                 distancia: result.distancia.toFixed(2),
                 mensagem: `${tipo === 'servico' ? 'Serviço' : 'Pedreiro'} a ${result.distancia.toFixed(2)} km de distância!`,
-                endereco: `${street}, ${neighborhood}`, // Retorna apenas rua e bairro
-                nome_servico: result.nome_servico // Incluindo o nome do serviço
+                endereco: `${street}, ${neighborhood}`,
+                nome_servico: tipo === 'servico' ? result.nome_servico : result.tipos_servico // Um tipo para serviço, vários para pedreiro
             };
         });
     } catch (error) {
