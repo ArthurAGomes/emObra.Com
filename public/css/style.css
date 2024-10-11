@@ -1262,7 +1262,7 @@ footer {
 
 .resultado-busca {
   width: 100%;
-  max-width: 720px;
+  /* max-width: 720px; */
   margin: auto;
   display: none;
   /*Inicia oculto*/

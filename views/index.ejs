@@ -34,40 +34,8 @@
             <h2>Facilitando conexões, <br>concretizando projetos.</h2>
         </section>
 
+
         <section class="buscador">
-            <form class="form-buscar-index" id="buscaForm" action="/buscar" method="get">
-                <h2>Encontre novos serviços ou um pedreiro para sua obra!</h2>
-                <div class="radio-inputs">
-                    <% servicos.forEach(servico => { %>
-                        <label>
-                            <input class="radio-input servicos" type="radio" name="engine" value="<%= servico.id %>" required />
-                            <span class="radio-tile">
-                                <span class="radio-servico">
-                                    <%= servico.nome_servico %>
-                                </span>
-                            </span>
-                        </label>
-                    <% }) %>
-                </div>
-        
-                <div class="botoes-buscar">
-                    <input type="text" name="cep" placeholder="Informe um CEP..." required>
-                    <input type="hidden" name="tipo" id="tipo">
-                    <div>
-                        <button type="button" id="btn-buscar-servico" onclick="document.getElementById('tipo').value='servico'; buscarResultados();">Buscar Serviço</button>
-                        <button type="button" id="btn-buscar-pedreiro" onclick="document.getElementById('tipo').value='pedreiro'; buscarResultados();">Buscar Pedreiro</button>
-                    </div>
-                </div>
-            </form>
-        
-            <!-- Loader -->
-            <div class="loader" id="loader" style="display: none;">
-                <div class="wrapper">
-                    
-                    <p>Carregando...</p>
-                </div>
-            </div>
-        
             <div class="resultado-busca">
                 <div class="swiper mySwiper">
                     <div class="swiper-wrapper">
@@ -106,6 +74,40 @@
                     </div>
                 </div>
         </div>
+            <form class="form-buscar-index" id="buscaForm" action="/buscar" method="get">
+                <h2>Encontre novos serviços ou um pedreiro para sua obra!</h2>
+                <div class="radio-inputs">
+                    <% servicos.forEach(servico => { %>
+                        <label>
+                            <input class="radio-input servicos" type="radio" name="engine" value="<%= servico.id %>" required />
+                            <span class="radio-tile">
+                                <span class="radio-servico">
+                                    <%= servico.nome_servico %>
+                                </span>
+                            </span>
+                        </label>
+                    <% }) %>
+                </div>
+        
+                <div class="botoes-buscar">
+                    <input type="text" name="cep" placeholder="Informe um CEP..." required>
+                    <input type="hidden" name="tipo" id="tipo">
+                    <div>
+                        <button type="button" id="btn-buscar-servico" onclick="document.getElementById('tipo').value='servico'; buscarResultados();">Buscar Serviço</button>
+                        <button type="button" id="btn-buscar-pedreiro" onclick="document.getElementById('tipo').value='pedreiro'; buscarResultados();">Buscar Pedreiro</button>
+                    </div>
+                </div>
+            </form>
+        
+            <!-- Loader -->
+            <div class="loader" id="loader" style="display: none;">
+                <div class="wrapper">
+                    
+                    <p>Carregando...</p>
+                </div>
+            </div>
+        
+            
     </section>
         
         <section class="vantagens-premium">
