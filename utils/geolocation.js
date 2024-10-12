@@ -23,6 +23,7 @@ async function buscarPorLocalizacao(tipo, cep, engine) {
             p.id AS pedreiro_id, 
             p.nome, 
             p.premium, 
+            p.img_perfil,
             p.cep AS cep_obra, 
             GROUP_CONCAT(ts.nome_servico SEPARATOR ', ') AS tipos_servico
         FROM 

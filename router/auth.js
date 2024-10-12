@@ -68,6 +68,14 @@ const isAuthenticated = (req, res, next) => {
     }
 };
 
+router.get('/isAuthenticated', (req, res) => {
+    if (req.session.userId) {
+        res.json({ authenticated: true });
+    } else {
+        res.json({ authenticated: false });
+    }
+});
+
 // Rota de perfil do contratante
 router.get('/perfil-contratante', isAuthenticated, async (req, res) => {
     try {

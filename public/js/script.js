@@ -60,7 +60,7 @@ function buscarServicos(queryString, resultadosContainer, loader, resultadoBusca
                                     <span>Distância</span>
                                     <p><span>${resultado.distancia}</span> km de você</p>
                                 </div>
-                                <button type="submit">Candidatar-se</button>
+                                <button type="submit" class="btn-me-candidatar">Candidatar-se</button>
                             </div>
                         </div>
                         <div class="input-descricao-servico">
@@ -89,6 +89,28 @@ function buscarServicos(queryString, resultadosContainer, loader, resultadoBusca
 
                 // Inicialize o swiper para os resultados de serviços
                 initSwiperResultados();
+
+                document.querySelectorAll('.btn-me-candidatar').forEach(button => {
+                    button.addEventListener('click', function(event) {
+                        event.preventDefault();
+                
+                        // Verificar se o usuário está autenticado
+                        fetch('/isAuthenticated')
+                            .then(response => response.json())
+                            .then(data => {
+                                if (data.authenticated) {
+                                    // Se estiver autenticado, abre o modal
+                                    window.alert("Proposta enviada");  // Função que abre o modal
+                                } else {
+                                    // Se não estiver autenticado, redireciona para a página de login
+                                    window.location.href = '/login';
+                                }
+                            })
+                            .catch(error => {
+                                console.error('Erro ao verificar autenticação:', error);
+                            });
+                    });
+                });
             }
         })
         .catch(error => {
@@ -129,14 +151,14 @@ function buscarPedreiros(queryString, resultadosContainer, loader, resultadoBusc
                                     <h3>${resultado.nome}</h3>
                                     <div class="container-servico-top">
                                         <div class="background-icon-servico">
-                                            <img src="imagensPedreiro/${resultado.img_perfil}" alt="">
+                                            <img src="/imagensPedreiro/${resultado.img_perfil}" alt="">
                                         </div>
                                         <div class="info-principais-servico">
                                             <div class="distancia-servico">
                                                 <span>Distância</span>
                                                 <p><span>${resultado.distancia}</span> km de você</p>
                                             </div>
-                                            <button id="fazer-proposta" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Fazer Proposta</button>
+                                            <button id="fazer-proposta" type="button" class="btn btn-primary btn-fazer-proposta">Fazer Proposta</button>
                                         </div>
                                     </div>
                                     <div class="input-descricao-servico">
@@ -154,7 +176,36 @@ function buscarPedreiros(queryString, resultadosContainer, loader, resultadoBusc
                                 </form>
                             </div>
                         `;
-                        swiperWrapper.innerHTML += card;
+                        swiperWrapper.innerHTML += card;           
+
+                        document.querySelectorAll('.btn-fazer-proposta').forEach(button => {
+                            button.addEventListener('click', function(event) {
+                                event.preventDefault();
+                        
+                                // Verificar se o usuário está autenticado
+                                fetch('/isAuthenticated')
+                                    .then(response => response.json())
+                                    .then(data => {
+                                        if (data.authenticated) {
+                                            // Se estiver autenticado, abre o modal
+                                            window.alert("Proposta enviada");  // Função que abre o modal
+                                        } else {
+                                            // Se não estiver autenticado, redireciona para a página de login
+                                            window.location.href = '/login';
+                                        }
+                                    })
+                                    .catch(error => {
+                                        console.error('Erro ao verificar autenticação:', error);
+                                    });
+                            });
+                        });
+                        
+                        // function abrirModalProposta() {
+                        //     // Aqui você implementa a lógica para abrir o modal de proposta
+                        //     document.getElementById('modalProposta').style.display = 'block';
+                        // }
+                        
+                        
                     }
                 });
 
@@ -165,15 +216,6 @@ function buscarPedreiros(queryString, resultadosContainer, loader, resultadoBusc
 
                 // Inicialize o swiper dos resultados de busca
                 initSwiperResultados();
-
-                // Adiciona o evento de clique nos botões "Fazer Proposta" para abrir o modal
-                document.querySelectorAll('.fazer-proposta').forEach(button => {
-                    button.addEventListener('click', (event) => {
-                        const pedreiroId = event.target.getAttribute('data-id');
-                        // Exemplo de ação que pode ser feita ao abrir o modal, como passar dados para o modal
-                        console.log(`Proposta para pedreiro ID: ${pedreiroId}`);
-                    });
-                });
             }
         })
         .catch(error => {
