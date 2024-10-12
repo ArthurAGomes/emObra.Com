@@ -80,7 +80,10 @@ router.get('/isAuthenticated', (req, res) => {
 router.get('/perfil-contratante', isAuthenticated, async (req, res) => {
     try {
         const [tiposServicos] = await pool.query('SELECT id, nome_servico FROM tipo_servicos');
-        res.render('perfil-contratante', { userId: req.session.userId, tipos_servicos: tiposServicos });
+
+        const [solicitacoes] = await pool.query('SELECT * FROM servicos_postados');
+
+        res.render('perfil-contratante', { userId: req.session.userId, tipos_servicos: tiposServicos, solicitacoes });
     } catch (err) {
         console.error('Erro ao carregar os tipos de serviço:', err);
         res.status(500).send('Erro ao carregar os tipos de serviço.');
@@ -99,8 +102,10 @@ router.get('/perfil-pedreiro', isAuthenticated, async (req, res) => {
         // Consulta para buscar os dados do pedreiro
         const [pedreiro] = await pool.query('SELECT * FROM pedreiros WHERE id = ?', [req.session.userId]);
 
+        const [servicos] = await pool.query('SELECT id, nome_servico, img_servico FROM tipo_servicos');
+
         // Renderiza a página 'perfil-pedreiro.ejs' e passa os dados necessários
-        res.render('perfil-pedreiro', { userId: req.session.userId, instituicoes, lojas, pedreiro });
+        res.render('perfil-pedreiro', { userId: req.session.userId, instituicoes, lojas, pedreiro, servicos });
 
     } catch (error) {
         console.error(error);

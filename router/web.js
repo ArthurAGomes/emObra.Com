@@ -7,7 +7,9 @@ const { buscarPorLocalizacao } = require('../utils/geolocation');
 router.get('/', async (req, res) => {
     try {
         const [servicos] = await pool.query('SELECT id, nome_servico, img_servico FROM tipo_servicos');
+
         const [instituicoes] = await pool.query('SELECT nome_parceiro, descricao, imagem, url FROM parceiros WHERE tipo_parceiro = "institucional"');
+        
         const [lojas] = await pool.query('SELECT nome_parceiro, endereco, contato, imagem, url FROM parceiros WHERE tipo_parceiro = "loja"');
 
         res.render('index', { 
