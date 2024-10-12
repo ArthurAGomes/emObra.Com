@@ -40,19 +40,22 @@ router.get('/editar-conta', async (req, res) => {
         return res.status(404).send('Usuário não encontrado.');
     }
 
-    // Renderiza o formulário de edição, passando os dados do usuário
-    res.render('editar-conta', { user });
+    // Verifica o tipo de usuário e redireciona para a página correspondente
+    if (user.tipo === 'pedreiro') {
+        res.render('editar-conta', { user });
+    } else if (user.tipo === 'contratante') {
+        res.render('editar-contratante', { user });
+    } else {
+        return res.status(400).send('Tipo de usuário desconhecido.');
+    }
 });
 
-// Rota para atualizar os dados do usuário e os tipos de serviço
+// Rota para atualizar os dados do pedreiro
 router.post('/editar', async (req, res) => {
     const userId = req.session.userId;
     if (!userId) {
         return res.status(403).send('Você deve estar logado para editar sua conta.');
     }
-
-    // Log para depuração: verificar os dados recebidos
-    console.log('Dados recebidos para atualização:', req.body);
 
     const { nome, email, telefone, cep, cpf, tipos_servicos } = req.body;
 
@@ -65,10 +68,7 @@ router.post('/editar', async (req, res) => {
         parseInt(tipos_servicos[4], 10) || null
     ];
 
-    // Log para depuração: verificar os tipos de serviços que estão sendo atualizados
-    console.log('Tipos de serviços a serem atualizados:', updatedTiposServicos);
-
-    // Atualiza os dados do usuário e os tipos de serviço em uma única consulta
+    // Atualiza os dados do pedreiro
     const [result] = await pool.query(`
         UPDATE pedreiros 
         SET nome = ?, email = ?, telefone = ?, cep = ?, cpf = ?, 
@@ -80,26 +80,36 @@ router.post('/editar', async (req, res) => {
             userId
         ]);
 
-    // Log para depuração: verificar o resultado da atualização
-    console.log('Resultado da atualização do pedreiro:', result);
-
-    // Verifica se nenhum usuário foi encontrado na tabela pedreiros
     if (result.affectedRows === 0) {
-        const [contratanteResult] = await pool.query(`
-            UPDATE contratantes 
-            SET nome = ?, email = ?, telefone = ?, cep = ?, cpf = ? 
-            WHERE id = ?`, 
-            [nome, email, telefone, cep, cpf, userId]);
-        
-        // Log para depuração: verificar o resultado da atualização do contratante
-        console.log('Resultado da atualização do contratante:', contratanteResult);
-        
-        if (contratanteResult.affectedRows === 0) {
-            return res.status(404).send('Usuário não encontrado em ambas as tabelas.');
-        }
+        return res.status(404).send('Usuário não encontrado.');
     }
 
-    res.status(200).send('Dados atualizados com sucesso.');
+    // Redireciona para o perfil do pedreiro
+    res.redirect('/perfil-pedreiro');
+});
+
+// Rota para atualizar os dados do contratante
+router.post('/editar-contratante', async (req, res) => {
+    const userId = req.session.userId;
+    if (!userId) {
+        return res.status(403).send('Você deve estar logado para editar sua conta.');
+    }
+
+    const { nome, email, telefone, cep, cpf } = req.body;
+
+    // Atualiza os dados do contratante
+    const [result] = await pool.query(`
+        UPDATE contratantes 
+        SET nome = ?, email = ?, telefone = ?, cep = ?, cpf = ? 
+        WHERE id = ?`, 
+        [nome, email, telefone, cep, cpf, userId]);
+
+    if (result.affectedRows === 0) {
+        return res.status(404).send('Usuário não encontrado.');
+    }
+
+    // Redireciona para o perfil do contratante
+    res.redirect('/perfil-contratante');
 });
 
 module.exports = router;
