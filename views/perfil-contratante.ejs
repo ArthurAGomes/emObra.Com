@@ -55,8 +55,7 @@
 
     <h1>Postar um Novo Serviço</h1>
     <form action="/postar-servico" method="POST">
-        <label for="descricao">Descrição:</label>
-        <textarea id="descricao" name="descricao" required></textarea>
+        
     
         <label for="tipo_servico">Tipo de Serviço:</label>
         <select id="tipo_servico" name="tipo_servico" required>
@@ -73,6 +72,9 @@
     
         <label for="valor">Valor:</label>
         <input type="number" id="valor" name="valor" required>
+
+        <label for="descricao">Descrição:</label>
+        <textarea id="descricao" name="descricao" required></textarea>
     
         <button type="submit">Postar Serviço</button>
     </form>
