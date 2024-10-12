@@ -129,7 +129,7 @@ function buscarPedreiros(queryString, resultadosContainer, loader, resultadoBusc
                                     <h3>${resultado.nome}</h3>
                                     <div class="container-servico-top">
                                         <div class="background-icon-servico">
-                                            <img src="/imagensPerfil/${resultado.img_perfil}" alt="">
+                                            <img src="imagensPedreiro/${resultado.img_perfil}" alt="">
                                         </div>
                                         <div class="info-principais-servico">
                                             <div class="distancia-servico">
