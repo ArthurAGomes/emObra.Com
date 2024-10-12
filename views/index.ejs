@@ -133,24 +133,32 @@
                         <div class="modal-body">
                             <form action="/postar-servico" method="POST">
         
-                                <label for="cep">CEP:</label>
-                                <input type="text" id="cep" name="cep" disabled value="02976000">
+                                <div class="input-control-login">
+                                    <label for="cep" class="text">CEP:</label>
+                                    <input type="text" id="cep" name="cep" disabled value="02976000" class="input">
+                                </div>
         
-                                <label for="tipo_servico">Tipo de Serviço:</label>
-                                <select id="tipo_servico" name="tipo_servico" required>
-                                    <% servicos.forEach(servico=> { %>
-                                        <option value="<%= servico.id %>"><%= servico.nome_servico %></option>
-                                    <% }); %>
-                                </select>
+                                <div class="input-control-login">
+                                    <label for="tipo_servico" class="text">Tipo de Serviço:</label>
+                                    <select id="tipo_servico" name="tipo_servico" required >
+                                        <% servicos.forEach(servico=> { %>
+                                            <option value="<%= servico.id %>"><%= servico.nome_servico %></option>
+                                        <% }); %>
+                                    </select>
+                                </div>
         
-                                <label for="prazo_combinar">Prazo a Combinar:</label>
-                                <input type="text" id="prazo_combinar" name="prazo_combinar" required>
+                                <div class="input-control-login">
+                                    <label for="prazo_combinar" class="text">Prazo:</label>
+                                    <input type="text" id="prazo_combinar" name="prazo_combinar" required class="input">
+                                
+                                    <label for="valor" class="text">Valor:</label>
+                                    <input type="text" id="valor" name="valor" required class="input">
+                                </div>
         
-                                <label for="valor">Valor:</label>
-                                <input type="number" id="valor" name="valor" required>
-        
-                                <label for="descricao">Descrição:</label>
-                                <textarea id="descricao" name="descricao" required></textarea>
+                                <div class="input-control-login">
+                                    <label for="descricao" class="text">Descrição:</label>
+                                    <textarea id="descricao" name="descricao" required class="input"></textarea>
+                                </div>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
