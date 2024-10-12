@@ -33,10 +33,10 @@ router.post('/postar-servico', isAuthenticated, async (req, res) => {
 
 // Rota para o pedreiro se candidatar a um serviço
 router.post('/candidatar-servico', async (req, res) => {
-    const { servico_id } = req.body;
+    const { id } = req.body;  // Alterado de servico_id para id
     const pedreiro_id = req.session.userId;
 
-    if (!servico_id) {
+    if (!id) {
         return res.status(400).send('Serviço não encontrado.');
     }
 
@@ -46,7 +46,7 @@ router.post('/candidatar-servico', async (req, res) => {
     `;
 
     try {
-        await pool.query(query, [servico_id, pedreiro_id]);
+        await pool.query(query, [id, pedreiro_id]);  // Passa o id
         res.status(200).send('Candidatura realizada com sucesso.');
     } catch (err) {
         console.error('Erro ao candidatar ao serviço:', err);
@@ -55,11 +55,11 @@ router.post('/candidatar-servico', async (req, res) => {
 });
 
 
-router.post('/aceitar-pedreiro', isAuthenticated, async (req, res) => {
-    const { candidatura_id, servico_id } = req.body;
-    const contratante_id = req.session.userId; // Garantir que o contratante está autenticado
 
-    // Iniciar uma transação para garantir a consistência das atualizações
+router.post('/aceitar-pedreiro', isAuthenticated, async (req, res) => {
+    const { candidatura_id, id } = req.body;  // Alterado de servico_id para id
+    const contratante_id = req.session.userId; 
+
     const connection = await pool.getConnection();
     try {
         await connection.beginTransaction();
@@ -71,7 +71,7 @@ router.post('/aceitar-pedreiro', isAuthenticated, async (req, res) => {
             JOIN servicos_postados sp ON cp.servico_id = sp.id
             WHERE cp.id = ? AND sp.id = ? AND sp.contratante_id = ?
         `;
-        const [rows] = await connection.query(verifyQuery, [candidatura_id, servico_id, contratante_id]);
+        const [rows] = await connection.query(verifyQuery, [candidatura_id, id, contratante_id]);
 
         if (rows.length === 0) {
             await connection.rollback();
@@ -92,7 +92,7 @@ router.post('/aceitar-pedreiro', isAuthenticated, async (req, res) => {
             SET status = 'recusado'
             WHERE servico_id = ? AND id != ?
         `;
-        await connection.query(updateOthers, [servico_id, candidatura_id]);
+        await connection.query(updateOthers, [id, candidatura_id]);
 
         // Atualizar o serviço com o pedreiro escolhido e o status do serviço
         const updateService = `
@@ -102,7 +102,7 @@ router.post('/aceitar-pedreiro', isAuthenticated, async (req, res) => {
             ), status = 'aceito'
             WHERE id = ? AND contratante_id = ?
         `;
-        await connection.query(updateService, [candidatura_id, servico_id, contratante_id]);
+        await connection.query(updateService, [candidatura_id, id, contratante_id]);
 
         await connection.commit();
         res.status(200).send('Pedreiro aceito com sucesso.');
@@ -114,6 +114,7 @@ router.post('/aceitar-pedreiro', isAuthenticated, async (req, res) => {
         connection.release();
     }
 });
+
 
 
 

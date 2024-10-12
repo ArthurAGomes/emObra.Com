@@ -68,7 +68,7 @@ CREATE TABLE parceiros (
 
 -- Criação da Tabela servicos_postados
 CREATE TABLE servicos_postados (
-    servico_id INT AUTO_INCREMENT PRIMARY KEY,
+    id INT AUTO_INCREMENT PRIMARY KEY,
     descricao TEXT NOT NULL,
     cep_obra VARCHAR(9) NOT NULL,
     contratante_id INT NOT NULL,

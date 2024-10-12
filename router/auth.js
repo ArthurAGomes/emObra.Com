@@ -101,7 +101,6 @@ router.get('/perfil-pedreiro', isAuthenticated, async (req, res) => {
 });
 
 // routes/contratante.js
-// routes/contratante.js
 router.get('/solicitacoes', isAuthenticated, async (req, res) => {
     const contratante_id = req.session.userId;
 
@@ -122,5 +121,4 @@ router.get('/solicitacoes', isAuthenticated, async (req, res) => {
     }
 });
 
-
-module.exports = router;
+module.exports=router
