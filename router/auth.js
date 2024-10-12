@@ -101,13 +101,15 @@ router.get('/perfil-pedreiro', isAuthenticated, async (req, res) => {
 });
 
 // routes/contratante.js
+// routes/contratante.js
 router.get('/solicitacoes', isAuthenticated, async (req, res) => {
     const contratante_id = req.session.userId;
 
     const query = `
-        SELECT sp.id, sp.descricao, p.nome AS nome_pedreiro, sp.status
-        FROM servicos_postados sp
-        LEFT JOIN pedreiros p ON sp.pedreiro_id = p.id
+        SELECT cp.id, sp.descricao, p.nome AS nome_pedreiro, cp.status
+        FROM candidaturas_pedreiros cp
+        JOIN servicos_postados sp ON cp.servico_id = sp.id
+        JOIN pedreiros p ON cp.pedreiro_id = p.id
         WHERE sp.contratante_id = ? AND sp.status = 'pendente'
     `;
 

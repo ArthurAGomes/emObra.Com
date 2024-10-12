@@ -32,55 +32,89 @@ router.post('/postar-servico', isAuthenticated, async (req, res) => {
 });
 
 // Rota para o pedreiro se candidatar a um serviço
-router.post('/candidatar-servico', isAuthenticated, async (req, res) => {
-    const { servico_id } = req.body; // Id do serviço ao qual o pedreiro está se candidatando
-    const pedreiro_id = req.session.userId; // O id do pedreiro logado
-    
+router.post('/candidatar-servico', async (req, res) => {
+    const { servico_id } = req.body;
+    const pedreiro_id = req.session.userId;
+
     if (!servico_id) {
         return res.status(400).send('Serviço não encontrado.');
     }
 
     const query = `
-        UPDATE servicos_postados
-        SET pedreiro_id = ?
-        WHERE id = ? AND status = 'pendente'
+        INSERT INTO candidaturas_pedreiros (servico_id, pedreiro_id)
+        VALUES (?, ?)
     `;
 
     try {
-        const result = await pool.query(query, [pedreiro_id, servico_id]);
-        if (result.affectedRows > 0) {
-            res.status(200).send('Candidatura realizada com sucesso.');
-        } else {
-            res.status(400).send('Serviço não encontrado ou já aceito.');
-        }
+        await pool.query(query, [servico_id, pedreiro_id]);
+        res.status(200).send('Candidatura realizada com sucesso.');
     } catch (err) {
         console.error('Erro ao candidatar ao serviço:', err);
         res.status(500).send('Erro ao candidatar ao serviço.');
     }
 });
 
-router.post('/aceitar-servico', isAuthenticated, async (req, res) => {
-    const { servico_id } = req.body;
-    const contratante_id = req.session.userId;
 
-    const query = `
-        UPDATE servicos_postados
-        SET status = 'aceito'
-        WHERE id = ? AND contratante_id = ?
-    `;
+router.post('/aceitar-pedreiro', isAuthenticated, async (req, res) => {
+    const { candidatura_id, servico_id } = req.body;
+    const contratante_id = req.session.userId; // Garantir que o contratante está autenticado
 
+    // Iniciar uma transação para garantir a consistência das atualizações
+    const connection = await pool.getConnection();
     try {
-        const result = await pool.query(query, [servico_id, contratante_id]);
-        if (result.affectedRows > 0) {
-            res.status(200).send('Solicitação aceita com sucesso.');
-        } else {
-            res.status(400).send('Solicitação não encontrada.');
+        await connection.beginTransaction();
+
+        // Verificar se a candidatura pertence ao serviço e ao contratante
+        const verifyQuery = `
+            SELECT cp.id, sp.contratante_id
+            FROM candidaturas_pedreiros cp
+            JOIN servicos_postados sp ON cp.servico_id = sp.id
+            WHERE cp.id = ? AND sp.id = ? AND sp.contratante_id = ?
+        `;
+        const [rows] = await connection.query(verifyQuery, [candidatura_id, servico_id, contratante_id]);
+
+        if (rows.length === 0) {
+            await connection.rollback();
+            return res.status(403).send('Candidatura ou serviço inválido.');
         }
+
+        // Atualizar a candidatura escolhida para 'aceito'
+        const updateChosen = `
+            UPDATE candidaturas_pedreiros
+            SET status = 'aceito'
+            WHERE id = ?
+        `;
+        await connection.query(updateChosen, [candidatura_id]);
+
+        // Atualizar as outras candidaturas para 'recusado', mas apenas para o mesmo serviço
+        const updateOthers = `
+            UPDATE candidaturas_pedreiros
+            SET status = 'recusado'
+            WHERE servico_id = ? AND id != ?
+        `;
+        await connection.query(updateOthers, [servico_id, candidatura_id]);
+
+        // Atualizar o serviço com o pedreiro escolhido e o status do serviço
+        const updateService = `
+            UPDATE servicos_postados
+            SET pedreiro_id = (
+                SELECT pedreiro_id FROM candidaturas_pedreiros WHERE id = ?
+            ), status = 'aceito'
+            WHERE id = ? AND contratante_id = ?
+        `;
+        await connection.query(updateService, [candidatura_id, servico_id, contratante_id]);
+
+        await connection.commit();
+        res.status(200).send('Pedreiro aceito com sucesso.');
     } catch (err) {
-        console.error('Erro ao aceitar solicitação:', err);
-        res.status(500).send('Erro ao aceitar solicitação.');
+        await connection.rollback();
+        console.error('Erro ao aceitar o pedreiro:', err);
+        res.status(500).send('Erro ao aceitar o pedreiro.');
+    } finally {
+        connection.release();
     }
 });
+
 
 
 module.exports = router;
