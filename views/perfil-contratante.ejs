@@ -44,7 +44,29 @@
     
         <button type="submit">Postar Serviço</button>
     </form>
-    
+
+    <!-- Botões de editar e deletar conta -->
+    <div class="conta-acoes">
+        <div class="editar-perfil">
+            <span><a href="/editar-conta" class="outras-acoes-login">Editar conta</a></span>
+        </div>
+
+        <div class="excluir-perfil">
+            <span><a href="#" id="delete-account" class="outras-acoes-login">Deletar conta</a></span>
+        </div>
+    </div>
+
+    <script>
+        // Adiciona ouvinte de evento para a exclusão da conta
+        document.getElementById('delete-account').addEventListener('click', function(event) {
+            event.preventDefault(); // Impede o comportamento padrão do link
+            const confirmation = confirm("Você tem certeza que deseja deletar sua conta? Esta ação não pode ser desfeita.");
+            if (confirmation) {
+                // Redireciona para a URL de exclusão da conta
+                window.location.href = "/excluir";
+            }
+        });
+    </script>
     
 </body>
 </html>
