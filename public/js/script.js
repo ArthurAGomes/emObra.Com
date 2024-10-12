@@ -136,7 +136,7 @@ function buscarPedreiros(queryString, resultadosContainer, loader, resultadoBusc
                                                 <span>Distância</span>
                                                 <p><span>${resultado.distancia}</span> km de você</p>
                                             </div>
-                                            <button type="submit">Ver Perfil</button>
+                                            <button id="fazer-proposta" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Fazer Proposta</button>
                                         </div>
                                     </div>
                                     <div class="input-descricao-servico">
@@ -165,6 +165,15 @@ function buscarPedreiros(queryString, resultadosContainer, loader, resultadoBusc
 
                 // Inicialize o swiper dos resultados de busca
                 initSwiperResultados();
+
+                // Adiciona o evento de clique nos botões "Fazer Proposta" para abrir o modal
+                document.querySelectorAll('.fazer-proposta').forEach(button => {
+                    button.addEventListener('click', (event) => {
+                        const pedreiroId = event.target.getAttribute('data-id');
+                        // Exemplo de ação que pode ser feita ao abrir o modal, como passar dados para o modal
+                        console.log(`Proposta para pedreiro ID: ${pedreiroId}`);
+                    });
+                });
             }
         })
         .catch(error => {
