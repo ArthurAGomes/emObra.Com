@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Postar Serviço</title>
+    <title>Solicitações de Serviços</title>
     <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
@@ -21,6 +21,38 @@
         </nav>
     </header>
     
+    <h1>Solicitações de Serviços</h1>
+
+    <% if (solicitacoes && solicitacoes.length > 0) { %>
+        <table>
+            <thead>
+                <tr>
+                    <th>ID da Candidatura</th>
+                    <th>Descrição do Serviço</th>
+                    <th>Nome do Pedreiro</th>
+                    <th>Status</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% solicitacoes.forEach(solicitacao => { %>
+                    <tr>
+                        <td><%= solicitacao.id %></td>
+                        <td><%= solicitacao.descricao %></td>
+                        <td><%= solicitacao.nome_pedreiro %></td>
+                        <td><%= solicitacao.status %></td>
+                        <td>
+                            <button onclick="aceitarSolicitacao(<%= solicitacao.id %>, <%= solicitacao.servico_id %>)">Aceitar</button>
+                            <button onclick="recusarSolicitacao(<%= solicitacao.id %>, <%= solicitacao.servico_id %>)">Recusar</button>
+                        </td>
+                    </tr>
+                <% }); %>
+            </tbody>
+        </table>
+    <% } else { %>
+        <p>Nenhuma solicitação encontrada.</p>
+    <% } %>
+
     <h1>Postar um Novo Serviço</h1>
     <form action="/postar-servico" method="POST">
         
@@ -59,6 +91,56 @@
     </div>
 
     <script>
+        // Função para aceitar solicitação
+        function aceitarSolicitacao(candidaturaId, servicoId) {
+            fetch('/aceitar-pedreiro', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ candidatura_id: candidaturaId, servico_id: servicoId }),
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Erro ao aceitar solicitação.');
+                }
+                return response.text(); // Pode ser texto ou JSON dependendo do que sua API retorna
+            })
+            .then(data => {
+                alert('Solicitação aceita com sucesso!');
+                location.reload(); // Recarrega a página para atualizar a lista de solicitações
+            })
+            .catch(error => {
+                console.error('Erro:', error);
+                alert('Erro ao aceitar solicitação.');
+            });
+        }
+
+        // Função para recusar solicitação
+        function recusarSolicitacao(candidaturaId, servicoId) {
+            fetch('/recusar-pedreiro', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ candidatura_id: candidaturaId, servico_id: servicoId }),
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Erro ao recusar solicitação.');
+                }
+                return response.text(); // Pode ser texto ou JSON dependendo do que sua API retorna
+            })
+            .then(data => {
+                alert('Solicitação recusada com sucesso!');
+                location.reload(); // Recarrega a página para atualizar a lista de solicitações
+            })
+            .catch(error => {
+                console.error('Erro:', error);
+                alert('Erro ao recusar solicitação.');
+            });
+        }
+
         // Adiciona ouvinte de evento para a exclusão da conta
         document.getElementById('delete-account').addEventListener('click', function(event) {
             event.preventDefault(); // Impede o comportamento padrão do link
