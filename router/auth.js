@@ -100,4 +100,25 @@ router.get('/perfil-pedreiro', isAuthenticated, async (req, res) => {
     }
 });
 
+// routes/contratante.js
+router.get('/solicitacoes', isAuthenticated, async (req, res) => {
+    const contratante_id = req.session.userId;
+
+    const query = `
+        SELECT sp.id, sp.descricao, p.nome AS nome_pedreiro, sp.status
+        FROM servicos_postados sp
+        LEFT JOIN pedreiros p ON sp.pedreiro_id = p.id
+        WHERE sp.contratante_id = ? AND sp.status = 'pendente'
+    `;
+
+    try {
+        const [rows] = await pool.query(query, [contratante_id]);
+        res.render('perfil-contratante', { solicitacoes: rows });
+    } catch (err) {
+        console.error('Erro ao buscar solicitações:', err);
+        res.status(500).send('Erro ao buscar solicitações.');
+    }
+});
+
+
 module.exports = router;

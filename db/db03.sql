@@ -78,7 +78,7 @@ CREATE TABLE servicos_postados (
     data_fim DATE,
     prazo_combinar VARCHAR(10),
     valor VARCHAR(20),
-    status ENUM('andamento', 'finalizado', 'cancelado') DEFAULT 'andamento',
+    status ENUM('pendente', 'finalizado', 'aceito') DEFAULT 'pendente',
     data_postagem TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (contratante_id) REFERENCES contratantes(id) ON DELETE CASCADE,
     FOREIGN KEY (pedreiro_id) REFERENCES pedreiros(id) ON DELETE SET NULL,
@@ -94,7 +94,7 @@ CREATE TABLE historico_servicos (
     tipo_servico VARCHAR(100) NOT NULL,
     data_inicio DATE,
     data_fim DATE,
-    status ENUM('finalizado', 'cancelado') NOT NULL,
+    status ENUM('finalizado') NOT NULL,
     FOREIGN KEY (contratante_id) REFERENCES contratantes(id) ON DELETE CASCADE,
     FOREIGN KEY (pedreiro_id) REFERENCES pedreiros(id) ON DELETE SET NULL,
     FOREIGN KEY (servico_id) REFERENCES servicos_postados(id) ON DELETE CASCADE

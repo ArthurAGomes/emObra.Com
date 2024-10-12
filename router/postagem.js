@@ -31,4 +31,56 @@ router.post('/postar-servico', isAuthenticated, async (req, res) => {
     }
 });
 
+// Rota para o pedreiro se candidatar a um serviço
+router.post('/candidatar-servico', isAuthenticated, async (req, res) => {
+    const { servico_id } = req.body; // Id do serviço ao qual o pedreiro está se candidatando
+    const pedreiro_id = req.session.userId; // O id do pedreiro logado
+    
+    if (!servico_id) {
+        return res.status(400).send('Serviço não encontrado.');
+    }
+
+    const query = `
+        UPDATE servicos_postados
+        SET pedreiro_id = ?
+        WHERE id = ? AND status = 'pendente'
+    `;
+
+    try {
+        const result = await pool.query(query, [pedreiro_id, servico_id]);
+        if (result.affectedRows > 0) {
+            res.status(200).send('Candidatura realizada com sucesso.');
+        } else {
+            res.status(400).send('Serviço não encontrado ou já aceito.');
+        }
+    } catch (err) {
+        console.error('Erro ao candidatar ao serviço:', err);
+        res.status(500).send('Erro ao candidatar ao serviço.');
+    }
+});
+
+router.post('/aceitar-servico', isAuthenticated, async (req, res) => {
+    const { servico_id } = req.body;
+    const contratante_id = req.session.userId;
+
+    const query = `
+        UPDATE servicos_postados
+        SET status = 'aceito'
+        WHERE id = ? AND contratante_id = ?
+    `;
+
+    try {
+        const result = await pool.query(query, [servico_id, contratante_id]);
+        if (result.affectedRows > 0) {
+            res.status(200).send('Solicitação aceita com sucesso.');
+        } else {
+            res.status(400).send('Solicitação não encontrada.');
+        }
+    } catch (err) {
+        console.error('Erro ao aceitar solicitação:', err);
+        res.status(500).send('Erro ao aceitar solicitação.');
+    }
+});
+
+
 module.exports = router;
