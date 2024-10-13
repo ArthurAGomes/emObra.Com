@@ -181,14 +181,17 @@ function buscarPedreiros(queryString, resultadosContainer, loader, resultadoBusc
                         document.querySelectorAll('.btn-fazer-proposta').forEach(button => {
                             button.addEventListener('click', function(event) {
                                 event.preventDefault();
-                        
+                            
                                 // Verificar se o usuário está autenticado
                                 fetch('/isAuthenticated')
                                     .then(response => response.json())
                                     .then(data => {
                                         if (data.authenticated) {
-                                            // Se estiver autenticado, abre o modal
-                                            window.alert("Proposta enviada");  // Função que abre o modal
+                                            // Se estiver autenticado, abre o modal e o overlay
+                                            const modalCards = document.getElementById("modal-cards-proposta");
+                                            const modalOverlay = document.getElementById("modal-cards-overlay");
+                                            modalCards.style.display = "block";
+                                            modalOverlay.style.display = "block";
                                         } else {
                                             // Se não estiver autenticado, redireciona para a página de login
                                             window.location.href = '/login';
@@ -200,6 +203,21 @@ function buscarPedreiros(queryString, resultadosContainer, loader, resultadoBusc
                             });
                         });
                         
+                        // Código para fechar o modal
+                        const closeModalBtn = document.getElementById("modal-cards-close-btn");
+                        const modalOverlay = document.getElementById("modal-cards-overlay");
+                        const modalCards = document.getElementById("modal-cards-proposta");
+                        
+                        closeModalBtn.addEventListener('click', function() {
+                            modalCards.style.display = "none";
+                            modalOverlay.style.display = "none";
+                        });
+                        
+                        modalOverlay.addEventListener('click', function() {
+                            modalCards.style.display = "none";
+                            modalOverlay.style.display = "none";
+                        });
+                                                
                         // function abrirModalProposta() {
                         //     // Aqui você implementa a lógica para abrir o modal de proposta
                         //     document.getElementById('modalProposta').style.display = 'block';
@@ -217,12 +235,14 @@ function buscarPedreiros(queryString, resultadosContainer, loader, resultadoBusc
                 // Inicialize o swiper dos resultados de busca
                 initSwiperResultados();
             }
-        })
+        }) 
         .catch(error => {
             console.error('Erro:', error);
             loader.classList.remove('show-loader');
         });
 }
+
+
 
 
 // Variáveis para armazenar as instâncias do swiper

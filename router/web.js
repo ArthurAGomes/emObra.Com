@@ -12,11 +12,14 @@ router.get('/', async (req, res) => {
         
         const [lojas] = await pool.query('SELECT nome_parceiro, endereco, contato, imagem, url FROM parceiros WHERE tipo_parceiro = "loja"');
 
+        const [tiposServicos] = await pool.query('SELECT id, nome_servico FROM tipo_servicos');
+
         res.render('index', { 
             servicos: servicos || [], 
             instituicoes: instituicoes || [], 
             lojas: lojas || [],
-            resultados: [] 
+            resultados: [],
+            tipos_servicos: tiposServicos || []
         });
     } catch (error) {
         console.error(error);

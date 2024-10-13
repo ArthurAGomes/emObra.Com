@@ -305,6 +305,135 @@ h2 {
   margin-right: 10px !important;
 }
 
+/* ########################################################################################*/
+/* Seção modal */
+
+.modal-cards-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6);  
+  backdrop-filter: blur(8px);  
+  z-index: 1;
+  display: none; 
+}
+
+.modal-cards {
+  position: fixed;
+  z-index: 2;  
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);  
+  width: 80%; 
+  max-width: 400px;  
+  height: auto;  
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px; 
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);  
+  display: flex;
+}
+
+.modal-cards-close-btn {
+  cursor: pointer;
+  font-size: 24px;
+  position: absolute;
+  top: 10px;
+  right: 15px;
+}
+
+.modal-cards-content {
+  /* padding: 20px; */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  hr{
+    width: 40%;
+    height: 4px;
+    background-color: #FE8813;
+    opacity: .8;
+    border: none;
+    margin: 10px 0;
+  }
+  h3{
+    margin: 5px 0;
+  }
+}
+
+.modal-cards-title {
+  color: #020411;
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.modal-cards-form {
+  width: 100%;
+}
+
+.modal-cards-input-control {
+  margin-bottom: 15px;
+  width: 100%;
+  /* max-width: 250px; */
+}
+
+.modal-cards-label {
+  font-size: 1rem;
+  color: #020411;
+  font-weight: 600;
+  position: relative;
+  top: 0.8rem;
+  margin: 0 0 0 7px;
+  padding: 0 5px;
+  background: #ffffff;
+  width: fit-content;
+}
+
+.modal-cards-input,
+.modal-cards-select,
+.modal-cards-textarea {
+  width: 100%;
+  padding: 10px;
+  box-sizing: border-box;
+  font-size: 16px;
+}
+
+.modal-cards-textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+.modal-cards-btn {
+  padding: 10px 20px;
+  margin: 10px 0;
+  cursor: pointer;
+}
+
+.modal-cards-btn-submit {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  width: 100%;
+  font-size: 16px;
+}
+
+.modal-cards-footer {
+  text-align: center;
+  width: 100%;
+  padding-top: 10px;
+}
+
+.organizador-modal{
+  display: grid;
+  flex-wrap: wrap;
+  gap: 10px;
+  grid-template-rows: 1fr;
+  grid-template-columns: 1fr 1fr;
+}
+
+
 /* ####################################################################################### */
 /* Seção Instituições */
 
@@ -837,7 +966,7 @@ footer {
   }
 }
 
-.input-control-login {
+.input-control-login, .modal-cards-input-control {
   display: flex;
   flex-direction: column;
   width: 100%;
@@ -858,9 +987,10 @@ footer {
 }
 
 .input-control-login input[type=text].input,
-.input-control-login input[type=password].input {
-  padding: 11px 10px;
-  font-size: 0.75rem;
+.input-control-login input[type=password].input,
+.modal-cards-input-control textarea.modal-cards-textarea, .modal-cards-input, .modal-cards-select{
+  padding: 12px 10px;
+  font-size: 1rem;
   border: 2px #020411 solid;
   border-radius: 5px;
   background: #ffffff;
@@ -868,7 +998,7 @@ footer {
 }
 
 .input-control-login input[type=text].input:focus,
-.input-control-login input[type=password].input:focus {
+.input-control-login input[type=password].input:focus, .modal-cards-input-control textarea.modal-cards-textarea:focus, .modal-cards-input:focus, .modal-cards-select:focus {
   outline: none;
   border-color: #020411;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
@@ -906,7 +1036,7 @@ footer {
   margin-right: 5px;
 }
 
-.botao-entrar {
+.botao-entrar, .modal-cards-btn {
   width: 100%;
   padding: 10px;
   background-color: #FE8813;

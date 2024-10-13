@@ -123,49 +123,36 @@
                 </div>
             </div>
 
-            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h3>Minha proposta</h3>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                            <form action="/postar-servico" method="POST">
-        
-                                <div class="input-control-login">
-                                    <label for="cep" class="text">CEP:</label>
-                                    <input type="text" id="cep" name="cep" disabled value="02976000" class="input">
-                                </div>
-        
-                                <div class="input-control-login">
-                                    <label for="tipo_servico" class="text">Tipo de Serviço:</label>
-                                    <select id="tipo_servico" name="tipo_servico" required >
-                                        <% servicos.forEach(servico=> { %>
-                                            <option value="<%= servico.id %>"><%= servico.nome_servico %></option>
-                                        <% }); %>
-                                    </select>
-                                </div>
-        
-                                <div class="input-control-login">
-                                    <label for="prazo_combinar" class="text">Prazo:</label>
-                                    <input type="text" id="prazo_combinar" name="prazo_combinar" required class="input">
-                                
-                                    <label for="valor" class="text">Valor:</label>
-                                    <input type="text" id="valor" name="valor" required class="input">
-                                </div>
-        
-                                <div class="input-control-login">
-                                    <label for="descricao" class="text">Descrição:</label>
-                                    <textarea id="descricao" name="descricao" required class="input"></textarea>
-                                </div>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <button type="button" class="btn btn-primary">Save changes</button>
-                            </form>
-                        </div>
-                    </div>
+            <!-- Modal relacionado ao card -->
+            <div class="modal-cards-overlay" id="modal-cards-overlay"></div>
+            <div class="modal-cards" id="modal-cards-proposta">
+                <div class="modal-cards-close" id="modal-cards-close-btn">&times;</div>
+                <div class="modal-cards-content">
+                    <!-- Seu formulário aqui -->
+                    <form action="/postar-servico" method="POST">
+                        <label for="tipo_servico">Tipo de Serviço:</label>
+                        <select id="tipo_servico" name="tipo_servico" required>
+                            <% tipos_servicos.forEach(servico=> { %>
+                                <option value="<%= servico.id %>">
+                                    <%= servico.nome_servico %>
+                                </option>
+                                <% }); %>
+                        </select>
+
+                        <label for="cep">CEP:</label>
+                        <input type="text" id="cep" name="cep">
+
+                        <label for="prazo_combinar">Prazo a Combinar:</label>
+                        <input type="text" id="prazo_combinar" name="prazo_combinar" required>
+
+                        <label for="valor">Valor:</label>
+                        <input type="number" id="valor" name="valor" required>
+
+                        <label for="descricao">Descrição:</label>
+                        <textarea id="descricao" name="descricao" required></textarea>
+
+                        <button type="submit">Postar Serviço</button>
+                    </form>
                 </div>
             </div>
 

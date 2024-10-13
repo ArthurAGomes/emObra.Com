@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 
 <head>
     <meta charset="UTF-8">
@@ -15,7 +15,7 @@
 
 <body>
     <h2>teste card</h2>
-    <a href="/#sobre-nos">Ir pra lá</a>
+    <!-- <a href="/#sobre-nos">Ir pra lá</a>
 
     <form class="super-container">
         <div class="container-servico-top">
@@ -48,52 +48,63 @@
         </div>
         <h4>Rua dos bobos, nº 0 - Jd Tinha nada</h4>
 
-    </form>
+    </form> -->
 
 
     <!-- Button trigger modal -->
-    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+    <!-- <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
         Launch demo modal
-    </button>
+    </button> -->
 
     <!-- Modal -->
-    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h3>Minha proposta</h3>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+    <div class="modal-cards" id="modal-cards-proposta">
+        <div class="modal-cards-close" id="modal-cards-close-btn">&times;</div>
+        <div class="modal-cards-content">
+            <hr>
+            <h3 class="modal-cards-title">Minha Proposta</h3>
+
+            <!-- Formulário adaptado com as classes específicas -->
+            <form action="/postar-servico" method="POST" class="modal-cards-form">
+                <div class="modal-cards-input-control">
+                    <label for="tipo_servico" class="modal-cards-label">Tipo de Serviço:</label>
+                    <select id="tipo_servico" name="tipo_servico" required class="modal-cards-select">
+                        <option value="1">Instalação de Ar-Condicionado</option>
+                    </select>
                 </div>
-                <div class="modal-body">
-                    <form action="/postar-servico" method="POST">
 
-                        <label for="cep">CEP:</label>
-                        <input type="text" id="cep" name="cep" disabled value="02976000">
 
-                        <label for="tipo_servico">Tipo de Serviço:</label>
-                        <select id="tipo_servico" name="tipo_servico" required>
-                            <% tipos_servicos.forEach(servico => { %>
-                                <option value="<%= servico.id %>"><%= servico.nome_servico %></option>
-                            <% }); %>
-                        </select>
-
-                        <label for="prazo_combinar">Prazo a Combinar:</label>
-                        <input type="text" id="prazo_combinar" name="prazo_combinar" required>
-
-                        <label for="valor">Valor:</label>
-                        <input type="number" id="valor" name="valor" required>
-
-                        <label for="descricao">Descrição:</label>
-                        <textarea id="descricao" name="descricao" required></textarea>
+                <div class="modal-cards-input-control">
+                    <label for="cep" class="modal-cards-label">CEP:</label>
+                    <input type="text" id="cep" name="cep" class="modal-cards-input">
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
-                    </form>
+
+                <div class="organizador-modal">
+                    <div class="modal-cards-input-control">
+                        <label for="prazo_combinar" class="modal-cards-label">Prazo</label>
+                        <input type="text" id="prazo_combinar" name="prazo_combinar" required class="modal-cards-input">
+                    </div>
+
+
+                    <div class="modal-cards-input-control">
+                        <label for="valor" class="modal-cards-label">Valor:</label>
+                        <input type="number" id="valor" name="valor" required class="modal-cards-input"
+                            placeholder="Ex: 100,00 ou A combinar">
+                    </div>
+
                 </div>
-            </div>
+
+                <div class="modal-cards-input-control">
+                    <label for="descricao" class="modal-cards-label">Descrição:</label>
+                    <textarea id="descricao" name="descricao" required class="modal-cards-textarea" placeholder="Descreva brevemente o serviço"></textarea>
+                </div>
+
+                <div class="modal-cards-footer">
+                    <button type="submit" class="modal-cards-btn modal-cards-btn-submit">Postar Serviço</button>
+                </div>
+            </form>
         </div>
     </div>
+
 
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
         integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
