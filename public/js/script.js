@@ -158,7 +158,7 @@ function buscarPedreiros(queryString, resultadosContainer, loader, resultadoBusc
                                                 <span>Distância</span>
                                                 <p><span>${resultado.distancia}</span> km de você</p>
                                             </div>
-                                            <button id="fazer-proposta" type="button" class="btn btn-primary btn-fazer-proposta">Fazer Proposta</button>
+                                            <button id="fazer-proposta" type="button" class="btn btn-primary btn-fazer-proposta" data-id="${resultado.id}" data-nome="${resultado.nome}">Fazer Proposta</button>
                                         </div>
                                     </div>
                                     <div class="input-descricao-servico">
@@ -181,6 +181,10 @@ function buscarPedreiros(queryString, resultadosContainer, loader, resultadoBusc
                         document.querySelectorAll('.btn-fazer-proposta').forEach(button => {
                             button.addEventListener('click', function(event) {
                                 event.preventDefault();
+
+                                // Captura o id e o nome do pedreiro diretamente do botão
+                                const pedreiroId = this.getAttribute('data-id');
+                                const pedreiroNome = this.getAttribute('data-nome');
                             
                                 // Verificar se o usuário está autenticado
                                 fetch('/isAuthenticated')
@@ -192,6 +196,15 @@ function buscarPedreiros(queryString, resultadosContainer, loader, resultadoBusc
                                             const modalOverlay = document.getElementById("modal-cards-overlay");
                                             modalCards.style.display = "flex";
                                             modalOverlay.style.display = "block";
+
+                                            // Atualiza o modal com o nome do pedreiro
+                                            const modalTitulo = document.getElementById('modal-nome-pedreiro');
+                                            modalTitulo.textContent = `${pedreiroNome}`;
+                                            
+                                            // Oculta o id do pedreiro em um campo hidden no formulário do modal
+                                            const modalForm = document.getElementById('modal-form');
+                                            const hiddenIdInput = modalForm.querySelector('input[name="pedreiroId"]');
+                                            hiddenIdInput.value = pedreiroId;
 
                                             document.getElementById('cep').value = data.cep;
                                             
