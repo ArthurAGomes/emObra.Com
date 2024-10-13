@@ -6,24 +6,23 @@ const pool = require('../config/db');
 
 // Rota para receber a postagem de serviço
 router.post('/postar-servico', isAuthenticated, async (req, res) => {
-    const { descricao, tipo_servico, cep, prazo_combinar, valor } = req.body;
+    const { descricao, tipo_servico, cep, prazo_combinar, valor, pedreiroId } = req.body;
     const contratante_id = req.session.userId;
 
     console.log('User ID:', contratante_id);  // Verifique se o userId está presente
 
     const cep_final = cep && cep.trim() !== '' ? cep : req.session.cep;
 
-    if (!descricao || !tipo_servico || !valor || !prazo_combinar) {
+    if (!descricao || !tipo_servico || !valor || !prazo_combinar || !pedreiroId) {
         return res.status(400).send('Preencha todos os campos obrigatórios.');
     }
 
     const query = `
-        INSERT INTO servicos_postados (descricao, contratante_id, tipo_servico, prazo_combinar, valor, cep_obra) 
-        VALUES (?, ?, ?, ?, ?, ?)
+        INSERT INTO servicos_postados (descricao, contratante_id, pedreiro_id, tipo_servico, prazo_combinar, valor, cep_obra) VALUES (?, ?, ?, ?, ?, ?, ?)
     `;
 
     try {
-        await pool.query(query, [descricao, contratante_id, tipo_servico, prazo_combinar, valor, cep_final]);
+        await pool.query(query, [descricao, contratante_id, pedreiroId, tipo_servico, prazo_combinar, valor, cep_final]);
         res.status(201).send('Serviço postado');
     } catch (err) {
         console.error('Erro ao postar o serviço:', err);
@@ -58,7 +57,7 @@ router.post('/candidatar-servico', async (req, res) => {
 
 router.post('/aceitar-pedreiro', isAuthenticated, async (req, res) => {
     const { candidatura_id, id } = req.body;  // Alterado de servico_id para id
-    const contratante_id = req.session.userId; 
+    const contratante_id = req.session.userId;
 
     const connection = await pool.getConnection();
     try {
