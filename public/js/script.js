@@ -190,7 +190,7 @@ function buscarPedreiros(queryString, resultadosContainer, loader, resultadoBusc
                                             // Se estiver autenticado, abre o modal e o overlay
                                             const modalCards = document.getElementById("modal-cards-proposta");
                                             const modalOverlay = document.getElementById("modal-cards-overlay");
-                                            modalCards.style.display = "block";
+                                            modalCards.style.display = "flex";
                                             modalOverlay.style.display = "block";
                                         } else {
                                             // Se não estiver autenticado, redireciona para a página de login

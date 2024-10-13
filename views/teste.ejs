@@ -56,10 +56,12 @@
         Launch demo modal
     </button> -->
 
+    <button id="fazer-proposta" type="button" class="btn btn-primary btn-fazer-proposta">Fazer Proposta</button>
+
     <!-- Modal -->
     <div class="modal-cards" id="modal-cards-proposta">
         <div class="modal-cards-close" id="modal-cards-close-btn">&times;</div>
-        <div class="modal-cards-content">
+        <div class="modal-cards-content" id="modal-cards-proposta">
             <hr>
             <h3 class="modal-cards-title">Minha Proposta</h3>
 
@@ -95,7 +97,8 @@
 
                 <div class="modal-cards-input-control">
                     <label for="descricao" class="modal-cards-label">Descrição:</label>
-                    <textarea id="descricao" name="descricao" required class="modal-cards-textarea" placeholder="Descreva brevemente o serviço"></textarea>
+                    <textarea id="descricao" name="descricao" required class="modal-cards-textarea"
+                        placeholder="Descreva brevemente o serviço"></textarea>
                 </div>
 
                 <div class="modal-cards-footer">
@@ -106,12 +109,12 @@
     </div>
 
 
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
-        integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
-        crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"
-        integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy"
-        crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" defer></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js" defer></script>
+    <script src="/js/script.js" defer></script>
 
 </body>
 
