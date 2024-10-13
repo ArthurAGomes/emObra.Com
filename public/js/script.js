@@ -192,6 +192,9 @@ function buscarPedreiros(queryString, resultadosContainer, loader, resultadoBusc
                                             const modalOverlay = document.getElementById("modal-cards-overlay");
                                             modalCards.style.display = "flex";
                                             modalOverlay.style.display = "block";
+
+                                            document.getElementById('cep').value = data.cep;
+                                            
                                         } else {
                                             // Se não estiver autenticado, redireciona para a página de login
                                             window.location.href = '/login';

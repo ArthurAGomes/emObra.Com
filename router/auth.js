@@ -68,9 +68,21 @@ const isAuthenticated = (req, res, next) => {
     }
 };
 
-router.get('/isAuthenticated', (req, res) => {
+router.get('/isAuthenticated', async (req, res) => {
     if (req.session.userId) {
-        res.json({ authenticated: true });
+        try {
+            const [result] = await pool.query('SELECT cep FROM contratantes WHERE id = ?', [req.session.userId]);
+
+            if (result.length > 0) {
+                const { cep } = result[0];
+                res.json({ authenticated: true, cep });
+            } else {
+                res.json({ authenticated: true, cep: null });
+            }
+        } catch (error) {
+            console.error('Erro ao buscar o CEP do usuário:', error);
+            res.status(500).json({ authenticated: false });
+        }
     } else {
         res.json({ authenticated: false });
     }
