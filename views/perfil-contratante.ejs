@@ -67,7 +67,7 @@
 
                 <div class="categoria-box">
                     <label>
-                        <input type="radio" class="radio-input" name="engine" value="perfil-pedreiro">
+                        <input type="radio" class="radio-input" name="engine" value="obras">
                         <span class="radio-tile">
                             <span class="radio-categoria">
                                 <i class="fa-solid fa-trowel-bricks"></i>
@@ -79,7 +79,7 @@
 
                 <div class="categoria-box">
                     <label>
-                        <input type="radio" class="radio-input" name="engine" value="perfil-pedreiro">
+                        <input type="radio" class="radio-input" name="engine" value="premium">
                         <span class="radio-tile">
                             <span class="radio-categoria">
                                 <i class="fa-solid fa-certificate"></i>
@@ -91,7 +91,7 @@
 
                 <div class="categoria-box">
                     <label>
-                        <input type="radio" class="radio-input" name="engine" value="perfil-pedreiro">
+                        <input type="radio" class="radio-input" name="engine" value="dicas">
                         <span class="radio-tile">
                             <span class="radio-categoria">
                                 <i class="fa-solid fa-circle-info"></i>
@@ -102,6 +102,47 @@
                 </div>
             </div>
 
+            <section class="solicitacoes-pendente">
+                <h1>Solicitações de Serviços</h1>
+                <% if (solicitacoes && solicitacoes.length> 0) { %>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>ID da Candidatura</th>
+                                <th>Descrição do Serviço</th>
+                                <th>Nome do Pedreiro</th>
+                                <th>Status</th>
+                                <th>Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% solicitacoes.forEach(solicitacao=> { %>
+                                <tr>
+                                    <td>
+                                        <%= solicitacao.id %>
+                                    </td>
+                                    <td>
+                                        <%= solicitacao.descricao %>
+                                    </td>
+                                    <td>
+                                        <%= solicitacao.nome_pedreiro %>
+                                    </td>
+                                    <td>
+                                        <%= solicitacao.status %>
+                                    </td>
+                                    <td>
+                                        <!-- <button onclick="aceitarSolicitacao(<%= solicitacao.id %>, <%= solicitacao.servico_id %>)">Aceitar</button>
+                                <button onclick="recusarSolicitacao(<%= solicitacao.id %>, <%= solicitacao.servico_id %>)">Recusar</button> -->
+                                    </td>
+                                </tr>
+                                <% }); %>
+                        </tbody>
+                    </table>
+                    <% } else { %>
+                        <p>Nenhuma solicitação encontrada.</p>
+                        <% } %>
+            </section>
+
             <article class="meu-perfil">
                 <div class="config-perfil">
                     <div class="texto-config-perfil">
@@ -110,156 +151,112 @@
                     </div>
                     <span><a href="/editar-conta" id="edit-account" class="outras-acoes-login">editar conta</a></span>
                 </div>
- 
+
                 <div class="excluir-perfil">
                     <div class="texto-config-perfil">
                         <h4>Excluir</h4>
                         <span><a href="#" id="delete-account" class="outras-acoes-login">Deletar conta</a></span>
                     </div>
-                    
+
                 </div>
             </article>
-            <article class="minha-obras"></article>
+            <article class="minha-obras">
+                <h1>Postar um Novo Serviço</h1>
+                <form action="/postar-servico" method="POST">
+                    <label for="tipo_servico">Tipo de Serviço:</label>
+                    <select id="tipo_servico" name="tipo_servico" required>
+                        <% tipos_servicos.forEach(servico=> { %>
+                            <option value="<%= servico.id %>">
+                                <%= servico.nome_servico %>
+                            </option>
+                            <% }); %>
+                    </select>
+
+                    <label for="cep">CEP:</label>
+                    <input type="text" id="cep" name="cep">
+
+                    <label for="prazo_combinar">Prazo a Combinar:</label>
+                    <input type="text" id="prazo_combinar" name="prazo_combinar" required>
+
+                    <label for="valor">Valor:</label>
+                    <input type="number" id="valor" name="valor" required>
+
+                    <label for="descricao">Descrição:</label>
+                    <textarea id="descricao" name="descricao" required></textarea>
+
+                    <button type="submit">Postar Serviço</button>
+                </form>
+            </article>
             <article class="ofertas"></article>
             <article class="dicas"></article>
         </section>
 
-        <h1>Solicitações de Serviços</h1>
+        <section class="banners-perfil">
+            <article class="">
+                <div class="titulo-banner-perfil">
+                    <h4></h4>
+                    <hr>
+                </div>
+            </article>
 
-        <% if (solicitacoes && solicitacoes.length> 0) { %>
-            <table>
-                <thead>
-                    <tr>
-                        <th>ID da Candidatura</th>
-                        <th>Descrição do Serviço</th>
-                        <th>Nome do Pedreiro</th>
-                        <th>Status</th>
-                        <th>Ações</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <% solicitacoes.forEach(solicitacao=> { %>
-                        <tr>
-                            <td>
-                                <%= solicitacao.id %>
-                            </td>
-                            <td>
-                                <%= solicitacao.descricao %>
-                            </td>
-                            <td>
-                                <%= solicitacao.nome_pedreiro %>
-                            </td>
-                            <td>
-                                <%= solicitacao.status %>
-                            </td>
-                            <td>
-                                <!-- <button onclick="aceitarSolicitacao(<%= solicitacao.id %>, <%= solicitacao.servico_id %>)">Aceitar</button>
-                            <button onclick="recusarSolicitacao(<%= solicitacao.id %>, <%= solicitacao.servico_id %>)">Recusar</button> -->
-                            </td>
-                        </tr>
-                        <% }); %>
-                </tbody>
-            </table>
-            <% } else { %>
-                <p>Nenhuma solicitação encontrada.</p>
-                <% } %>
-
-                    <h1>Postar um Novo Serviço</h1>
-                    <form action="/postar-servico" method="POST">
-
-
-                        <label for="tipo_servico">Tipo de Serviço:</label>
-                        <select id="tipo_servico" name="tipo_servico" required>
-                            <% tipos_servicos.forEach(servico=> { %>
-                                <option value="<%= servico.id %>">
-                                    <%= servico.nome_servico %>
-                                </option>
-                                <% }); %>
-                        </select>
-
-                        <label for="cep">CEP:</label>
-                        <input type="text" id="cep" name="cep">
-
-                        <label for="prazo_combinar">Prazo a Combinar:</label>
-                        <input type="text" id="prazo_combinar" name="prazo_combinar" required>
-
-                        <label for="valor">Valor:</label>
-                        <input type="number" id="valor" name="valor" required>
-
-                        <label for="descricao">Descrição:</label>
-                        <textarea id="descricao" name="descricao" required></textarea>
-
-                        <button type="submit">Postar Serviço</button>
-                    </form>
-
-
-                    <section class="banners-perfil">
-                        <article class="">
-                            <div class="titulo-banner-perfil">
-                                <h4></h4>
-                                <hr>
-                            </div>
-                        </article>
-
-                        <article class="instituicoes-parceiras">
-                            <div class="chamada-institu-parceiras">
-                                <h2>O seu futuro faz parte da nossa obra!</h2>
-                                <p>Conheça nossos parceiros que querem fazer parte dessa empreitada.</p>
-                            </div>
-                            <div class="container-parceiros">
-                                <div class="swiper mySwiper">
-                                    <div class="swiper-wrapper">
-                                        <% instituicoes.forEach(instituicao=> { %>
-                                            <div class="swiper-slide">
-                                                <div class="banner-institu-parceira">
-                                                    <div class="info-institu-parceira">
-                                                        <h4>
-                                                            <%= instituicao.nome_parceiro %>
-                                                        </h4>
-                                                        <p>
-                                                            <%= instituicao.descricao %>
-                                                        </p>
-                                                        <a href="<%= instituicao.url %>" class="btn-institu"
-                                                            target="_blank">Veja mais</a>
-                                                    </div>
-                                                    <img src="/imgs-fixas/<%= instituicao.imagem %>" alt="Senai SP">
-                                                </div>
-                                            </div>
-                                            <% }) %>
-                                    </div>
-                                    <div class="swiper-pagination"></div>
-                                </div>
-                            </div>
-                        </article>
-
-                        <section class="banners-lojas-parceiros">
-                            <h2 style="text-align: center;">Lojas Parceiras do EmObra.com</h2>
-                            <div class="swiper mySwiper">
-                                <div class="swiper-wrapper">
-                                    <% lojas.forEach(loja=> { %>
-                                        <div class="swiper-slide banner-loja-fundo">
-                                            <div class="banner-loja-parceira">
-                                                <img src="imgs-fixas/<%= loja.imagem %>"
-                                                    alt="<%= loja.nome_parceiro %>">
-                                                <div class="info-loja-parceira">
-                                                    <h4>
-                                                        <%= loja.nome %>
-                                                    </h4>
-                                                    <p>
-                                                        <%= loja.endereco %>
-                                                    </p>
-                                                    <p>
-                                                        <%= !loja.url ? loja.contato : loja.url %>
-                                                    </p>
-                                                </div>
-                                            </div>
+            <article class="instituicoes-parceiras">
+                <div class="chamada-institu-parceiras">
+                    <h2>O seu futuro faz parte da nossa obra!</h2>
+                    <p>Conheça nossos parceiros que querem fazer parte dessa empreitada.</p>
+                </div>
+                <div class="container-parceiros">
+                    <div class="swiper mySwiper">
+                        <div class="swiper-wrapper">
+                            <% instituicoes.forEach(instituicao=> { %>
+                                <div class="swiper-slide">
+                                    <div class="banner-institu-parceira">
+                                        <div class="info-institu-parceira">
+                                            <h4>
+                                                <%= instituicao.nome_parceiro %>
+                                            </h4>
+                                            <p>
+                                                <%= instituicao.descricao %>
+                                            </p>
+                                            <a href="<%= instituicao.url %>" class="btn-institu" target="_blank">Veja
+                                                mais</a>
                                         </div>
-                                        <% }) %>
+                                        <img src="/imgs-fixas/<%= instituicao.imagem %>" alt="Senai SP">
+                                    </div>
                                 </div>
-                                <div class="swiper-pagination"></div>
+                                <% }) %>
+                        </div>
+                        <div class="swiper-pagination"></div>
+                    </div>
+                </div>
+            </article>
+
+            <section class="banners-lojas-parceiros">
+                <h2 style="text-align: center;">Lojas Parceiras do EmObra.com</h2>
+                <div class="swiper mySwiper">
+                    <div class="swiper-wrapper">
+                        <% lojas.forEach(loja=> { %>
+                            <div class="swiper-slide banner-loja-fundo">
+                                <div class="banner-loja-parceira">
+                                    <img src="imgs-fixas/<%= loja.imagem %>" alt="<%= loja.nome_parceiro %>">
+                                    <div class="info-loja-parceira">
+                                        <h4>
+                                            <%= loja.nome %>
+                                        </h4>
+                                        <p>
+                                            <%= loja.endereco %>
+                                        </p>
+                                        <p>
+                                            <%= !loja.url ? loja.contato : loja.url %>
+                                        </p>
+                                    </div>
+                                </div>
                             </div>
-                        </section>
-                    </section>
+                            <% }) %>
+                    </div>
+                    <div class="swiper-pagination"></div>
+                </div>
+            </section>
+        </section>
     </main>
 
     <footer>
@@ -345,6 +342,42 @@
                 window.location.href = "/excluir";
             }
         });
+
+
+        document.addEventListener('DOMContentLoaded', () => {
+    const categoriaBoxes = document.querySelectorAll('.categoria-box');
+    const containers = {
+        'perfil-pedreiro': document.querySelector('.meu-perfil'),
+        'obras': document.querySelector('.minha-obras'),
+        'premium': document.querySelector('.ofertas'),
+        'dicas': document.querySelector('.dicas')
+    };
+
+    categoriaBoxes.forEach(box => {
+        box.addEventListener('click', () => {
+            // Remove a classe 'selected' de todas as categorias
+            categoriaBoxes.forEach(item => {
+                item.classList.remove('categoria-box-selected');
+            });
+
+            // Adiciona a classe 'selected' ao item clicado
+            box.classList.add('categoria-box-selected');
+
+            // Esconde todos os containers
+            Object.values(containers).forEach(container => {
+                container.style.display = 'none';
+            });
+
+            // Exibe o container correspondente ao item clicado
+            const radioValue = box.querySelector('input[type="radio"]').value;
+            if (containers[radioValue]) {
+                containers[radioValue].style.display = 'flex';
+            }
+        });
+    });
+});
+
+
     </script>
 
 </body>
