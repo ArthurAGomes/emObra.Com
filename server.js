@@ -1,7 +1,7 @@
 const express = require('express');
 const cors = require('cors');
-const cookieParser = require('cookie-parser');  // Importa o cookie-parser
-const session = require('express-session');  // Importa express-session
+const cookieParser = require('cookie-parser');
+const session = require('express-session');
 require('dotenv').config();
 
 const routerWeb = require('./router/web');
@@ -11,8 +11,6 @@ const routerAuth = require('./router/auth');
 const routerUpload = require('./router/upload'); 
 const routerExcluir = require('./router/excluir'); 
 const routerAccont = require('./router/accont');
-
-
 
 const app = express();
 
@@ -32,19 +30,18 @@ app.use(cookieParser());
 // Configuração da sessão
 app.use(session({
     secret: process.env.SESSION_SECRET,
-    resave: false,  
+    resave: false,
     saveUninitialized: false,
     cookie: { 
         httpOnly: true, 
-        secure: process.env.NODE_ENV === 'production', 
+        secure: process.env.NODE_ENV, 
         maxAge: 3600000  // 1 hora
     }
 }));
 
-
 // Middleware para disponibilizar a variável isAuthenticated nas views EJS
 app.use((req, res, next) => {
-    res.locals.isAuthenticated = req.session.userId ? true : false;  // Define isAuthenticated com base na sessão
+    res.locals.isAuthenticated = req.session.userId ? true : false;
     next();
 });
 
@@ -54,11 +51,11 @@ app.use(routerPostagem);    // Rotas de postar serviço
 app.use(routerAuth);        // Rotas de autenticação
 app.use(routerRegister);    // Rotas de cadastro
 app.use(routerUpload);      // Rotas de upload de arquivos
-app.use(routerExcluir);      // Rotas de excluir arquivos
-app.use(routerAccont);       // Rotas de editar arquivos
+app.use(routerExcluir);     // Rotas de excluir arquivos
+app.use(routerAccont);      // Rotas de editar arquivos
 
 // Porta do servidor
-const PORT = process.env.PORT;
+const PORT = process.env.PORT;  // Fallback para porta 3000 se não houver variável de ambiente
 app.listen(PORT, () => {
     console.log(`Servidor rodando na porta ${PORT}`);
 });
