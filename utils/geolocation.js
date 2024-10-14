@@ -14,7 +14,7 @@ async function buscarPorLocalizacao(tipo, cep, engine) {
                 SELECT sp.id AS servico_id, sp.descricao, sp.valor, sp.prazo_combinar, sp.cep_obra AS cep_obra, ts.nome_servico
                 FROM servicos_postados sp
                 JOIN tipo_servicos ts ON sp.tipo_servico = ts.id
-                WHERE sp.status = 'andamento' AND sp.tipo_servico = ?; 
+                WHERE sp.status = 'pendente' AND sp.tipo_servico = ?; 
             `;
             params.push(engine);
         } else if (tipo === 'pedreiro') {
