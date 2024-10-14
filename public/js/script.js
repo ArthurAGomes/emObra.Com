@@ -49,7 +49,7 @@ function buscarServicos(queryString, resultadosContainer, loader, resultadoBusca
                 data.resultados.forEach(resultado => {
                     const card = `
                 <div class="swiper-slide card-resultado-busca">
-                    <form class="super-container">
+                    <form class="super-container card-servico">
                         <h3>${resultado.nome_servico}</h3>
                         <div class="container-servico-top">
                             <div class="background-icon-servico">
@@ -147,32 +147,30 @@ function buscarPedreiros(queryString, resultadosContainer, loader, resultadoBusc
 
                         const card = `
                             <div class="swiper-slide card-resultado-busca">
-                                <form class="super-container">
-                                    <h3>${resultado.nome}</h3>
+                                <form class="super-container card-pedreiro ">
+                                    <div class="header-card-pedreiro">
+                                        <h3>${resultado.nome}</h3>
+                                        <i class="fa-solid fa-certificate" style="opacity: ${resultado.premium ? '1' : '0'};"></i>
+                                    </div>
+                                    
                                     <div class="container-servico-top">
-                                        <div class="background-icon-servico">
-                                            <img src="/imagensPedreiro/${resultado.img_perfil}" alt="">
-                                        </div>
+                                        <img src="/imagensPedreiro/${resultado.img_perfil}" alt="Foto de Perfil" class="img-perfil-card-pedreiro">
                                         <div class="info-principais-servico">
                                             <div class="distancia-servico">
-                                                <span>Distância</span>
+                                                <span>Avaliação</span>
                                                 <p><span>${resultado.distancia}</span> km de você</p>
                                             </div>
                                             <button id="fazer-proposta" type="button" class="btn btn-primary btn-fazer-proposta" data-id="${resultado.id}" data-nome="${resultado.nome}">Fazer Proposta</button>
                                         </div>
                                     </div>
-                                    <div class="input-descricao-servico">
+
+                                    <hr>
+                                    <div class="input-servicos-oferecidos">
                                         <div class="descricao-post">
-                                            <label for="input" class="text">Serviços oferecidos</label>
-                                            <textarea type="text" placeholder="${resultado.nome_servico}" name="input"
-                                                class="input" maxlength="300" rows="4" cols="50" disabled></textarea>
+                                            <h5>Serviços oferecidos</h5>
+                                            <p>${resultado.nome_servico}</p>
                                         </div>
                                     </div>
-                                    <hr>
-                                    <div class="footer-servico">
-                                        <p>Premium: ${resultado.premium ? 'Sim' : 'Não'}</p>
-                                    </div>
-                                    <h4>${resultado.endereco}</h4>
                                 </form>
                             </div>
                         `;

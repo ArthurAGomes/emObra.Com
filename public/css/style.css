@@ -1078,23 +1078,15 @@ footer {
   height: 70%;
   bottom: 0;
   object-fit: cover;
-  /* Impede distorção */
-  /* width: 50vw; */
-  /* Cada imagem ocupa metade da largura da viewport */
   display: none;
-  /* Oculta em telas menores */
 }
 
 .pedreiro-login {
   left: 0;
-  /* object-position: left; */
-  /* Centraliza a imagem na metade esquerda */
 }
 
 .contratante-login {
   right: 0px;
-  /* object-position: right; */
-  /* Centraliza a imagem na metade direita */
 }
 
 /* ###########################################################################################*/
@@ -1234,14 +1226,10 @@ footer {
   display: flexbox;
   grid-column: 1fr 1fr;
   flex: grow 2;
-  /* flex-direction: column;
-  align-items: center;
-  justify-content: center; */
   border-radius: 10px;
   box-shadow: 1px 1px 5px 5px rgba(0, 0, 0, 0.1);
   padding: 20px;
   width: 170px;
-  /* max-height: 200px; */
 }
 
 .texto-config-perfil{
@@ -1255,10 +1243,85 @@ footer {
 
 
 /* ################################################################################################## */
-/* Servicos */
-/* Postagens */
+/* Buscador-Cards */
 
 .super-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  margin: 0 auto;
+  padding: 20px;
+  border-radius: 20px;
+  box-shadow: 1px 1px 5px 5px rgba(0, 0, 0, 0.1);
+
+}
+
+/* Cards Pedreiros */
+
+.card-pedreiro {
+  height: 300px;
+  width: 340px;
+  margin: 0 auto;
+  padding: 20px;
+  border-radius: 20px;
+  box-shadow: 1px 1px 5px 5px rgba(0, 0, 0, 0.1);
+
+  h4 {
+    font-size: clamp(14px, 2vw, 18px);
+  }
+
+  hr {
+    width: 70%;
+    border: 1px solid #FE8813;
+    margin: 10px auto;
+    opacity: 70%;
+  }
+
+  h3 {
+    font-size: clamp(20px, 4vw, 25px);
+    color: #020411;
+    font-weight: 600;
+    margin: 0;
+    text-align: center;
+  }
+
+}
+
+.header-card-pedreiro{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  margin: 5px;
+  
+  i{
+    font-size: 20px;
+    color: #020411;
+  }
+}
+
+.input-servicos-oferecidos{
+  margin: 10px 0;
+
+  p{
+    margin: 0;
+  }
+}
+
+.img-perfil-card-pedreiro{
+  border-radius: 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 210px;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Cards-Servicos */
+/* Postagens */
+
+.card-servico {
   display: flex;
   flex-direction: column;
   /* align-items: center; */
@@ -1381,7 +1444,6 @@ footer {
   font-size: clamp(12px, 2vw, 14px);
   border: none;
   border-top: 2px #020411 solid;
-  /* border-radius: 5px; */
   background: #fff;
   width: 100%;
 }
