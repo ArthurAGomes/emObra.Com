@@ -2,7 +2,6 @@
 const express = require('express');
 const router = express.Router();
 const bcrypt = require('bcryptjs');
-const jwt = require('jsonwebtoken');
 const findUserByEmailOrCpf = require('../utils/findUser');
 const pool = require('../config/db');
 
@@ -28,10 +27,25 @@ router.post('/auth', async (req, res) => {
         }
 
         // Armazena informações do usuário na sessão
-        req.session.userId = user.id;  // Certifique-se de que isso está sendo executado
+        req.session.userId = user.id;  // Armazena o ID do usuário na sessão
         req.session.userType = type;
 
         console.log('Sessão após login:', req.session);  // Adicione este log para verificar a sessão
+
+        if (type === 'pedreiro') {
+            const [tiposServicos] = await pool.query(`
+                SELECT id, nome_servico 
+                FROM tipo_servicos 
+                WHERE id IN (?, ?, ?, ?, ?)`, 
+                [user.tipo_servico_1, user.tipo_servico_2, user.tipo_servico_3, user.tipo_servico_4, user.tipo_servico_5]
+            );
+        
+            // Log para verificar os tipos de serviços retornados
+            console.log('Tipos de serviços encontrados:', tiposServicos);
+        
+            req.session.tiposServicos = tiposServicos; // Armazena os tipos de serviços na sessão
+        }
+        
 
         // Redireciona com base no tipo de usuário
         if (type === 'pedreiro') {
@@ -58,7 +72,6 @@ router.get('/logout', (req, res) => {
     });
 });
 
-
 // Middleware para verificar se o usuário está autenticado
 const isAuthenticated = (req, res, next) => {
     if (req.session.userId) {
@@ -67,26 +80,6 @@ const isAuthenticated = (req, res, next) => {
         res.redirect('/login');  // Redireciona para a página de login
     }
 };
-
-router.get('/isAuthenticated', async (req, res) => {
-    if (req.session.userId) {
-        try {
-            const [result] = await pool.query('SELECT cep FROM contratantes WHERE id = ?', [req.session.userId]);
-
-            if (result.length > 0) {
-                const { cep } = result[0];
-                res.json({ authenticated: true, cep });
-            } else {
-                res.json({ authenticated: true, cep: null });
-            }
-        } catch (error) {
-            console.error('Erro ao buscar o CEP do usuário:', error);
-            res.status(500).json({ authenticated: false });
-        }
-    } else {
-        res.json({ authenticated: false });
-    }
-});
 
 // Rota de perfil do contratante
 router.get('/perfil-contratante', isAuthenticated, async (req, res) => {
@@ -114,10 +107,14 @@ router.get('/perfil-pedreiro', isAuthenticated, async (req, res) => {
         // Consulta para buscar os dados do pedreiro
         const [pedreiro] = await pool.query('SELECT * FROM pedreiros WHERE id = ?', [req.session.userId]);
 
-        const [servicos] = await pool.query('SELECT id, nome_servico, img_servico FROM tipo_servicos');
+        // Aqui, os tipos de serviços já foram armazenados na sessão durante o login
+        const tiposServicos = req.session.tiposServicos;
+
+        // Adicionando consulta para buscar os serviços disponíveis
+        const [servicos] = await pool.query('SELECT id, nome_servico FROM tipo_servicos');
 
         // Renderiza a página 'perfil-pedreiro.ejs' e passa os dados necessários
-        res.render('perfil-pedreiro', { userId: req.session.userId, instituicoes, lojas, pedreiro, servicos });
+        res.render('perfil-pedreiro', { userId: req.session.userId, instituicoes, lojas, pedreiro, tiposServicos, servicos });
 
     } catch (error) {
         console.error(error);
@@ -125,25 +122,5 @@ router.get('/perfil-pedreiro', isAuthenticated, async (req, res) => {
     }
 });
 
-// routes/contratante.js
-router.get('/solicitacoes', isAuthenticated, async (req, res) => {
-    const contratante_id = req.session.userId;
 
-    const query = `
-        SELECT cp.id, sp.descricao, p.nome AS nome_pedreiro, cp.status
-        FROM candidaturas_pedreiros cp
-        JOIN servicos_postados sp ON cp.servico_id = sp.id
-        JOIN pedreiros p ON cp.pedreiro_id = p.id
-        WHERE sp.contratante_id = ? AND sp.status = 'pendente'
-    `;
-
-    try {
-        const [rows] = await pool.query(query, [contratante_id]);
-        res.render('perfil-contratante', { solicitacoes: rows });
-    } catch (err) {
-        console.error('Erro ao buscar solicitações:', err);
-        res.status(500).send('Erro ao buscar solicitações.');
-    }
-});
-
-module.exports=router
+module.exports = router;
