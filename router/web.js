@@ -19,6 +19,8 @@ router.get('/', async (req, res) => {
             instituicoes: instituicoes || [], 
             lojas: lojas || [],
             resultados: [],
+            userId: req.session.userId,
+            userType: req.session.userType,
             tipos_servicos: tiposServicos || []
         });
     } catch (error) {

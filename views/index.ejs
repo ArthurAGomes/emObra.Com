@@ -21,13 +21,18 @@
             <a href="/"><img src="https://i.ibb.co/KVZRVhw/logov4-preto.png" alt="logo-em-obra" class="logo-header"></a>
             <div class="conexao-global">
                 <% if (isAuthenticated) { %>
+                    <!-- Link para o perfil do usuário -->
+                    <span><a href="/<%= userType === 'pedreiro' ? 'perfil-pedreiro' : 'perfil-contratante' %>">Meu perfil</a></span>
+                    <!-- Link para logout -->
                     <span><a href="/logout">Sair</a></span>
-                    <% } else { %>
-                        <span><a href="/register">Cadastrar</a></span>
-                        <button><a href="/login">Entrar</a></button>
-                        <% } %>
+                <% } else { %>
+                    <!-- Exibe os links de registro e login se o usuário não estiver autenticado -->
+                    <span><a href="/register">Cadastrar</a></span>
+                    <button><a href="/login">Entrar</a></button>
+                <% } %>
             </div>
         </nav>
+        
     </header>
 
     <main>
@@ -58,12 +63,22 @@
                 <div class="botoes-buscar">
                     <input type="text" name="cep" placeholder="Informe um CEP..." required>
                     <div>
-                        <!-- Botão para Buscar Serviço -->
-                        <button type="button" id="btn-buscar-servico">Buscar Serviço</button>
-                        <!-- Botão para Buscar Pedreiro -->
-                        <button type="button" id="btn-buscar-pedreiro">Buscar Pedreiro</button>
+                        <% if (typeof userId !== 'undefined' && typeof userType !== 'undefined') { %>
+                            <% if (userType === 'pedreiro') { %>
+                                <!-- Exibe o botão "Buscar Serviço" se for pedreiro -->
+                                <button type="button" id="btn-buscar-servico">Buscar Serviço</button>
+                            <% } else if (userType === 'contratante') { %>
+                                <!-- Exibe o botão "Buscar Pedreiro" se for contratante -->
+                                <button type="button" id="btn-buscar-pedreiro">Buscar Pedreiro</button>
+                            <% } %>
+                        <% } else { %>
+                            <!-- Se o usuário não estiver logado, exibe ambos os botões -->
+                            <button type="button" id="btn-buscar-servico">Buscar Serviço</button>
+                            <button type="button" id="btn-buscar-pedreiro">Buscar Pedreiro</button>
+                        <% } %>
                     </div>
                 </div>
+                
             </form>
 
             <!-- Loader -->
