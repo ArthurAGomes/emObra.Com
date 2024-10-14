@@ -63,9 +63,20 @@
                 <div class="botoes-buscar">
                     <input type="text" name="cep" placeholder="Informe um CEP..." required>
                     <div>
+                        <% if (typeof userId !== 'undefined' && typeof userType !== 'undefined') { %>
+                            <% if (userType === 'pedreiro') { %>
+                                <!-- Exibe o botão "Buscar Serviço" se for pedreiro -->
+                                <button type="button" id="btn-buscar-servico">Buscar Serviço</button>
+                            <% } else if (userType === 'contratante') { %>
+                                <% console.log('Tipo de usuário:', userType); %>
+                                <!-- Exibe o botão "Buscar Pedreiro" se for contratante -->
+                                <button type="button" id="btn-buscar-pedreiro">Buscar Pedreiro</button>
+                            <% } %>
+                        <% } else { %>
                             <!-- Se o usuário não estiver logado, exibe ambos os botões -->
                             <button type="button" id="btn-buscar-servico">Buscar Serviço</button>
                             <button type="button" id="btn-buscar-pedreiro">Buscar Pedreiro</button>
+                        <% } %>
                         
                     </div>
                 </div>

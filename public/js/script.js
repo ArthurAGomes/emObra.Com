@@ -1,14 +1,22 @@
 let tipoBusca = '';
+// Seleciona o botão pelo ID
+const btnBuscarServico = document.getElementById('btn-buscar-servico');
+const btnBuscarPedreiro = document.getElementById('btn-buscar-pedreiro');
 
-document.getElementById('btn-buscar-servico').addEventListener('click', function () {
-    tipoBusca = 'servico'; // Define o tipo de busca como 'servico'
-    buscar(); // Chama a função de busca
-});
+// Verifica se o botão existe antes de adicionar o eventListener
+if (btnBuscarServico) {
+    btnBuscarServico.addEventListener('click', function() {
+        tipoBusca = 'servico'; // Define o tipo de busca como 'servico'
+        buscar(); // Chama a função de busca
+    });
+}
 
-document.getElementById('btn-buscar-pedreiro').addEventListener('click', function () {
-    tipoBusca = 'pedreiro'; // Define o tipo de busca como 'pedreiro'
+if (btnBuscarPedreiro) {
+    btnBuscarPedreiro.addEventListener('click', function() {
+        tipoBusca = 'pedreiro'; // Define o tipo de busca como 'pedreiro'
     buscar(); // Chama a função de busca
-});
+    });
+}
 
 function buscar() {
     const queryString = new URLSearchParams(new FormData(document.getElementById('buscaForm'))).toString();
