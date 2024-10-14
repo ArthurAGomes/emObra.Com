@@ -157,7 +157,7 @@ INSERT INTO contratantes (nome, cpf, email, senha, cep, ativo) VALUES
 
 -- Inserção de dados na tabela pedreiros
 INSERT INTO pedreiros (nome, cep, email, senha, premium, tipo_servico_1, tipo_servico_2, cpf, ativo) VALUES
-('Carlos Silva', '12345-678', 'carlos.silva@email.com', 'senha789', 1, 1, 2, '000.111.222-33', 0),
-('Maria Oliveira', '87654-321', 'maria.oliveira@email.com', 'senha012', 0, 3, 4, '222.333.444-55', 0),
+('Carlos Silva', '12345-678', 'carlos.silva@email.com', 'senha789', 1, 1, 2, '000.111.222-33', 1),
+('Maria Oliveira', '87654-321', 'maria.oliveira@email.com', 'senha012', 0, 3, 4, '222.333.444-55', 1),
 ('Fernando Costa', '13579-246', 'fernando.costa@email.com', 'senha123', 1, 1, 5, '444.555.666-77', 1),
 ('Tatiane Almeida', '97531-864', 'tatiane.almeida@email.com', 'senha456', 1, 6, 7, '777.888.999-00', 1);
