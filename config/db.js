@@ -8,21 +8,17 @@ const dbConfig = {
     database: process.env.DB_NAME
 };
 
-// Cria uma conexão com Promises usando um pool de conexões para melhor desempenho
-const pool = mysql2.createPool(dbConfig);
+// Cria uma conexão com Promises
+const pool = mysql2.createPool(dbConfig); // Usa um pool de conexões para melhor desempenho
 
-// Função para verificar a conexão
-async function verificarConexao() {
-    try {
-        const connection = await pool.getConnection();
+// Verifica a conexão
+pool.getConnection()
+    .then(connection => {
         console.log('Banco de dados conectado');
         connection.release(); // Libera a conexão após a verificação
-    } catch (err) {
+    })
+    .catch(err => {
         console.error('Erro ao conectar ao banco de dados:', err);
-    }
-}
-
-// Chama a função para verificar a conexão ao iniciar
-verificarConexao();
+    });
 
 module.exports = pool;

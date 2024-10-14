@@ -34,9 +34,9 @@ app.use(session({
     saveUninitialized: false,
     cookie: { 
         httpOnly: true, 
-        secure: process.env.NODE_ENV, 
+        secure: process.env.NODE_ENV === 'production', // Mantenha esta linha
         maxAge: 3600000  // 1 hora
-    }
+    }    
 }));
 
 // Middleware para disponibilizar a variável isAuthenticated nas views EJS

@@ -61,12 +61,15 @@ router.get('/logout', (req, res) => {
 
 // Middleware para verificar se o usuário está autenticado
 const isAuthenticated = (req, res, next) => {
+    console.log('Verificando autenticação...', req.session.userId);
     if (req.session.userId) {
         next();  // O usuário está autenticado
     } else {
+        console.log('Usuário não autenticado, redirecionando para login...');
         res.redirect('/login');  // Redireciona para a página de login
     }
 };
+
 
 router.get('/isAuthenticated', async (req, res) => {
     if (req.session.userId) {
