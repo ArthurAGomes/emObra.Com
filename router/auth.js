@@ -95,7 +95,10 @@ router.get('/perfil-contratante', isAuthenticated, async (req, res) => {
 
         const [solicitacoes] = await pool.query('SELECT * FROM servicos_postados');
 
-        res.render('perfil-contratante', { userId: req.session.userId, tipos_servicos: tiposServicos, solicitacoes });
+        // Consulta para buscar os dados do pedreiro
+        const [contratante] = await pool.query('SELECT * FROM contratantes WHERE id = ?', [req.session.userId]);
+
+        res.render('perfil-contratante', { userId: req.session.userId, tipos_servicos: tiposServicos, solicitacoes, contratante });
     } catch (err) {
         console.error('Erro ao carregar os tipos de serviço:', err);
         res.status(500).send('Erro ao carregar os tipos de serviço.');
