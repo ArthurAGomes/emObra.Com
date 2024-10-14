@@ -98,7 +98,13 @@ router.get('/perfil-contratante', isAuthenticated, async (req, res) => {
         // Consulta para buscar os dados do pedreiro
         const [contratante] = await pool.query('SELECT * FROM contratantes WHERE id = ?', [req.session.userId]);
 
-        res.render('perfil-contratante', { userId: req.session.userId, tipos_servicos: tiposServicos, solicitacoes, contratante });
+        // Consulta para buscar os parceiros institucionais
+        const [instituicoes] = await pool.query('SELECT nome_parceiro, descricao, imagem, url FROM parceiros WHERE tipo_parceiro = ?', ['institucional']);
+
+        // Consulta para buscar as lojas
+        const [lojas] = await pool.query('SELECT nome_parceiro, endereco, contato, imagem, url FROM parceiros WHERE tipo_parceiro = ?', ['loja']);
+
+        res.render('perfil-contratante', { userId: req.session.userId, tipos_servicos: tiposServicos, solicitacoes, contratante, lojas, instituicoes });
     } catch (err) {
         console.error('Erro ao carregar os tipos de serviço:', err);
         res.status(500).send('Erro ao carregar os tipos de serviço.');
