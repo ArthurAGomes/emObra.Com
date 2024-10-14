@@ -500,3 +500,105 @@ function avancarCadastro() {
 
 
 
+  // Seletor do input de arquivo e da imagem de perfil
+  const inputFile = document.querySelector("#upload-file");
+  const pictureImage = document.getElementById("perfil-img");
+
+  // Função para definir a imagem padrão
+  function setDefaultImage() {
+      pictureImage.src = "imagensPedreiro/default-image.jpg"; // Defina uma imagem padrão
+  }
+
+  // Recupera a imagem do perfil armazenada no localStorage
+  window.onload = function() {
+      const storedImage = localStorage.getItem('perfilImg');
+      if (storedImage) {
+          pictureImage.src = storedImage; // Atualiza a imagem com a armazenada
+      } else {
+          setDefaultImage(); // Define a imagem padrão se não houver imagem armazenada
+      }
+  };
+
+  // Adiciona um ouvinte de evento ao input de arquivo
+  inputFile.addEventListener("change", function (e) {
+      const file = e.target.files[0];
+
+      // Verifica se um arquivo foi selecionado
+      if (file) {
+          const reader = new FileReader();
+
+          // Quando a leitura do arquivo estiver completa, atualiza a imagem
+          reader.addEventListener("load", function (e) {
+              // Atualiza a imagem de perfil com a nova imagem
+              pictureImage.src = e.target.result; // Atualiza a URL da imagem
+              localStorage.setItem('perfilImg', e.target.result); // Armazena a nova imagem no localStorage
+          });
+
+          // Lê o arquivo como uma URL de dados
+          reader.readAsDataURL(file);
+
+          // Função para fazer o upload usando AJAX
+          const formData = new FormData();
+          formData.append("fotoPerfil", file);
+
+          $.ajax({
+              url: "/upload-foto",
+              type: "POST",
+              data: formData,
+              processData: false,
+              contentType: false,
+              success: function (response) {
+                  alert("Upload realizado com sucesso!");
+              },
+              error: function (err) {
+                  alert("Ocorreu um erro ao fazer o upload.");
+              }
+          });
+      } else {
+          // Se não houver arquivo, define a imagem padrão
+          setDefaultImage();
+      }
+  });
+
+  // Adiciona ouvinte de evento para a exclusão da conta
+  document.getElementById('delete-account').addEventListener('click', function(event) {
+      event.preventDefault(); // Impede o comportamento padrão do link
+      const confirmation = confirm("Você tem certeza que deseja deletar sua conta? Esta ação não pode ser desfeita.");
+      if (confirmation) {
+          // Redireciona para a URL de exclusão da conta
+          window.location.href = "/excluir";
+      }
+  });
+
+  document.addEventListener('DOMContentLoaded', () => {
+const categoriaBoxes = document.querySelectorAll('.categoria-box');
+const containers = {
+  'perfil-pedreiro': document.querySelector('.meu-perfil'),
+  'obras': document.querySelector('.minha-obras'),
+  'premium': document.querySelector('.ofertas'),
+  'dicas': document.querySelector('.dicas')
+};
+
+categoriaBoxes.forEach(box => {
+  box.addEventListener('click', () => {
+      // Remove a classe 'selected' de todas as categorias
+      categoriaBoxes.forEach(item => {
+          item.classList.remove('categoria-box-selected');
+      });
+
+      // Adiciona a classe 'selected' ao item clicado
+      box.classList.add('categoria-box-selected');
+
+      // Esconde todos os containers
+      Object.values(containers).forEach(container => {
+          container.style.display = 'none';
+      });
+
+      // Exibe o container correspondente ao item clicado
+      const radioValue = box.querySelector('input[type="radio"]').value;
+      if (containers[radioValue]) {
+          containers[radioValue].style.display = 'flex';
+      }
+  });
+});
+});
