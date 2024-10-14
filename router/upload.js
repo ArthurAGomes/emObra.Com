@@ -49,7 +49,7 @@ router.post('/upload-foto', upload.single('fotoPerfil'), (req, res) => {
     }
  
     const userId = req.session.userId; // Obtém o ID do usuário da sessão
-    const imgPerfilUrl = `/imagens${req.file.path}`; // Caminho da imagem
+    const imgPerfilUrl = `${req.file.filename}`; // Caminho da imagem
  
     // Atualiza a URL da imagem no banco de dados com base no tipo de usuário
     const userType = req.session.userType;
