@@ -153,7 +153,7 @@ function buscarPedreiros(queryString, resultadosContainer, loader, resultadoBusc
                                         <i class="fa-solid fa-certificate" style="opacity: ${resultado.premium ? '1' : '0'};"></i>
                                     </div>
                                     
-                                    <div class="container-servico-top">
+                                    <div class="container-card-pedreiro-top">
                                         <img src="/imagensPedreiro/${resultado.img_perfil}" alt="Foto de Perfil" class="img-perfil-card-pedreiro">
                                         <div class="info-principais-servico">
                                             <div class="distancia-servico">
