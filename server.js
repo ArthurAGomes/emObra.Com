@@ -31,8 +31,8 @@ app.use(cookieParser());
 
 // Configuração da sessão
 app.use(session({
-    secret: process.env.SESSION_SECRET || 'seu_segredo_aqui',
-    resave: false,
+    secret: process.env.SESSION_SECRET,
+    resave: false,  
     saveUninitialized: false,
     cookie: { 
         httpOnly: true, 
