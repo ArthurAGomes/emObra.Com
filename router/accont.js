@@ -27,7 +27,7 @@ async function getUserById(userId) {
     return user.length > 0 ? user[0] : null;
 }
 
-// Rota para exibir o formulário de edição
+// Rota para redirecionar com base no tipo de usuário
 router.get('/editar-conta', async (req, res) => {
     const userId = req.session.userId; // Obter o ID do usuário da sessão
     if (!userId) {
@@ -40,17 +40,49 @@ router.get('/editar-conta', async (req, res) => {
         return res.status(404).send('Usuário não encontrado.');
     }
 
-    // Verifica o tipo de usuário e redireciona para a página correspondente
+    // Redireciona para a página de edição correspondente
     if (user.tipo === 'pedreiro') {
-        res.render('editar-conta', { user });
+        return res.redirect('/editar'); // Redireciona para a rota de edição de pedreiro
     } else if (user.tipo === 'contratante') {
-        res.render('editar-contratante', { user });
+        return res.redirect('/editar-contratante'); // Redireciona para a rota de edição de contratante
     } else {
         return res.status(400).send('Tipo de usuário desconhecido.');
     }
 });
 
-// Rota para atualizar os dados do pedreiro
+// Rota GET para exibir o formulário de edição do pedreiro
+router.get('/editar', async (req, res) => {
+    const userId = req.session.userId;
+    if (!userId) {
+        return res.status(403).send('Você deve estar logado para editar sua conta.');
+    }
+
+    const user = await getUserById(userId);
+
+    if (!user || user.tipo !== 'pedreiro') {
+        return res.status(404).send('Pedreiro não encontrado.');
+    }
+
+    res.render('editar-conta', { user }); // Renderiza o formulário de edição do pedreiro
+});
+
+// Rota GET para exibir o formulário de edição do contratante
+router.get('/editar-contratante', async (req, res) => {
+    const userId = req.session.userId;
+    if (!userId) {
+        return res.status(403).send('Você deve estar logado para editar sua conta.');
+    }
+
+    const user = await getUserById(userId);
+
+    if (!user || user.tipo !== 'contratante') {
+        return res.status(404).send('Contratante não encontrado.');
+    }
+
+    res.render('editar-contratante', { user }); // Renderiza o formulário de edição do contratante
+});
+
+// Rota POST para atualizar os dados do pedreiro
 router.post('/editar', async (req, res) => {
     const userId = req.session.userId;
     if (!userId) {
@@ -88,7 +120,7 @@ router.post('/editar', async (req, res) => {
     res.redirect('/perfil-pedreiro');
 });
 
-// Rota para atualizar os dados do contratante
+// Rota POST para atualizar os dados do contratante
 router.post('/editar-contratante', async (req, res) => {
     const userId = req.session.userId;
     if (!userId) {
