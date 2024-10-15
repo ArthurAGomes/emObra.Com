@@ -358,6 +358,7 @@ inputFile.addEventListener("change", function(e) {
             contentType: false,
             success: function(response) {
                 alert("Upload realizado com sucesso!");
+                location.reload(); // Recarrega a página para atualizar a imagem
             },
             error: function(err) {
                 alert("Ocorreu um erro ao fazer o upload.");
@@ -365,6 +366,7 @@ inputFile.addEventListener("change", function(e) {
         });
     }
 });
+
 
 
   // Adiciona ouvinte de evento para a exclusão da conta
