@@ -11,6 +11,7 @@ const routerAuth = require('./router/auth');
 const routerUpload = require('./router/upload'); 
 const routerExcluir = require('./router/excluir'); 
 const routerAccont = require('./router/accont');
+const routeraddProfileImage = require('./router/addProfileImage');
 
 const app = express();
 
@@ -53,6 +54,7 @@ app.use(routerRegister);    // Rotas de cadastro
 app.use(routerUpload);      // Rotas de upload de arquivos
 app.use(routerExcluir);     // Rotas de excluir arquivos
 app.use(routerAccont);      // Rotas de editar arquivos
+app.use(routeraddProfileImage); // Rotas de atualizar fto do perfil 
 
 // Porta do servidor
 const PORT = process.env.PORT;  // Fallback para porta 3000 se não houver variável de ambiente

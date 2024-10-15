@@ -343,65 +343,34 @@ function avancarCadastro() {
     
 }
 
-  // Seletor do input de arquivo e da imagem de perfil
-  const inputFile = document.querySelector("#upload-file");
-  const pictureImage = document.getElementById("perfil-img");
+const inputFile = document.querySelector("#upload-file");
 
-  // Função para definir a imagem padrão
-  function setDefaultImage() {
-      pictureImage.src = "imagensPedreiro/default-image.jpg"; // Defina uma imagem padrão
-  }
+// Adiciona um ouvinte de evento ao input de arquivo
+inputFile.addEventListener("change", function(e) {
+    const file = e.target.files[0];
 
-  // Recupera a imagem do perfil armazenada no localStorage
-  window.onload = function() {
-      const storedImage = localStorage.getItem('perfilImg');
-      if (storedImage) {
-          pictureImage.src = storedImage; // Atualiza a imagem com a armazenada
-      } else {
-          setDefaultImage(); // Define a imagem padrão se não houver imagem armazenada
-      }
-  };
+    // Verifica se um arquivo foi selecionado
+    if (file) {
+        const formData = new FormData();
+        formData.append("fotoPerfil", file);
 
-  // Adiciona um ouvinte de evento ao input de arquivo
-  inputFile.addEventListener("change", function (e) {
-      const file = e.target.files[0];
+        // Função para fazer o upload usando AJAX
+        $.ajax({
+            url: "/upload-foto", // Rota para o upload
+            type: "POST",
+            data: formData,
+            processData: false,
+            contentType: false,
+            success: function(response) {
+                alert("Upload realizado com sucesso!");
+            },
+            error: function(err) {
+                alert("Ocorreu um erro ao fazer o upload.");
+            }
+        });
+    }
+});
 
-      // Verifica se um arquivo foi selecionado
-      if (file) {
-          const reader = new FileReader();
-
-          // Quando a leitura do arquivo estiver completa, atualiza a imagem
-          reader.addEventListener("load", function (e) {
-              // Atualiza a imagem de perfil com a nova imagem
-              pictureImage.src = e.target.result; // Atualiza a URL da imagem
-              localStorage.setItem('perfilImg', e.target.result); // Armazena a nova imagem no localStorage
-          });
-
-          // Lê o arquivo como uma URL de dados
-          reader.readAsDataURL(file);
-
-          // Função para fazer o upload usando AJAX
-          const formData = new FormData();
-          formData.append("fotoPerfil", file);
-
-          $.ajax({
-              url: "/upload-foto",
-              type: "POST",
-              data: formData,
-              processData: false,
-              contentType: false,
-              success: function (response) {
-                  alert("Upload realizado com sucesso!");
-              },
-              error: function (err) {
-                  alert("Ocorreu um erro ao fazer o upload.");
-              }
-          });
-      } else {
-          // Se não houver arquivo, define a imagem padrão
-          setDefaultImage();
-      }
-  });
 
   // Adiciona ouvinte de evento para a exclusão da conta
   document.getElementById('delete-account').addEventListener('click', function(event) {
