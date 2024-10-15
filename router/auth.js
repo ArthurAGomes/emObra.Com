@@ -119,6 +119,9 @@ router.get('/perfil-contratante', isAuthenticated, async (req, res) => {
 // Rota de perfil do pedreiro
 router.get('/perfil-pedreiro', isAuthenticated, async (req, res) => {
     try {
+
+        const [tiposServicos] = await pool.query('SELECT id, nome_servico FROM tipo_servicos');
+
         // Consulta para buscar os parceiros institucionais
         const [instituicoes] = await pool.query('SELECT nome_parceiro, descricao, imagem, url FROM parceiros WHERE tipo_parceiro = ?', ['institucional']);
         
@@ -131,7 +134,7 @@ router.get('/perfil-pedreiro', isAuthenticated, async (req, res) => {
         const [servicos] = await pool.query('SELECT id, nome_servico, img_servico FROM tipo_servicos');
 
         // Renderiza a página 'perfil-pedreiro.ejs' e passa os dados necessários
-        res.render('perfil-pedreiro', { userId: req.session.userId, instituicoes, lojas, pedreiro, servicos });
+        res.render('perfil-pedreiro', { userId: req.session.userId, tiposServicos, instituicoes, lojas, pedreiro, servicos });
 
     } catch (error) {
         console.error(error);

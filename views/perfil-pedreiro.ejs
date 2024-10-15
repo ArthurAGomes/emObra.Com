@@ -30,8 +30,8 @@
         <div class="container-container">
             <aside class="container-perfil">
                 <div class="foto-perfil">
-                    <img id="perfil-img" src="imagensPedreiro/<%= pedreiro[0].img_perfil %>"
-                        class="perfil-img" alt="Avatar" />
+                    <img id="perfil-img" src="imagensPedreiro/<%= pedreiro[0].img_perfil %>" class="perfil-img"
+                        alt="Avatar" />
 
                     <!-- Ícone de upload sobreposto à imagem -->
                     <form id="upload-form" enctype="multipart/form-data" method="POST" action="/upload-foto">
@@ -109,26 +109,66 @@
                         <h4><%= pedreiro[0].nome %></h4>
                         <p>Endereço, email,senha</p>
                     </div>
-                    <div class="botoes-perfil">Editar perfil</div>
+                    <span><a href="#" id="edit-account" class="outras-acoes-login">Editar conta</a></span>
                 </div>
 
                 <div class="excluir-perfil">
                     <div class="texto-config-perfil">
                         <h4>Excluir</h4>
-                        <span><a href="#" id="delete-account" class="outras-acoes-login">Deletar conta</a></span>
+                        <p>Esta ação é permanente.</p>
                     </div>
-                    <span><a href="/editar-conta" id="edit-account" class="outras-acoes-login">editar conta</a></span>
+                    <span><a href="#" id="delete-account" class="outras-acoes-login">Deletar conta</a></span>
                 </div>
             </article>
+
+            <div class="editar-perfil-contratante" id="editar-perfil-contratante">
+                <form action="/editar" method="POST" class="modal-cards-form" id="modal-form">
+
+                    <div class="modal-cards-input-control">
+                        <label for="nome" class="modal-cards-label">Nome</label>
+                        <input type="text" id="nome" name="nome" class="modal-cards-input" required
+                            value="<%= pedreiro[0].nome %>">
+                    </div>
+
+                    <div class="organizador-modal">
+                        <div class="modal-cards-input-control">
+                            <label for="cpf" class="modal-cards-label">CPF</label>
+                            <input type="text" id="cpf" name="cpf" class="modal-cards-input" required
+                                value="<%= pedreiro[0].cpf %>">
+                        </div>
+
+                        <div class="modal-cards-input-control">
+                            <label for="telefone" class="modal-cards-label">Telefone</label>
+                            <input type="text" id="telefone" name="telefone" required class="modal-cards-input"
+                                value="<%= pedreiro[0].telefone %>">
+                        </div>
+                    </div>
+                    <div class="modal-cards-input-control">
+                        <label for="cep" class="modal-cards-label">CEP</label>
+                        <input type="cep" id="cep" name="cep" required class="modal-cards-input"
+                            value="<%= pedreiro[0].cep %>">
+                    </div>
+                    <div class="modal-cards-input-control">
+                        <label for="email" class="modal-cards-label">Email</label>
+                        <input type="email" id="email" name="email" required class="modal-cards-input"
+                            value="<%= pedreiro[0].email %>">
+                    </div>
+
+                    <div class="modal-cards-footer">
+                        <button type="submit" class="modal-cards-btn">Salvar Alterações</button>
+                    </div>
+                </form>
+            </div>
+
             <article class="minha-obras"></article>
             <article class="ofertas"></article>
             <article class="dicas"></article>
         </section>
 
-        <section class="buscador">
+        <section class="buscador" id="buscador-perfil-contratante">
 
             <form class="form-buscar-index" id="buscaForm" action="/buscar" method="get">
-                <h2>Encontre novos serviços ou um pedreiro para sua obra!</h2>
+                <h2>Encontre o pedreiro certo para a sua obra!</h2>
                 <div class="radio-inputs">
                     <% servicos.forEach(servico=> { %>
                         <label>
@@ -144,14 +184,12 @@
                 </div>
 
                 <div class="botoes-buscar">
-                    <input type="text" name="cep" placeholder="Informe um CEP..." required>
+                    <input type="text" name="cep" value="<%= pedreiro[0].cep %>" required>
                     <div>
-                        <!-- Botão para Buscar Serviço -->
                         <button type="button" id="btn-buscar-servico">Buscar Serviço</button>
-                        <!-- Botão para Buscar Pedreiro -->
-                        <button type="button" id="btn-buscar-pedreiro">Buscar Pedreiro</button>
                     </div>
                 </div>
+
             </form>
 
             <!-- Loader -->
@@ -211,55 +249,6 @@
                 </div>
             </div>
 
-            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
-                aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h3>Minha proposta</h3>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                            <form action="/postar-servico" method="POST">
-
-                                <div class="input-control-login">
-                                    <label for="cep" class="text">CEP:</label>
-                                    <input type="text" id="cep" name="cep" disabled value="02976000" class="input">
-                                </div>
-
-                                <div class="input-control-login">
-                                    <label for="tipo_servico" class="text">Tipo de Serviço:</label>
-                                    <select id="tipo_servico" name="tipo_servico" required>
-                                        <% servicos.forEach(servico=> { %>
-                                            <option value="<%= servico.id %>">
-                                                <%= servico.nome_servico %>
-                                            </option>
-                                            <% }); %>
-                                    </select>
-                                </div>
-
-                                <div class="input-control-login">
-                                    <label for="prazo_combinar" class="text">Prazo:</label>
-                                    <input type="text" id="prazo_combinar" name="prazo_combinar" required class="input">
-
-                                    <label for="valor" class="text">Valor:</label>
-                                    <input type="text" id="valor" name="valor" required class="input">
-                                </div>
-
-                                <div class="input-control-login">
-                                    <label for="descricao" class="text">Descrição:</label>
-                                    <textarea id="descricao" name="descricao" required class="input"></textarea>
-                                </div>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <button type="button" class="btn btn-primary">Save changes</button>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
         </section>
 
         <section class="banners-perfil">
@@ -270,49 +259,50 @@
                 </div>
             </article>
 
-            <article class="instituicoes-parceiras">
+            <section class="instituicoes-parceiras">
                 <div class="chamada-institu-parceiras">
                     <h2>O seu futuro faz parte da nossa obra!</h2>
                     <p>Conheça nossos parceiros que querem fazer parte dessa empreitada.</p>
                 </div>
                 <div class="container-parceiros">
-                    <div class="swiper mySwiper">
+                    <div class="swiper myCaroussel ">
                         <div class="swiper-wrapper">
                             <% instituicoes.forEach(instituicao=> { %>
-                                <div class="swiper-slide">
+                                <article class="swiper-slide">
                                     <div class="banner-institu-parceira">
                                         <div class="info-institu-parceira">
-                                            <h4>
+                                            <h3>
                                                 <%= instituicao.nome_parceiro %>
-                                            </h4>
+                                            </h3>
                                             <p>
                                                 <%= instituicao.descricao %>
                                             </p>
-                                            <a href="<%= instituicao.url %>" class="btn-institu" target="_blank">Veja
-                                                mais</a>
+                                            <a href="<%= instituicao.url %>" class="btn-institu" target="_blank"
+                                                rel="noopener noreferrer">Veja mais</a>
                                         </div>
-                                        <img src="/imgs-fixas/<%= instituicao.imagem %>" alt="Senai SP">
+                                        <img src="/imgs-fixas/<%= instituicao.imagem %>"
+                                            alt="<%= instituicao.nome_parceiro %>">
                                     </div>
-                                </div>
+                                </article>
                                 <% }) %>
                         </div>
                         <div class="swiper-pagination"></div>
                     </div>
                 </div>
-            </article>
+            </section>
 
             <section class="banners-lojas-parceiros">
-                <h2 style="text-align: center;">Lojas Parceiras do EmObra.com</h2>
-                <div class="swiper mySwiper">
+                <h2>Lojas Parceiras do EmObra.com</h2>
+                <div class="swiper myCaroussel">
                     <div class="swiper-wrapper">
                         <% lojas.forEach(loja=> { %>
-                            <div class="swiper-slide banner-loja-fundo">
+                            <article class="swiper-slide banner-loja-fundo">
                                 <div class="banner-loja-parceira">
                                     <img src="imgs-fixas/<%= loja.imagem %>" alt="<%= loja.nome_parceiro %>">
                                     <div class="info-loja-parceira">
-                                        <h4>
-                                            <%= loja.nome %>
-                                        </h4>
+                                        <h3>
+                                            <%= loja.nome_parceiro %>
+                                        </h3>
                                         <p>
                                             <%= loja.endereco %>
                                         </p>
@@ -321,7 +311,7 @@
                                         </p>
                                     </div>
                                 </div>
-                            </div>
+                            </article>
                             <% }) %>
                     </div>
                     <div class="swiper-pagination"></div>
