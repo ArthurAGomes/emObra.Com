@@ -61,7 +61,7 @@ function buscarServicos(queryString, resultadosContainer, loader, resultadoBusca
                         <h3>${resultado.nome_servico}</h3>
                         <div class="container-servico-top">
                             <div class="background-icon-servico">
-                                <img src="/imgs-fixas/${resultado.imagem_servico}" alt="">
+                                <img src="/imgs-fixas/${resultado.img_servico}" alt="">
                             </div>
                             <div class="info-principais-servico">
                                 <div class="distancia-servico">
@@ -73,9 +73,8 @@ function buscarServicos(queryString, resultadosContainer, loader, resultadoBusca
                         </div>
                         <div class="input-descricao-servico">
                             <div class="descricao-post">
-                                <label for="input" class="text">Descrição do serviço</label>
-                                <textarea type="text" placeholder="${resultado.descricao}" name="input"
-                                    class="input" maxlength="300" rows="4" cols="50" disabled></textarea>
+                                <h5>Descrição do serviço</h5>
+                                <p>${resultado.descricao}</p>
                             </div>
                         </div>
                         <hr>

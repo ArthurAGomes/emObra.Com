@@ -1431,8 +1431,8 @@ footer {
   }
 }
 
-.input-servicos-oferecidos {
-  margin: 10px 0;
+.input-servicos-oferecidos, .input-descricao-servico {
+  margin-top: 15px;
   color: #020411;
 
   p {
@@ -1460,9 +1460,6 @@ footer {
 
 .img-perfil-card-pedreiro {
   border-radius: 15px;
-  /* display: flex;
-  justify-content: center;
-  align-items: center; */
   width: 100%;
   height: 120px;
   object-fit: cover;
@@ -1474,10 +1471,9 @@ footer {
 .card-servico {
   display: flex;
   flex-direction: column;
-  /* align-items: center; */
   justify-content: flex-start;
   max-width: 320px;
-  height: 480px;
+  height: 380px;
   margin: 0 auto;
   padding: 20px;
   border-radius: 20px;
@@ -1490,7 +1486,8 @@ footer {
   hr {
     width: 70%;
     border: 1px solid #FE8813;
-    margin: 25px auto;
+    margin: 10px auto;
+    opacity: 70%;
   }
 
   h3 {

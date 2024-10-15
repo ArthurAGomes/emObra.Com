@@ -11,7 +11,7 @@ async function buscarPorLocalizacao(tipo, cep, engine) {
         // Definir a query de acordo com o tipo de busca
         if (tipo === 'servico') {
             query = `
-                SELECT sp.id AS servico_id, sp.descricao, sp.valor, sp.prazo_combinar, sp.cep_obra AS cep_obra, ts.nome_servico
+                SELECT sp.id AS servico_id, sp.descricao, sp.valor, sp.prazo_combinar, sp.cep_obra AS cep_obra, ts.nome_servico, ts.img_servico
                 FROM servicos_postados sp
                 JOIN tipo_servicos ts ON sp.tipo_servico = ts.id
                 WHERE sp.status = 'pendente' AND sp.tipo_servico = ?; 
