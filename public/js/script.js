@@ -357,7 +357,7 @@ inputFile.addEventListener("change", function(e) {
             processData: false,
             contentType: false,
             success: function(response) {
-                alert("Upload realizado com sucesso!");
+                alert("Upload realizado com sucesso! para alterar a imagem basta regarregar a pagina");
                 location.reload(); // Recarrega a página para atualizar a imagem
             },
             error: function(err) {

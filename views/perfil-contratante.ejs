@@ -95,44 +95,37 @@
                 <!-- Mensagem de ativação -->
                 <div id="message" class="alert alert-info" style="display: none;"></div>
                 <h2>Solicitações de Serviços</h2>
-                <% if (solicitacoes && solicitacoes.length> 0) { %>
+                <% if (solicitacoes && solicitacoes.length > 0) { %>
                     <table>
                         <thead>
                             <tr>
-                                <th>ID da Candidatura</th>
                                 <th>Descrição do Serviço</th>
                                 <th>Nome do Pedreiro</th>
+                                <th>Telefone</th>
                                 <th>Status</th>
-                                <th>Ações</th>
+                                <th>Premium</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <% solicitacoes.forEach(solicitacao=> { %>
+                            <% solicitacoes.forEach(solicitacao => { %>
                                 <tr>
-                                    <td>
-                                        <%= solicitacao.id %>
-                                    </td>
-                                    <td>
-                                        <%= solicitacao.descricao %>
-                                    </td>
-                                    <td>
-                                        <%= solicitacao.nome_pedreiro %>
-                                    </td>
-                                    <td>
-                                        <%= solicitacao.status %>
-                                    </td>
-                                    <td>
-                                        <!-- <button onclick="aceitarSolicitacao(<%= solicitacao.id %>, <%= solicitacao.servico_id %>)">Aceitar</button>
-                                <button onclick="recusarSolicitacao(<%= solicitacao.id %>, <%= solicitacao.servico_id %>)">Recusar</button> -->
-                                    </td>
+                                    <td><%= solicitacao.descricao %></td>
+                                    <td><%= solicitacao.nome_pedreiro %></td>
+                                    <td><%= solicitacao.telefone %></td>
+                                    <td><%= solicitacao.status %></td>
+                                    <td><%= solicitacao.premium ? 'Sim' : 'Não' %></td>
                                 </tr>
-                                <% }); %>
+                            <% }); %>
                         </tbody>
                     </table>
-                    <% } else { %>
-                        <p>Nenhuma solicitação encontrada.</p>
-                        <% } %>
+                <% } else { %>
+                    <p>Nenhuma solicitação encontrada.</p>
+                <% } %>
             </section>
+            
+            
+            
+            
 
             <article class="meu-perfil">
                 <div class="config-perfil">

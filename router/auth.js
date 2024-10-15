@@ -144,15 +144,20 @@ router.get('/solicitacoes', isAuthenticated, async (req, res) => {
     const contratante_id = req.session.userId;
 
     const query = `
-        SELECT cp.id, sp.descricao, p.nome AS nome_pedreiro, cp.status
+        SELECT cp.id, sp.descricao, p.nome AS nome_pedreiro, p.premium, p.telefone, cp.status
         FROM candidaturas_pedreiros cp
         JOIN servicos_postados sp ON cp.servico_id = sp.id
         JOIN pedreiros p ON cp.pedreiro_id = p.id
         WHERE sp.contratante_id = ? AND sp.status = 'pendente'
+        ORDER BY p.premium DESC, p.nome ASC
     `;
 
     try {
         const [rows] = await pool.query(query, [contratante_id]);
+
+        // Adiciona o log aqui para mostrar o que está sendo enviado ao front
+        console.log('Solicitações enviadas para o front-end:', rows);
+
         res.render('perfil-contratante', { solicitacoes: rows });
     } catch (err) {
         console.error('Erro ao buscar solicitações:', err);
@@ -160,4 +165,4 @@ router.get('/solicitacoes', isAuthenticated, async (req, res) => {
     }
 });
 
-module.exports=router
+module.exports = router;
