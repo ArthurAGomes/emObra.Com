@@ -13,8 +13,6 @@
 <body>
 
     <main class="main-login-cad">
-        <!-- <img src="/imgs-fixas/pedreiro-login.png" class="pedreiro-login" alt="Pedreiro Login"> -->
-        <!-- <img src="/imgs-fixas/contratante-login.png" class="contratante-login" alt="Contratante Login"> -->
         <div class="banner-login">
             <h1><a href="/"><img src="https://i.ibb.co/KVZRVhw/logov4-preto.png" alt="logo-em-obra"
                         class="logo-header"></a></h1>
@@ -24,6 +22,8 @@
         <div class="login-container">
             <div class="form-login">
                 <h1>Login</h1>
+                <!-- Mensagem de ativação -->
+                <div id="message" class="alert alert-info" style="display: none;"></div>
                 <form action="/auth" method="POST">
                     <div class="input-control-login">
                         <label for="identifier" class="text">CPF</label>
@@ -42,7 +42,6 @@
                             <input type="checkbox" id="conectado" name="conectado">
                             <label for="conectado">Manter-se conectado</label>
                         </div>
-
                     </div>
                     <button type="submit" class="botao-entrar">Entrar</button>
                 </form>
@@ -54,6 +53,17 @@
         </div>
 
     </main>
+
+    <script>
+        // Captura a mensagem da URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const message = urlParams.get('message');
+        if (message) {
+            const messageDiv = document.getElementById('message');
+            messageDiv.innerText = message;
+            messageDiv.style.display = 'block';
+        }
+    </script>
 </body>
 
 </html>

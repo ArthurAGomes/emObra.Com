@@ -14,7 +14,7 @@ const sendActivationEmail = async (email, nome, token, userType) => {
     });
 
     // Define a URL de ativação com base no tipo de usuário
-    const activationUrl = `${process.env.HOST}:3000/${userType}/activate/${token}`;
+    const activationUrl = `https://emobra-com.onrender.com/activate/${token}?message=Ativação+de+conta+enviada!+Verifique+seu+email.`;
     
     const mailOptions = {
         from: process.env.EMAIL_USER,
