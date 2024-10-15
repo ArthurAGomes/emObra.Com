@@ -91,40 +91,7 @@
                 </div>
             </div>
 
-            <section class="solicitacoes-pendentes">
-                <!-- Mensagem de ativação -->
-                <div id="message" class="alert alert-info" style="display: none;"></div>
-                <h2>Solicitações de Serviços</h2>
-                <% if (solicitacoes && solicitacoes.length > 0) { %>
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Descrição do Serviço</th>
-                                <th>Nome do Pedreiro</th>
-                                <th>Telefone</th>
-                                <th>Status</th>
-                                <th>Premium</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <% solicitacoes.forEach(solicitacao => { %>
-                                <tr>
-                                    <td><%= solicitacao.descricao %></td>
-                                    <td><%= solicitacao.nome_pedreiro %></td>
-                                    <td><%= solicitacao.telefone %></td>
-                                    <td><%= solicitacao.status %></td>
-                                    <td><%= solicitacao.premium ? 'Sim' : 'Não' %></td>
-                                </tr>
-                            <% }); %>
-                        </tbody>
-                    </table>
-                <% } else { %>
-                    <p>Nenhuma solicitação encontrada.</p>
-                <% } %>
-            </section>
-            
-            
-            
+          
             
 
             <article class="meu-perfil">
