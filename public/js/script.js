@@ -267,9 +267,6 @@ function buscarPedreiros(queryString, resultadosContainer, loader, resultadoBusc
         });
 }
 
-
-
-
 // Variáveis para armazenar as instâncias do swiper
 let swiperBanners, swiperResultados;
 
@@ -304,7 +301,6 @@ function initSwiperResultados() {
         },
     });
 }
-
 
 // Inicializa todos os swipers na primeira carga
 document.addEventListener('DOMContentLoaded', function () {
