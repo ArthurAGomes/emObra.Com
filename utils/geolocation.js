@@ -11,10 +11,8 @@ async function buscarPorLocalizacao(tipo, cep, engine) {
         // Definir a query de acordo com o tipo de busca
         if (tipo === 'servico') {
             query = `
-                SELECT sp.id AS servico_id, sp.descricao, sp.valor, sp.prazo_combinar, sp.cep_obra AS cep_obra, ts.nome_servico, ts.img_servico
-                FROM servicos_postados sp
-                JOIN tipo_servicos ts ON sp.tipo_servico = ts.id
-                WHERE sp.status = 'pendente' AND sp.tipo_servico = ?; 
+                SELECT sp.id AS servico_id, sp.descricao, sp.valor, sp.prazo_combinar, sp.cep_obra AS cep_obra,ts.nome_servico, ts.img_servico, c.telefone FROM servicos_postados sp
+                JOIN tipo_servicos ts ON sp.tipo_servico = ts.id JOIN contratantes c ON sp.contratante_id = c.id WHERE sp.status = 'pendente' AND sp.tipo_servico = ?; 
             `;
             params.push(engine);
         } else if (tipo === 'pedreiro') {
@@ -22,7 +20,8 @@ async function buscarPorLocalizacao(tipo, cep, engine) {
             SELECT 
             p.id AS pedreiro_id, 
             p.nome, 
-            p.premium, 
+            p.premium,
+            p.telefone, 
             p.img_perfil,
             p.cep AS cep_obra, 
             GROUP_CONCAT(ts.nome_servico SEPARATOR ', ') AS tipos_servico

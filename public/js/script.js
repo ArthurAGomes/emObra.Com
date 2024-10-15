@@ -68,7 +68,7 @@ function buscarServicos(queryString, resultadosContainer, loader, resultadoBusca
                                     <span>Distância</span>
                                     <p><span>${resultado.distancia}</span> km de você</p>
                                 </div>
-                                <button type="submit" class="btn-me-candidatar">Candidatar-se</button>
+                                <button><a href="https://wa.me/55${resultado.telefone}?text=Olá%2C%20gostaria%20de%20saber%20mais%20sobre%20seus%20serviços" target="_blank">Entrar em contato</a></button>
                             </div>
                         </div>
                         <div class="input-descricao-servico">
@@ -164,10 +164,10 @@ function buscarPedreiros(queryString, resultadosContainer, loader, resultadoBusc
                                         <img src="/imagensPedreiro/${resultado.img_perfil}" alt="Foto de Perfil" class="img-perfil-card-pedreiro">
                                         <div class="info-principais-servico">
                                             <div class="distancia-servico">
-                                                <span>Avaliação</span>
+                                                <span>Distancia</span>
                                                 <p><span>${resultado.distancia}</span> km de você</p>
                                             </div>
-                                            <button id="fazer-proposta" type="button" class="btn btn-primary btn-fazer-proposta" data-id="${resultado.id}" data-nome="${resultado.nome}">Fazer Proposta</button>
+                                            <button><a href="https://wa.me/55${resultado.telefone}?text=Olá%2C%20gostaria%20de%20saber%20mais%20sobre%20seus%20serviços" target="_blank">Entrar em contato</a></button>
                                         </div>
                                     </div>
 

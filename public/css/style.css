@@ -1568,6 +1568,13 @@ footer {
 
 }
 
+.info-principais-servico button a{
+  text-decoration: none;
+  color: white;
+  font-weight: 600;
+  font-size: 1.1em;
+}
+
 .descricao-post {
   display: flex;
   flex-direction: column;
