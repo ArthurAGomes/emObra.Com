@@ -6,9 +6,18 @@ const jwt = require('jsonwebtoken');
 const sendActivationEmail = require('../utils/sendActivationEmail');
 require('dotenv').config();
 
+
 // Rota para renderizar a página de cadastro
-router.get('/register', (req, res) => {
-    res.render('register');
+router.get('/register', async (req, res) => {
+
+    try{
+        const [servicos] = await db.query('SELECT id, nome_servico, img_servico, desc_servico FROM tipo_servicos ORDER BY nome_servico ASC');
+
+        res.render('register', { servicos });
+    } catch (err){
+        console.error('Erro ao carregar os tipos de serviço:', err);
+    }
+    
 });
 
 // Rota de cadastro para Pedreiro
