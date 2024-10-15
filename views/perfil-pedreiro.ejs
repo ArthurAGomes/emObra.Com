@@ -109,7 +109,7 @@
                         <h4><%= pedreiro[0].nome %></h4>
                         <p>Endereço, email,senha</p>
                     </div>
-                    <span><a href="/editar-conta" id="edit-account" class="outras-acoes-login">Editar conta</a></span>
+                    <span><a href="#" id="edit-account" class="outras-acoes-login">Editar conta</a></span>
                 </div>
 
                 <div class="excluir-perfil">
@@ -327,6 +327,43 @@
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script src="/js/script.js"></script>
     <script src="https://kit.fontawesome.com/fa60e4fa16.js" crossorigin="anonymous"></script>
+
+    <script>
+        const editButton = document.getElementById('edit-account');
+            const container = document.getElementById('editar-perfil-contratante');
+
+            // Verifica se o botão e o container existem antes de adicionar o evento
+            if (editButton && container) {
+                editButton.addEventListener('click', function (event) {
+                    event.preventDefault(); // Impede o comportamento padrão do link
+
+                    if (container.classList.contains('show')) {
+                        // Se já está visível, esconder com animação
+                        container.style.height = container.scrollHeight + 'px';
+                        setTimeout(() => {
+                            container.style.height = '0';
+                        }, 10);
+                        setTimeout(() => {
+                            container.classList.remove('show');
+                            container.style.display = 'none';
+                        }, 510);
+                    } else {
+                        // Se está oculto, mostrar com animação
+                        container.style.display = 'block';
+                        setTimeout(() => {
+                            container.style.height = container.scrollHeight + 'px';
+                        }, 10);
+                        setTimeout(() => {
+                            container.classList.add('show');
+                            container.style.height = 'auto';
+                        }, 510);
+                    }
+                });
+            } else {
+                console.log('Botão ou container não encontrado.');
+            }
+    </script>
+    
 
 
 </body>
