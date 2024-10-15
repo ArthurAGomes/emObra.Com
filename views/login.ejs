@@ -26,9 +26,9 @@
                 <!-- Mensagem de ativação -->
                 <div id="message" class="alert alert-info" style="display: none;"></div>
 
-                <form action="/auth" method="POST">
+                <form id="loginForm">
                     <div class="input-control-login">
-                        <label for="identifier" class="text">CPF</label>
+                        <label for="identifier" class="text">CPF ou Email</label>
                         <input type="text" id="identifier" name="identifier" placeholder="Digite seu email ou CPF"
                             required class="input">
                     </div>
@@ -67,7 +67,45 @@
             messageDiv.innerText = message;
             messageDiv.style.display = 'block';
         }
+
+        // Função de login via AJAX
+        document.getElementById('loginForm').addEventListener('submit', async function (event) {
+            event.preventDefault();  // Evita o envio padrão do formulário
+
+            const identifier = document.getElementById('identifier').value;
+            const senha = document.getElementById('senha').value;
+
+            try {
+                const response = await fetch('/auth', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ identifier, senha })
+                });
+
+                if (response.redirected) {
+                    // Se o back-end fizer o redirecionamento, o navegador o seguirá
+                    window.location.href = response.url;
+                } else {
+                    const errorMessage = await response.text();
+                    showMessage(errorMessage, 'alert-danger');
+                }
+            } catch (error) {
+                console.error('Erro na tentativa de login:', error);
+                showMessage('Erro ao tentar se conectar. Tente novamente mais tarde.', 'alert-danger');
+            }
+        });
+
+        // Função para exibir mensagens de erro ou sucesso
+        function showMessage(message, alertClass) {
+            const messageDiv = document.getElementById('message');
+            messageDiv.innerText = message;
+            messageDiv.className = `alert ${alertClass}`;
+            messageDiv.style.display = 'block';
+        }
     </script>
+
 </body>
 
 </html>

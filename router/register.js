@@ -89,7 +89,7 @@ router.get('/pedreiros/activate/:token', async (req, res) => {
             return res.status(404).send('Pedreiro não encontrado ou já ativado.');
         }
 
-        res.redirect(`/login?message=Ativação de conta enviada! Verifique seu email.`);
+        res.redirect(`/login?message=Conta ativade com sucesso, faça login!`);
     } catch (error) {
         if (error.name === 'TokenExpiredError') {
             return res.status(400).send('Erro ao ativar a conta. O token expirou.');
@@ -115,7 +115,7 @@ router.get('/contratantes/activate/:token', async (req, res) => {
             return res.status(404).send('Contratante não encontrado ou já ativado.');
         }
 
-        res.redirect(`/login?message=Ativação de conta enviada! Verifique seu email.`);
+        res.redirect(`/login?message=Conta ativade com sucesso, faça login!`);
     } catch (error) {
         console.error('Erro ao ativar a conta de contratante:', error);
         res.status(400).send('Erro ao ativar a conta. O token pode ser inválido ou ter expirado.');
