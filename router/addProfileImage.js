@@ -41,4 +41,4 @@ router.get('/addProfileImage', (req, res) => {
     });
 });
 
-module.exports = router; // Exporta o roteador
+module.exports = router; // Exporta o roteado
