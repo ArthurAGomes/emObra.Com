@@ -23,7 +23,8 @@ router.post('/postar-servico', isAuthenticated, async (req, res) => {
 
     try {
         await pool.query(query, [descricao, contratante_id, pedreiroId, tipo_servico, prazo_combinar, valor, cep_final]);
-        res.status(201).send('Serviço postado');
+        // res.status(201).send('Serviço postado');
+        res.redirect(`/perfil-contratante?message=Serviço cadastrado com sucesso`)
     } catch (err) {
         console.error('Erro ao postar o serviço:', err);
         res.status(500).send('Erro ao postar o serviço.');

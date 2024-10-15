@@ -24,6 +24,7 @@
             </div>
         </nav>
     </header>
+
     <main class="main-perfil">
         <div class="container-container">
             <aside class="container-perfil">
@@ -45,7 +46,6 @@
                     <h2>
                         <%= contratante[0].nome %>
                     </h2>
-                    <p>This is a basic HTML page.</p>
                 </div>
             </aside>
         </div>
@@ -53,6 +53,7 @@
 
         <section class="container-categorias-perfil">
             <div class="categorias-botoes">
+
                 <div class="categoria-box">
                     <label>
                         <input type="radio" class="radio-input" name="engine" value="perfil-pedreiro">
@@ -79,18 +80,6 @@
 
                 <div class="categoria-box">
                     <label>
-                        <input type="radio" class="radio-input" name="engine" value="premium">
-                        <span class="radio-tile">
-                            <span class="radio-categoria">
-                                <i class="fa-solid fa-certificate"></i>
-                            </span>
-                        </span>
-                    </label>
-                    <p>Premium</p>
-                </div>
-
-                <div class="categoria-box">
-                    <label>
                         <input type="radio" class="radio-input" name="engine" value="dicas">
                         <span class="radio-tile">
                             <span class="radio-categoria">
@@ -98,12 +87,14 @@
                             </span>
                         </span>
                     </label>
-                    <p>Dicas</p>
+                    <p>Dúvidas</p>
                 </div>
             </div>
 
-            <section class="solicitacoes-pendente">
-                <h1>Solicitações de Serviços</h1>
+            <section class="solicitacoes-pendentes">
+                <!-- Mensagem de ativação -->
+                <div id="message" class="alert alert-info" style="display: none;"></div>
+                <h2>Solicitações de Serviços</h2>
                 <% if (solicitacoes && solicitacoes.length> 0) { %>
                     <table>
                         <thead>
@@ -149,113 +140,356 @@
                         <h4>Yago</h4>
                         <p>Endereço, email,senha</p>
                     </div>
-                    <span><a href="/editar-conta" id="edit-account" class="outras-acoes-login">editar conta</a></span>
+                    <span><a href="#" id="edit-account" class="outras-acoes-login">Editar conta</a></span>
                 </div>
 
                 <div class="excluir-perfil">
                     <div class="texto-config-perfil">
                         <h4>Excluir</h4>
-                        <span><a href="#" id="delete-account" class="outras-acoes-login">Deletar conta</a></span>
+                        <p>Esta ação é permanente.</p>
                     </div>
+                    <span><a href="#" id="delete-account" class="outras-acoes-login">Deletar conta</a></span>
 
                 </div>
-            </article>
-            <article class="minha-obras">
-                <h1>Postar um Novo Serviço</h1>
-                <form action="/postar-servico" method="POST">
-                    <label for="tipo_servico">Tipo de Serviço:</label>
-                    <select id="tipo_servico" name="tipo_servico" required>
-                        <% tipos_servicos.forEach(servico=> { %>
-                            <option value="<%= servico.id %>">
-                                <%= servico.nome_servico %>
-                            </option>
-                            <% }); %>
-                    </select>
-
-                    <label for="cep">CEP:</label>
-                    <input type="text" id="cep" name="cep">
-
-                    <label for="prazo_combinar">Prazo a Combinar:</label>
-                    <input type="text" id="prazo_combinar" name="prazo_combinar" required>
-
-                    <label for="valor">Valor:</label>
-                    <input type="number" id="valor" name="valor" required>
-
-                    <label for="descricao">Descrição:</label>
-                    <textarea id="descricao" name="descricao" required></textarea>
-
-                    <button type="submit">Postar Serviço</button>
-                </form>
-            </article>
-            <article class="ofertas"></article>
-            <article class="dicas"></article>
-        </section>
-
-        <section class="banners-perfil">
-            <article class="">
-                <div class="titulo-banner-perfil">
-                    <h4></h4>
-                    <hr>
-                </div>
+                
             </article>
 
-            <article class="instituicoes-parceiras">
-                <div class="chamada-institu-parceiras">
-                    <h2>O seu futuro faz parte da nossa obra!</h2>
-                    <p>Conheça nossos parceiros que querem fazer parte dessa empreitada.</p>
-                </div>
-                <div class="container-parceiros">
-                    <div class="swiper mySwiper">
-                        <div class="swiper-wrapper">
-                            <% instituicoes.forEach(instituicao=> { %>
-                                <div class="swiper-slide">
-                                    <div class="banner-institu-parceira">
-                                        <div class="info-institu-parceira">
-                                            <h4>
-                                                <%= instituicao.nome_parceiro %>
-                                            </h4>
-                                            <p>
-                                                <%= instituicao.descricao %>
-                                            </p>
-                                            <a href="<%= instituicao.url %>" class="btn-institu" target="_blank">Veja
-                                                mais</a>
-                                        </div>
-                                        <img src="/imgs-fixas/<%= instituicao.imagem %>" alt="Senai SP">
-                                    </div>
-                                </div>
-                                <% }) %>
+            <!-- <div class="editar-perfil-contratante" id="editar-perfil-contratante">
+                <form action="/editar-contratante" method="POST" class="modal-cards-form" id="modal-form">
+
+                    <div class="modal-cards-input-control">
+                        <label for="nome" class="modal-cards-label">Nome</label>
+                        <input type="text" id="nome" name="nome" class="modal-cards-input" required
+                            value="<%= contratante[0].nome %>">
+                    </div>
+                    <div class="organizador-modal">
+                        <div class="modal-cards-input-control">
+                            <label for="cpf" class="modal-cards-label">CPF</label>
+                            <input type="text" id="cpf" name="cpf" class="modal-cards-input" required
+                                value="<%= contratante[0].cpf %>">
                         </div>
-                        <div class="swiper-pagination"></div>
+                        <div class="modal-cards-input-control">
+                            <label for="telefone" class="modal-cards-label">Telefone</label>
+                            <input type="text" id="telefone" name="telefone" required class="modal-cards-input"
+                                value="<%= contratante[0].telefone %>">
+                        </div>
                     </div>
-                </div>
-            </article>
+                    <div class="modal-cards-input-control">
+                        <label for="cep" class="modal-cards-label">CEP</label>
+                        <input type="cep" id="cep" name="cep" required class="modal-cards-input"
+                            value="<%= contratante[0].cep %>">
+                    </div>
+                    <div class="modal-cards-input-control">
+                        <label for="email" class="modal-cards-label">Email</label>
+                        <input type="email" id="email" name="email" required class="modal-cards-input"
+                            value="<%= contratante[0].email %>">
+                    </div>
 
-            <section class="banners-lojas-parceiros">
-                <h2 style="text-align: center;">Lojas Parceiras do EmObra.com</h2>
-                <div class="swiper mySwiper">
-                    <div class="swiper-wrapper">
-                        <% lojas.forEach(loja=> { %>
-                            <div class="swiper-slide banner-loja-fundo">
-                                <div class="banner-loja-parceira">
-                                    <img src="imgs-fixas/<%= loja.imagem %>" alt="<%= loja.nome_parceiro %>">
-                                    <div class="info-loja-parceira">
-                                        <h4>
-                                            <%= loja.nome %>
-                                        </h4>
-                                        <p>
-                                            <%= loja.endereco %>
-                                        </p>
-                                        <p>
-                                            <%= !loja.url ? loja.contato : loja.url %>
-                                        </p>
-                                    </div>
+                    <div class="modal-cards-footer">
+                        <button type="submit" class="modal-cards-btn">Salvar Alterações</button>
+                    </div>
+                </form>
+            </div> -->
+
+            <article class="minhas-obras">
+                <div>
+
+                    <div class="blocos-obras-contratante">
+                        <h4>Dicas para encontrar o pedreiro certo</h4>
+                        <ul class="dicas-contratante">
+                            <li>
+                                Escolha UM tipo de serviço
+                            </li>
+                            <li>
+                                Verifique se todos os dados estão preenchidos corretamente
+                            </li>
+                            <li>
+                                Indique um valor que está disposto a pagar, caso não tenha um em mente preencha com "A
+                                combinar"
+                            </li>
+                            <li>
+                                Estipule um prazo. Ainda que possa ser negociado, isso pode acelerar as conversas com o
+                                profissional
+                            </li>
+                            <li>
+                                Faça uma breve descrição do serviço. Seja breve e especifico. Chamadas curtas dispertam
+                                maior interesse.
+                            </li>
+                            <li>
+                                Não esqueça de finalizar o serviço e avaliar o profissional aqui no emObra. Isso é muito
+                                importante para o profissional e para a gente também.
+                            </li>
+                            <h4>Boas obras!</h4>
+                        </ul>
+
+                    </div>
+
+                    <div class="blocos-obras-contratante">
+                        <h4>Postar um Novo Serviço</h4>
+                        <form action="/postar-servico" method="POST" class="modal-cards-form" id="modal-form">
+                            <input type="hidden" name="pedreiroId" value="">
+                            <div class="modal-cards-input-control">
+                                <label for="tipo_servico" class="modal-cards-label">Tipo de Serviço:</label>
+                                <select id="tipo_servico" name="tipo_servico" required class="modal-cards-select">
+                                    <% tipos_servicos.forEach(servico=> { %>
+                                        <option value="<%= servico.id %>">
+                                            <%= servico.nome_servico %>
+                                        </option>
+                                        <% }); %>
+                                </select>
+                            </div>
+                            <div class="organizador-modal">
+                                <div class="modal-cards-input-control">
+                                    <label for="cep" class="modal-cards-label">CEP:</label>
+                                    <input type="text" id="cep" name="cep" class="modal-cards-input" required
+                                        value="<%= contratante[0].cep %>">
+                                </div>
+                                <div class="modal-cards-input-control">
+                                    <label for="prazo_combinar" class="modal-cards-label">Prazo</label>
+                                    <input type="text" id="prazo_combinar" name="prazo_combinar" required
+                                        class="modal-cards-input">
                                 </div>
                             </div>
+                            <div class="modal-cards-input-control">
+                                <label for="valor" class="modal-cards-label">Valor:</label>
+                                <input type="number" id="valor" name="valor" required class="modal-cards-input"
+                                    placeholder="Ex: 100,00 ou A combinar">
+                            </div>
+                            <div class="modal-cards-input-control">
+                                <label for="descricao" class="modal-cards-label">Descrição:</label>
+                                <textarea id="descricao" name="descricao" required class="modal-cards-textarea"
+                                    placeholder="Descreva brevemente o serviço"></textarea>
+                            </div>
+                            <div class="modal-cards-footer">
+                                <button type="submit" class="modal-cards-btn modal-cards-btn-submit">Postar
+                                    Serviço</button>
+                            </div>
+                        </form>
+                    </div>
+
+                </div>
+
+            </article>
+
+            <!-- <article class="ofertas"></article> -->
+            <article class="dicas">
+                <div>
+                    <h2>O emObra.com é uma start-up independente e não tem qualquer vinculação com os profissionais
+                        cadastrados.
+                    </h2>
+                    <p>Para saber mais, acesse nossa politica de privacidade e termos de uso.</p>
+                </div>
+
+                <div>
+                    <h4>Contato</h4>
+                    <p>Email: emObra-com@gmail.com</p>
+                    <p>Telefone: (11) 99999-9999</p>
+                </div>
+
+                <a href="#">Politica de privacidade e uso de dados.</a>
+
+            </article>
+        </section>
+
+        <section class="buscador" id="buscador-perfil-contratante">
+
+            <form class="form-buscar-index" id="buscaForm" action="/buscar" method="get">
+                <h2>Encontre o pedreiro certo para a sua obra!</h2>
+                <div class="radio-inputs">
+                    <% servicos.forEach(servico=> { %>
+                        <label>
+                            <input class="radio-input servicos" type="radio" name="engine" value="<%= servico.id %>"
+                                required />
+                            <span class="radio-tile">
+                                <span class="radio-servico">
+                                    <%= servico.nome_servico %>
+                                </span>
+                            </span>
+                        </label>
+                        <% }) %>
+                </div>
+
+                <div class="botoes-buscar">
+                    <input type="text" name="cep" value="<%= contratante[0].cep %>" required>
+                    <div>
+                        <button type="button" id="btn-buscar-pedreiro">Buscar Pedreiro</button>
+                    </div>
+                </div>
+
+            </form>
+
+            <!-- Loader -->
+            <div class="loader" id="loader">
+                <div class="wrapper">
+                    <div class="catContainer">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 733 673" class="catbody">
+                            <path fill="#212121"
+                                d="M111.002 139.5C270.502 -24.5001 471.503 2.4997 621.002 139.5C770.501 276.5 768.504 627.5 621.002 649.5C473.5 671.5 246 687.5 111.002 649.5C-23.9964 611.5 -48.4982 303.5 111.002 139.5Z">
+                            </path>
+                            <path fill="#212121" d="M184 9L270.603 159H97.3975L184 9Z"></path>
+                            <path fill="#212121" d="M541 0L627.603 150H454.397L541 0Z"></path>
+                        </svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 158 564" class="tail">
+                            <path fill="#191919"
+                                d="M5.97602 76.066C-11.1099 41.6747 12.9018 0 51.3036 0V0C71.5336 0 89.8636 12.2558 97.2565 31.0866C173.697 225.792 180.478 345.852 97.0691 536.666C89.7636 553.378 73.0672 564 54.8273 564V564C16.9427 564 -5.4224 521.149 13.0712 488.085C90.2225 350.15 87.9612 241.089 5.97602 76.066Z">
+                            </path>
+                        </svg>
+                        <div class="text">
+                            <span class="bigzzz">Z</span>
+                            <span class="zzz">Z</span>
+                        </div>
+                    </div>
+                    <div class="wallContainer">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 500 126" class="wall">
+                            <line stroke-width="6" stroke="#7C7C7C" y2="3" x2="450" y1="3" x1="50"></line>
+                            <line stroke-width="6" stroke="#7C7C7C" y2="85" x2="400" y1="85" x1="100"></line>
+                            <line stroke-width="6" stroke="#7C7C7C" y2="122" x2="375" y1="122" x1="125"></line>
+                            <line stroke-width="6" stroke="#7C7C7C" y2="43" x2="500" y1="43"></line>
+                            <line stroke-width="6" stroke="#7C7C7C" y2="1.99391" x2="115.5" y1="43.0061" x1="115.5">
+                            </line>
+                            <line stroke-width="6" stroke="#7C7C7C" y2="2.00002" x2="189" y1="43.0122" x1="189">
+                            </line>
+                            <line stroke-width="6" stroke="#7C7C7C" y2="2.00612" x2="262.5" y1="43.0183" x1="262.5">
+                            </line>
+                            <line stroke-width="6" stroke="#7C7C7C" y2="2.01222" x2="336" y1="43.0244" x1="336">
+                            </line>
+                            <line stroke-width="6" stroke="#7C7C7C" y2="2.01833" x2="409.5" y1="43.0305" x1="409.5">
+                            </line>
+                            <line stroke-width="6" stroke="#7C7C7C" y2="43" x2="153" y1="84.0122" x1="153"></line>
+                            <line stroke-width="6" stroke="#7C7C7C" y2="43" x2="228" y1="84.0122" x1="228"></line>
+                            <line stroke-width="6" stroke="#7C7C7C" y2="43" x2="303" y1="84.0122" x1="303"></line>
+                            <line stroke-width="6" stroke="#7C7C7C" y2="43" x2="378" y1="84.0122" x1="378"></line>
+                            <line stroke-width="6" stroke="#7C7C7C" y2="84" x2="192" y1="125.012" x1="192"></line>
+                            <line stroke-width="6" stroke="#7C7C7C" y2="84" x2="267" y1="125.012" x1="267"></line>
+                            <line stroke-width="6" stroke="#7C7C7C" y2="84" x2="342" y1="125.012" x1="342"></line>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+
+            <div class="resultado-busca" id="resultado-busca">
+                <div class="swiper mySwiper">
+                    <div class="swiper-wrapper" id="swiper-wrapper">
+
+                    </div>
+                </div>
+            </div>
+
+            <!-- Modal relacionado ao card -->
+            <div class="modal-cards-overlay" id="modal-cards-overlay"></div>
+            <div class="modal-cards" id="modal-cards-proposta">
+                <div class="modal-cards-close" id="modal-cards-close-btn">&times;</div>
+                <div class="modal-cards-content">
+                    <hr>
+                    <h3 class="modal-cards-title">Minha Proposta</h3>
+                    <p>Profissional: <span id="modal-nome-pedreiro"></span></p>
+
+                    <!-- Formulário adaptado com as classes específicas -->
+                    <form action="/postar-servico" method="POST" class="modal-cards-form" id="modal-form">
+                        <input type="hidden" name="pedreiroId" value="" id="modal-pedreiroId">
+                        <div class="modal-cards-input-control">
+                            <label for="tipo_servico" class="modal-cards-label">Tipo de Serviço:</label>
+                            <select id="tipo_servico" name="tipo_servico" required class="modal-cards-select">
+                                <% tipos_servicos.forEach(servico=> { %>
+                                    <option value="<%= servico.id %>">
+                                        <%= servico.nome_servico %>
+                                    </option>
+                                    <% }); %>
+                            </select>
+                        </div>
+
+                        <div class="organizador-modal">
+
+                            <div class="modal-cards-input-control">
+                                <label for="cep" class="modal-cards-label">CEP:</label>
+                                <input type="text" id="cep" name="cep" class="modal-cards-input" required>
+                            </div>
+
+                            <div class="modal-cards-input-control">
+                                <label for="prazo_combinar" class="modal-cards-label">Prazo</label>
+                                <input type="text" id="prazo_combinar" name="prazo_combinar" required
+                                    class="modal-cards-input">
+                            </div>
+                        </div>
+
+                        <div class="modal-cards-input-control">
+                            <label for="valor" class="modal-cards-label">Valor:</label>
+                            <input type="number" id="valor" name="valor" required class="modal-cards-input"
+                                placeholder="Ex: 100,00 ou A combinar">
+                        </div>
+
+                        <div class="modal-cards-input-control">
+                            <label for="descricao" class="modal-cards-label">Descrição:</label>
+                            <textarea id="descricao" name="descricao" required class="modal-cards-textarea"
+                                placeholder="Descreva brevemente o serviço"></textarea>
+                        </div>
+
+                        <div class="modal-cards-footer">
+                            <button type="submit" class="modal-cards-btn modal-cards-btn-submit">Postar Serviço</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+        </section>
+
+        <section class="instituicoes-parceiras">
+            <div class="chamada-institu-parceiras">
+                <h2>O seu futuro faz parte da nossa obra!</h2>
+                <p>Conheça nossos parceiros que querem fazer parte dessa empreitada.</p>
+            </div>
+            <div class="container-parceiros">
+                <div class="swiper myCaroussel ">
+                    <div class="swiper-wrapper">
+                        <% instituicoes.forEach(instituicao=> { %>
+                            <article class="swiper-slide">
+                                <div class="banner-institu-parceira">
+                                    <div class="info-institu-parceira">
+                                        <h3>
+                                            <%= instituicao.nome_parceiro %>
+                                        </h3>
+                                        <p>
+                                            <%= instituicao.descricao %>
+                                        </p>
+                                        <a href="<%= instituicao.url %>" class="btn-institu" target="_blank"
+                                            rel="noopener noreferrer">Veja mais</a>
+                                    </div>
+                                    <img src="/imgs-fixas/<%= instituicao.imagem %>"
+                                        alt="<%= instituicao.nome_parceiro %>">
+                                </div>
+                            </article>
                             <% }) %>
                     </div>
                     <div class="swiper-pagination"></div>
                 </div>
-            </section>
+            </div>
+        </section>
+
+        <section class="banners-lojas-parceiros">
+            <h2>Lojas Parceiras do EmObra.com</h2>
+            <div class="swiper myCaroussel">
+                <div class="swiper-wrapper">
+                    <% lojas.forEach(loja=> { %>
+                        <article class="swiper-slide banner-loja-fundo">
+                            <div class="banner-loja-parceira">
+                                <img src="imgs-fixas/<%= loja.imagem %>" alt="<%= loja.nome_parceiro %>">
+                                <div class="info-loja-parceira">
+                                    <h3>
+                                        <%= loja.nome_parceiro %>
+                                    </h3>
+                                    <p>
+                                        <%= loja.endereco %>
+                                    </p>
+                                    <p>
+                                        <%= !loja.url ? loja.contato : loja.url %>
+                                    </p>
+                                </div>
+                            </div>
+                        </article>
+                        <% }) %>
+                </div>
+                <div class="swiper-pagination"></div>
+            </div>
         </section>
     </main>
 
@@ -345,37 +579,118 @@
 
 
         document.addEventListener('DOMContentLoaded', () => {
-    const categoriaBoxes = document.querySelectorAll('.categoria-box');
-    const containers = {
-        'perfil-pedreiro': document.querySelector('.meu-perfil'),
-        'obras': document.querySelector('.minha-obras'),
-        'premium': document.querySelector('.ofertas'),
-        'dicas': document.querySelector('.dicas')
-    };
+            const categoriaBoxes = document.querySelectorAll('.categoria-box');
+            const containers = {
+                'perfil-pedreiro': document.querySelector('.meu-perfil'),
+                'obras': document.querySelector('.minhas-obras'),
+                'dicas': document.querySelector('.dicas')
+            };
 
-    categoriaBoxes.forEach(box => {
-        box.addEventListener('click', () => {
-            // Remove a classe 'selected' de todas as categorias
-            categoriaBoxes.forEach(item => {
-                item.classList.remove('categoria-box-selected');
+            categoriaBoxes.forEach(box => {
+                box.addEventListener('click', () => {
+                    // Remove a classe 'selected' de todas as categorias
+                    categoriaBoxes.forEach(item => {
+                        item.classList.remove('categoria-box-selected');
+                    });
+
+                    // Adiciona a classe 'selected' ao item clicado
+                    box.classList.add('categoria-box-selected');
+
+                    // Esconde todos os containers
+                    Object.values(containers).forEach(container => {
+                        container.style.display = 'none';
+                    });
+
+                    // Exibe o container correspondente ao item clicado
+                    const radioValue = box.querySelector('input[type="radio"]').value;
+                    if (containers[radioValue]) {
+                        containers[radioValue].style.display = 'flex';
+                    }
+                });
             });
 
-            // Adiciona a classe 'selected' ao item clicado
-            box.classList.add('categoria-box-selected');
 
-            // Esconde todos os containers
-            Object.values(containers).forEach(container => {
-                container.style.display = 'none';
-            });
+            // Inclua aqui sua função de revelar o container
+            const editButton = document.getElementById('edit-account');
+            const container = document.getElementById('editar-perfil-contratante');
 
-            // Exibe o container correspondente ao item clicado
-            const radioValue = box.querySelector('input[type="radio"]').value;
-            if (containers[radioValue]) {
-                containers[radioValue].style.display = 'flex';
+            // Verifica se o botão e o container existem antes de adicionar o evento
+            if (editButton && container) {
+                editButton.addEventListener('click', function (event) {
+                    event.preventDefault(); // Impede o comportamento padrão do link
+
+                    if (container.classList.contains('show')) {
+                        // Se já está visível, esconder com animação
+                        container.style.height = container.scrollHeight + 'px';
+                        setTimeout(() => {
+                            container.style.height = '0';
+                        }, 10);
+                        setTimeout(() => {
+                            container.classList.remove('show');
+                            container.style.display = 'none';
+                        }, 510);
+                    } else {
+                        // Se está oculto, mostrar com animação
+                        container.style.display = 'block';
+                        setTimeout(() => {
+                            container.style.height = container.scrollHeight + 'px';
+                        }, 10);
+                        setTimeout(() => {
+                            container.classList.add('show');
+                            container.style.height = 'auto';
+                        }, 510);
+                    }
+                });
+            } else {
+                console.log('Botão ou container não encontrado.');
             }
         });
-    });
-});
+
+        // Captura a mensagem da URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const message = urlParams.get('message');
+        if (message) {
+            const messageDiv = document.getElementById('message');
+            messageDiv.innerText = message;
+            messageDiv.style.display = 'block';
+        }
+
+        // Função de login via AJAX
+        document.getElementById('loginForm').addEventListener('submit', async function (event) {
+            event.preventDefault();  // Evita o envio padrão do formulário
+
+            const identifier = document.getElementById('identifier').value;
+            const senha = document.getElementById('senha').value;
+
+            try {
+                const response = await fetch('/auth', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ identifier, senha })
+                });
+
+                if (response.redirected) {
+                    // Se o back-end fizer o redirecionamento, o navegador o seguirá
+                    window.location.href = response.url;
+                } else {
+                    const errorMessage = await response.text();
+                    showMessage(errorMessage, 'alert-danger');
+                }
+            } catch (error) {
+                console.error('Erro na tentativa de login:', error);
+                showMessage('Erro ao tentar se conectar. Tente novamente mais tarde.', 'alert-danger');
+            }
+        });
+
+        // Função para exibir mensagens de erro ou sucesso
+        function showMessage(message, alertClass) {
+            const messageDiv = document.getElementById('message');
+            messageDiv.innerText = message;
+            messageDiv.className = `alert ${alertClass}`;
+            messageDiv.style.display = 'block';
+        }
 
 
     </script>

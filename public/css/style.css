@@ -314,25 +314,25 @@ h2 {
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.6);  
-  backdrop-filter: blur(8px);  
+  background-color: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(8px);
   z-index: 2;
-  display: none; 
+  display: none;
 }
 
 .modal-cards {
   position: fixed;
-  z-index: 2;  
+  z-index: 2;
   left: 50%;
   top: 50%;
-  transform: translate(-50%, -50%);  
-  width: 80%; 
-  max-width: 400px;  
-  height: auto;  
+  transform: translate(-50%, -50%);
+  width: 80%;
+  max-width: 400px;
+  height: auto;
   background-color: white;
   padding: 20px;
-  border-radius: 8px; 
-  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);  
+  border-radius: 8px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
   display: none;
 }
 
@@ -350,7 +350,8 @@ h2 {
   flex-direction: column;
   align-items: center;
   color: #020411;
-  hr{
+
+  hr {
     width: 40%;
     height: 4px;
     background-color: #FE8813;
@@ -358,16 +359,19 @@ h2 {
     border: none;
     margin: 10px 0;
   }
-  h3{
+
+  h3 {
     margin: 5px 0;
   }
-  p{
+
+  p {
     margin: 5px 0;
     width: 100%;
     font-weight: 600;
     font-size: 1rem;
   }
-  #modal-nome-pedreiro{
+
+  #modal-nome-pedreiro {
     font-size: 1.3em;
     color: #FE8813;
   }
@@ -436,7 +440,7 @@ h2 {
   padding-top: 10px;
 }
 
-.organizador-modal{
+.organizador-modal {
   display: grid;
   flex-wrap: wrap;
   gap: 10px;
@@ -656,7 +660,7 @@ h2 {
   gap: 5px 0;
   color: #020411;
 
-  h4,
+  h3,
   p {
     margin: 0;
   }
@@ -665,8 +669,8 @@ h2 {
     font-size: clamp(10px, 2vw, 14px);
   }
 
-  h4 {
-    font-size: clamp(14px, 2vw, 16px);
+  h3 {
+    font-size: clamp(14px, 2vw, 18px);
     font-weight: 600;
     color: #FE8813;
     margin-bottom: 5px;
@@ -736,7 +740,7 @@ h2 {
 
 }
 
-.sobre-nos-card h3{
+.sobre-nos-card h3 {
   text-align: center;
 }
 
@@ -981,7 +985,8 @@ footer {
   }
 }
 
-.input-control-login, .modal-cards-input-control {
+.input-control-login,
+.modal-cards-input-control {
   display: flex;
   flex-direction: column;
   width: 100%;
@@ -1003,7 +1008,9 @@ footer {
 
 .input-control-login input[type=text].input,
 .input-control-login input[type=password].input,
-.modal-cards-input-control textarea.modal-cards-textarea, .modal-cards-input, .modal-cards-select{
+.modal-cards-input-control textarea.modal-cards-textarea,
+.modal-cards-input,
+.modal-cards-select {
   padding: 12px 10px;
   font-size: 1rem;
   border: 2px #020411 solid;
@@ -1013,7 +1020,10 @@ footer {
 }
 
 .input-control-login input[type=text].input:focus,
-.input-control-login input[type=password].input:focus, .modal-cards-input-control textarea.modal-cards-textarea:focus, .modal-cards-input:focus, .modal-cards-select:focus {
+.input-control-login input[type=password].input:focus,
+.modal-cards-input-control textarea.modal-cards-textarea:focus,
+.modal-cards-input:focus,
+.modal-cards-select:focus {
   outline: none;
   border-color: #020411;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
@@ -1051,7 +1061,8 @@ footer {
   margin-right: 5px;
 }
 
-.botao-entrar, .modal-cards-btn {
+.botao-entrar,
+.modal-cards-btn {
   width: 100%;
   padding: 10px;
   background-color: #FE8813;
@@ -1096,13 +1107,9 @@ footer {
 /* ###########################################################################################*/
 /* Perfil */
 
-.main-perfil{
-  display: flex;
-  flex-wrap: wrap;
-  align-items: flex-start;
-  align-content: center;
-  justify-content: center;
-  
+.main-perfil {
+  padding: 0 10px;
+
 }
 
 .container-container {
@@ -1113,9 +1120,6 @@ footer {
   margin: 10px;
   background-color: #020411;
   border-radius: 20px;
-  /* max-width: 400px; */
-  width: 100%;
-  height: 100%;
 }
 
 .container-perfil {
@@ -1182,7 +1186,7 @@ footer {
   display: flex;
   width: 100%;
   max-width: 350px;
-  /* gap: 20px; */
+  margin: 20px 0;
   align-items: center;
   justify-content: space-around;
   padding: 15px 20px;
@@ -1218,7 +1222,7 @@ footer {
   gap: 5px;
 }
 
-.categoria-box i{
+.categoria-box i {
   color: #020411;
 }
 
@@ -1226,37 +1230,147 @@ footer {
   color: #FE8813;
 }
 
-.meu-perfil, .minha-obras, .ofertas, .dicas {
-  display: none; /* Todos os containers ficam ocultos inicialmente */
+/* Solicitações pendentes */
+.solicitacoes-pendentes {
+  margin-top: 30px;
+  width: 100%;
 }
 
-.meu-perfil{
-  /* display: flex; */
+.solicitacoes-pendentes h2 {
+  font-size: calc(18px, 2vw, 22px);
+}
+
+/* Meu Perfil */
+
+.meu-perfil,
+.minhas-obras,
+.ofertas,
+.dicas {
+  display: none;
+  /* Todos os containers ficam ocultos inicialmente */
+}
+
+.meu-perfil {
   padding: 20px;
   gap: 30px;
-  width: fit-content;
+  width: 100%;
   height: fit-content;
+  justify-content: center;
 }
 
-.config-perfil, .excluir-perfil{
-  display: flexbox;
-  grid-column: 1fr 1fr;
-  flex: grow 2;
+.config-perfil,
+.excluir-perfil {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   border-radius: 10px;
   box-shadow: 1px 1px 5px 5px rgba(0, 0, 0, 0.1);
   padding: 20px;
-  width: 170px;
-}
-
-.texto-config-perfil{
   width: 100%;
-  height: 100px;
+  max-width: 450px;
+  height: fit-content;
 }
 
-.banners-perfil{
+.config-perfil span,
+.excluir-perfil span {
+  width: 100%;
+  display: flex;
+  justify-content: right;
+}
+
+.config-perfil span a,
+.excluir-perfil span a {
+  text-decoration: none;
+  text-align: center;
+  font-size: 1.1em;
+  width: fit-content;
+}
+
+.config-perfil span a {
+  background-color: #FE8813;
+  color: white;
+  padding: 10px 15px;
+  border-radius: 10px;
+
+}
+
+
+.excluir-perfil span a {
+  background-color: red;
+  color: white;
+  padding: 10px 15px;
+  border-radius: 10px;
+}
+
+.texto-config-perfil {
+  width: 100%;
+  height: fit-content;
+}
+
+.banners-perfil {
   width: 100%;
 }
 
+.editar-perfil-contratante {
+  display: none;
+  height: 0;
+  overflow: hidden;
+  transition: height 0.5s ease-in-out;
+}
+
+.editar-perfil-contratante.show {
+  display: block;
+  height: auto;
+}
+
+/* Minhas Obras */
+.minhas-obras {
+  /* flex-direction: column; */
+  margin: 10px 0;
+  width: 100%;
+}
+
+.minhas-obras div {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  /* gap: 2%; */
+  width: 100%;
+}
+
+.blocos-obras-contratante {
+  max-width: 500px;
+  margin: 10px 5%;
+}
+
+/* buscador perfil contratante */
+#buscador-perfil-contratante {
+  margin: 10px 0;
+}
+
+.dicas-contratante {
+  padding: 20px;
+}
+
+.dicas-contratante li {
+  margin-bottom: 25px;
+}
+
+/* Dicas */
+.dicas {
+  flex-direction: column;
+  margin: 50px 0;
+  gap: 50px 0;
+}
+
+.dicas h2 {
+  text-indent: 10px;
+  font-size: calc(18px, 2vw, 26px);
+}
+
+.dicas a {
+  font-size: calc(18px, 2vw, 24px);
+}
 
 /* ################################################################################################## */
 /* Buscador-Cards */
@@ -1303,33 +1417,34 @@ footer {
 
 }
 
-.header-card-pedreiro{
+.header-card-pedreiro {
   display: flex;
   justify-content: space-between;
   align-items: center;
   gap: 10px;
   margin: 5px;
   color: #020411;
-  
-  i{
+
+  i {
     font-size: 20px;
     color: #020411;
   }
 }
 
-.input-servicos-oferecidos{
+.input-servicos-oferecidos {
   margin: 10px 0;
   color: #020411;
-  p{
+
+  p {
     margin: 0;
     font-size: 18px;
     font-weight: 600;
   }
-  
-  h5{
+
+  h5 {
     font-size: 1rem;
     margin: 0;
-    
+
   }
 }
 
@@ -1343,7 +1458,7 @@ footer {
   margin: 5px 0;
 }
 
-.img-perfil-card-pedreiro{
+.img-perfil-card-pedreiro {
   border-radius: 15px;
   /* display: flex;
   justify-content: center;
