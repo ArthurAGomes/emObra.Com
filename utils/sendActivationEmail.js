@@ -13,7 +13,7 @@ const sendActivationEmail = async (email, nome, token, userType) => {
     });
 
     // Define a URL de ativação com base no tipo de usuário
-    const activationUrl = `https://emobra-com.onrender.com/${userType}/activate/${token}`;
+    const activationUrl = `https://emobra-com-hhza.onrender.com/${userType}/activate/${token}`;
 
     const mailOptions = {
         from: process.env.EMAIL_USER,
