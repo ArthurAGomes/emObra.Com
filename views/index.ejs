@@ -260,26 +260,31 @@
 
         <section class="banners-lojas-parceiros">
             <h2>Lojas Parceiras do EmObra.com</h2>
-            <div class="swiper myCaroussel">
-                <div class="swiper-wrapper">
-                    <% lojas.forEach(loja=> { %>
-                        <article class="swiper-slide banner-loja-fundo">
-                            <div class="banner-loja-parceira">
-                                <img src="imgs-fixas/<%= loja.imagem %>" alt="<%= loja.nome_parceiro %>">
-                                <div class="info-loja-parceira">
-                                    <h3>
-                                        <%= loja.nome_parceiro %>
-                                    </h3>
-                                    <p>
-                                        <%= loja.endereco %>
-                                    </p>
-                                    <p>
-                                        <%= !loja.url ? loja.contato : loja.url %>
-                                    </p>
-                                </div>
+            <div class="container-parceiros">
+                <div class="swiper myCaroussel">
+                    <div class="swiper-wrapper">
+                        <% lojas.forEach(loja=> { %>
+                            <div>
+                                <article class="swiper-slide banner-loja-fundo">
+                                    <div class="banner-loja-parceira">
+                                        <img src="imgs-fixas/<%= loja.imagem %>" alt="<%= loja.nome_parceiro %>">
+                                        <div class="info-loja-parceira">
+                                            <h3>
+                                                <%= loja.nome_parceiro %>
+                                            </h3>
+                                            <p>
+                                                <%= loja.endereco %>
+                                            </p>
+                                            <p>
+                                                <%= !loja.url ? loja.contato : loja.url %>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </article>
                             </div>
-                        </article>
-                        <% }) %>
+                            <% }) %>
+                    </div>
+                    
                 </div>
                 <div class="swiper-pagination"></div>
             </div>

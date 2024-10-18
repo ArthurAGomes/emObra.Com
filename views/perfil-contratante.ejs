@@ -91,10 +91,10 @@
                 </div>
             </div>
 
-            <section class="solicitacoes-pendentes">
+            <section class="solicitacoes-pendentes" style="display: none;">
                 <!-- Mensagem de ativação -->
                 <div id="message" class="alert alert-info" style="display: none;"></div>
-                <h2>Solicitações de Serviços</h2>
+                <h2>Meus serviços</h2>
                 <% if (solicitacoes && solicitacoes.length > 0) { %>
                     <table>
                         <thead>
@@ -219,7 +219,7 @@
                     <div class="blocos-obras-contratante">
                         <h4>Postar um Novo Serviço</h4>
                         <form action="/postar-servico" method="POST" class="modal-cards-form" id="modal-form">
-                            <input type="hidden" name="pedreiroId" value="">
+                            <input type="hidden" name="contratanteId" value="<%= contratante[0].id %>">
                             <div class="modal-cards-input-control">
                                 <label for="tipo_servico" class="modal-cards-label">Tipo de Serviço:</label>
                                 <select id="tipo_servico" name="tipo_servico" required class="modal-cards-select">
@@ -263,7 +263,7 @@
 
             </article>
 
-            <!-- <article class="ofertas"></article> -->
+            
             <article class="dicas">
                 <div>
                     <h2>O emObra.com é uma start-up independente e não tem qualquer vinculação com os profissionais

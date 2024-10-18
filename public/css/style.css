@@ -682,7 +682,6 @@ h2 {
 }
 
 .swiper-slide {
-  /* height: fit-content; */
   width: fit-content !important;
 }
 
@@ -690,11 +689,6 @@ h2 {
   position: static !important;
 }
 
-
-
-/* .swiper-horizontal{
-  margin-right: 20px !important;
-} */
 
 /* ############################################################################################# */
 /* Sobre Nós */
