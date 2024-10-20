@@ -6,7 +6,7 @@ const pool = require('../config/db');
 
 // Rota para receber a postagem de serviço
 router.post('/postar-servico', isAuthenticated, async (req, res) => {
-    const { descricao, tipo_servico, cep, prazo_combinar, valor, pedreiroId } = req.body;
+    const { descricao, tipo_servico, cep, prazo_combinar, valor } = req.body;
     const contratante_id = req.session.userId;
 
     console.log('User ID:', contratante_id);  // Verifique se o userId está presente
