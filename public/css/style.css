@@ -624,6 +624,10 @@ h2 {
   .swiper-pagination-bullet {
     background-color: #FE8813 !important;
   }
+
+  h2{
+    text-align: center;
+  }
 }
 
 .banner-loja-fundo {

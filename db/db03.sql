@@ -20,7 +20,7 @@ CREATE TABLE contratantes (
     cpf VARCHAR(14) NOT NULL UNIQUE,
     email VARCHAR(100) NOT NULL UNIQUE,
     senha VARCHAR(255) NOT NULL,
-    img_perfil VARCHAR(255),
+    img_perfil VARCHAR(255) DEFAULT "cotratante-avatar.png",
     cep VARCHAR(9) NOT NULL,
     ativo TINYINT(1) DEFAULT 0,
     data_criacao TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
@@ -38,7 +38,7 @@ CREATE TABLE pedreiros (
     cep VARCHAR(9) NOT NULL,
     email VARCHAR(100) NOT NULL UNIQUE,
     senha VARCHAR(255) NOT NULL,
-    img_perfil VARCHAR(255),
+    img_perfil VARCHAR(255) DEFAULT "pedreiro-avatar.png",
     premium TINYINT(1) DEFAULT 0,
     ativo TINYINT(1) DEFAULT 0,
     data_criacao TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
@@ -57,12 +57,12 @@ CREATE TABLE pedreiros (
 -- Criação da Tabela parceiros
 CREATE TABLE parceiros (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    nome VARCHAR(100) NOT NULL,
+    nome_parceiro VARCHAR(100) NOT NULL,
     descricao VARCHAR(255) NOT NULL,
-    imagem VARCHAR(255),
+    imagem VARCHAR(255) DEFAULT "parceiro-padrao.png",
     contato VARCHAR(50),
     endereco VARCHAR(255),
-    tipo_parceiro VARCHAR(20),
+    tipo_parceiro ENUM('loja', 'instituição') NOT NUll,
     url VARCHAR(255)
 );
 
@@ -149,15 +149,27 @@ INSERT INTO tipo_servicos (nome_servico, desc_servico, img_servico) VALUES
 
 -- Inserção de dados na tabela contratantes
 INSERT INTO contratantes (nome, cpf, email, senha, cep, ativo) VALUES
-('Ana Souza', '123.456.789-00', 'ana.souza@email.com', 'senha123', '12345-678', 0),
+('Ana Souza', '123.456.789-00', 'ana.souza@email.com', 'senha123', '02675-031', 1),
 ('Pedro Lima', '987.654.321-00', 'pedro.lima@email.com', 'senha456', '87654-321', 1),
-('Maria Ferreira', '111.222.333-44', 'maria.ferreira@email.com', 'senha789', '54321-678', 1),
-('Lucas Martins', '444.555.666-77', 'lucas.martins@email.com', 'senha012', '98765-432', 1),
-('Juliana Santos', '888.999.000-11', 'juliana.santos@email.com', 'senha345', '67890-123', 0);
+('Maria Ferreira', '111.222.333-44', 'maria.ferreira@email.com', 'senha789', '02976-000', 1),
+('Lucas Martins', '444.555.666-77', 'lucas.martins@email.com', 'senha012', '05065-000', 1),
+('Juliana Santos', '888.999.000-11', 'juliana.santos@email.com', 'senha345', '05051-000', 1);
 
 -- Inserção de dados na tabela pedreiros
 INSERT INTO pedreiros (nome, cep, email, senha, premium, tipo_servico_1, tipo_servico_2, cpf, ativo) VALUES
-('Carlos Silva', '12345-678', 'carlos.silva@email.com', 'senha789', 1, 1, 2, '000.111.222-33', 1),
-('Maria Oliveira', '87654-321', 'maria.oliveira@email.com', 'senha012', 0, 3, 4, '222.333.444-55', 1),
-('Fernando Costa', '13579-246', 'fernando.costa@email.com', 'senha123', 1, 1, 5, '444.555.666-77', 1),
-('Tatiane Almeida', '97531-864', 'tatiane.almeida@email.com', 'senha456', 1, 6, 7, '777.888.999-00', 1);
+('Carlos Silva', '05051-000', 'carlos.silva@email.com', 'senha789', 1, 1, 2, '000.111.222-33', 1),
+('Maria Oliveira', '02976-000', 'maria.oliveira@email.com', 'senha012', 0, 3, 4, '222.333.444-55', 1),
+('Fernando Costa', '05065-000', 'fernando.costa@email.com', 'senha123', 1, 1, 5, '444.555.666-77', 1),
+('Tatiane Almeida', '02675-031', 'tatiane.almeida@email.com', 'senha456', 1, 6, 7, '777.888.999-00', 1);
+
+INSERT INTO parceiros (nome_parceiro, descricao, imagem, contato, endereco, tipo_parceiro, url) VALUES
+('Parceiro A', 'pequena descrição sobre o parceiro', DEFAULT, '(11)99999-9999', 'Algum lugar, 000 - SP', 'loja', 'www.google.com.br'),
+('Parceiro B', 'pequena descrição sobre o parceiro', DEFAULT, '(11)99999-9999', 'Algum lugar, 000 - SP', 'loja', 'www.google.com.br'),
+('Parceiro C', 'pequena descrição sobre o parceiro', DEFAULT, '(11)99999-9999', 'Algum lugar, 000 - SP', 'loja', 'www.google.com.br'),
+('Parceiro D', 'pequena descrição sobre o parceiro', DEFAULT, '(11)99999-9999', 'Algum lugar, 000 - SP', 'loja', 'www.google.com.br'),
+('Parceiro E', 'pequena descrição sobre o parceiro', DEFAULT, '(11)99999-9999', 'Algum lugar, 000 - SP', 'loja', 'www.google.com.br'),
+('SENAI-SP', 'Capacita profissionais para execução de alvenarias estruturais e não estruturais em edificações.', 'parceiro-senai.jpg', '(11) 4715-4200', 'Av. Antônio de Castro Figuerôa, 60 - Alumínio, SP', 'instituição', 'https://sp.senai.br/curso/construtor-de-alvenaria/87552'),
+('Instituto da Construção', 'Oferece o "Curso Pedreiro Completo" com módulos práticos, como impermeabilização e assentamento de pisos.', 'parceir-ic.jpeg', '(11) 3207-9185', 'Rua das Flores, 123 - São Paulo, SP', 'instituição', 'https://www.institutodaconstrucao.com.br'),
+('Escola Politécnica da USP', 'Oferece cursos avançados em engenharia civil, com foco em técnicas construtivas.', 'parceiro-poliusp.jpg', '(11) 3091-5727', 'Av. Prof. Luciano Gualberto, Travessa 3, 380 - São Paulo, SP', 'instituição', 'https://www.poli.usp.br'),
+('Centro Universitário Belas Artes', 'Capacitação em projetos de edificações e técnicas construtivas.', 'parceiro-belasartes', '(11) 5576-7300', 'Rua Dr. Álvaro Alvim, 90 - São Paulo, SP', 'instituição', 'https://www.belasartes.br'),
+('FAAP', 'Oferece cursos de extensão em técnicas construtivas e design arquitetônico.', 'parceiro-faap.jpg', '(11) 3662-7200', 'Rua Alagoas, 903 - São Paulo, SP', 'instituição', 'https://www.faap.br');

@@ -102,7 +102,7 @@ router.get('/perfil-contratante', isAuthenticated, async (req, res) => {
         const [contratante] = await pool.query('SELECT * FROM contratantes WHERE id = ?', [req.session.userId]);
 
         // Consulta para buscar os parceiros institucionais
-        const [instituicoes] = await pool.query('SELECT nome_parceiro, descricao, imagem, url FROM parceiros WHERE tipo_parceiro = ?', ['institucional']);
+        const [instituicoes] = await pool.query('SELECT nome_parceiro, descricao, imagem, url FROM parceiros WHERE tipo_parceiro = ?', ['instituição']);
 
         // Consulta para buscar as lojas
         const [lojas] = await pool.query('SELECT nome_parceiro, endereco, contato, imagem, url FROM parceiros WHERE tipo_parceiro = ?', ['loja']);
@@ -123,7 +123,7 @@ router.get('/perfil-pedreiro', isAuthenticated, async (req, res) => {
         const [tiposServicos] = await pool.query('SELECT id, nome_servico FROM tipo_servicos');
 
         // Consulta para buscar os parceiros institucionais
-        const [instituicoes] = await pool.query('SELECT nome_parceiro, descricao, imagem, url FROM parceiros WHERE tipo_parceiro = ?', ['institucional']);
+        const [instituicoes] = await pool.query('SELECT nome_parceiro, descricao, imagem, url FROM parceiros WHERE tipo_parceiro = ?', ['instituição']);
         
         // Consulta para buscar as lojas
         const [lojas] = await pool.query('SELECT nome_parceiro, endereco, contato, imagem, url FROM parceiros WHERE tipo_parceiro = ?', ['loja']);
